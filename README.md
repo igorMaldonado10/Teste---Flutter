@@ -1,6 +1,6 @@
 # teste
 
-- Como rodar a aplicação por meio de Emulador Android?
+- Como rodar a aplicação por meio de um emulador android?
 
 1 - Para que você consiga executar a aplicação desta forma, é necessário que você já tenha criado um emulador de um aparelho Android em sua máquina por meio do Android Studio, caso contrário é possível que essa opção não esteja presente na lista de device;
 
