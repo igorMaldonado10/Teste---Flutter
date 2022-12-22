@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/controllers/login_controller.dart';
+import 'package:teste/view/cadatroUsuario.dart';
 
 class LoginPage extends StatelessWidget {
   LoginController _controller = LoginController();
@@ -96,26 +97,31 @@ class LoginPage extends StatelessWidget {
                                     });
                                   },
                                   child: new Text('Entrar'))),
-
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      new Text('Ou',
-                                      style: TextStyle(
-                                        fontSize: 20
-                                      ),)
-                                    ]
-                                  ),
-
-                                  Container(
-                                    width: 320,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                        ElevatedButton(onPressed: (){}, child: new Text('Cadastrar-se')),
-                                      ],
-                                    ),
-                                  )
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            new Text(
+                              'Ou',
+                              style: TextStyle(fontSize: 20),
+                            )
+                          ]),
+                      Container(
+                        width: 320,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CadastroUser()));
+                                },
+                                child: new Text('Cadastrar-se')),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -134,5 +140,5 @@ class LoginPage extends StatelessWidget {
       textAlign: TextAlign.center,
       style: TextStyle(color: Colors.grey.shade300),
     ));
-  } 
+  }
 }

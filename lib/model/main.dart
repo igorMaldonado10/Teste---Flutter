@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teste/view/cadatroUsuario.dart';
 import 'package:teste/view/homeScreen.dart';
 import 'package:teste/view/login_page.dart';
 import 'package:teste/view/splash_page.dart';
@@ -14,7 +15,8 @@ void main() {
     routes: {
       '/splash': (_) => const SplashScreen(),
       '/login': (_) => LoginPage(),
-      '/home': (_) => HomeScreen()
+      '/home': (_) => HomeScreen(),
+      '/cadastrar':(_) => CadastroUser()
     },
   ));
 }
