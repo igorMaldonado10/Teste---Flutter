@@ -1,6 +1,9 @@
-// Simulando o BANCO DE DADOS com essa class/list
 import 'package:teste/controllers/usu%C3%A1rios.dart';
 
+
+
+
+// Simulando o BANCO DE DADOS com essa class/list
 class UsuarioService {
   // Atributos da classe
 

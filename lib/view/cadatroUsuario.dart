@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:teste/controllers/usuários.dart';
 import 'package:teste/controllers/usuarioService.dart';
+import 'package:teste/view/login_page.dart';
 
 class CadastroUser extends StatefulWidget {
   const CadastroUser({Key? key}) : super(key: key);
@@ -14,16 +15,20 @@ class CadastroUser extends StatefulWidget {
 class _CadastroUserState extends State<CadastroUser> {
   final email = TextEditingController();
   final senha = TextEditingController();
+  
+  DadosCadast get usuario => usuario;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(47, 84, 115, 100),
       // appBar: AppBar(),
       body: SingleChildScrollView(
         // Formulário
         child: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 50),
           margin: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
           // (BoxDecoration = Add cor no nosso container, borda etc)
           decoration: BoxDecoration(
@@ -31,35 +36,34 @@ class _CadastroUserState extends State<CadastroUser> {
             color: Color.fromRGBO(155, 149, 140, 100),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // Título
               new Container(
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.only(bottom: 15),
                 child: new Text(
-                  'Cadastro de Contato',
-                  style: TextStyle(color: Colors.grey.shade400, fontSize: 24),
+                  'Cadastrar Usuário',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
               ),
 
               // Inputs(campos do formulário)
-              //Campo de texto (nome)
+              //Campo de texto (email)
               new Container(
                 margin: EdgeInsets.only(bottom: 10),
                 child: TextField(
                   // Atributo que recebe valor do campo
-                  controller: nome,
+                  controller: email,
 
                   decoration: InputDecoration(
-                      labelText: 'Nome',
-                      hintText: 'Dica: preencha todos os campos',
-                      labelStyle:
-                          TextStyle(color: Colors.grey.shade300, fontSize: 18),
+                      labelText: 'E-mail',
+                      hintText: 'exemplo: nome@gmail.com',
+                      labelStyle: TextStyle(color: Colors.white, fontSize: 18),
 
                       // Borda do Input
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
+                          borderSide: BorderSide(color: Colors.white)),
 
                       // Borda selecionada
                       focusedBorder: OutlineInputBorder(
@@ -68,16 +72,17 @@ class _CadastroUserState extends State<CadastroUser> {
               ),
 
               // Campo de textto (Sobrenome)
-              campTexto('E-mail', email),
+              campTexto('Senha', senha),
 
               Container(
-                padding: EdgeInsets.only(top: 5, bottom: 5),
+                // padding: EdgeInsets.only(top: 5, bottom: 5),
                 child: Divider(
-                  height: 15,
+                  height: 50,
+                  color: Colors.white,
                 ),
               ),
 
-              SizedBox(height: 15),
+              // SizedBox(height: 15),
 
               //------Botões------
 
@@ -87,45 +92,20 @@ class _CadastroUserState extends State<CadastroUser> {
                 children: [
                   // Botão Cadastrar
                   // ignore: unnecessary_new
-                  new Builder(builder: (BuildContext context) {
-                    return ElevatedButton(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 25,
-                            vertical: 10,
-                          ),
-                          child: new Text(
-                            'Cadastrar',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-
-                        // Cor do Botão
-                        style: ElevatedButton.styleFrom(primary: Colors.orange),
-
-                        // Ao pressionar ele, eu vou chamar o método cadastrar
-                        onPressed: () {
-                          cadastrar();
-                        });
-                  }),
-
-                  // Botão Limpar
-                  new Builder(builder: (BuildContext context) {
-                    return ElevatedButton(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 10),
-                          child: new Text(
-                            'Limpar',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.grey.shade600),
-                        onPressed: () {
-                          limpar();
-                        });
-                  })
+                  Container(
+                    width: 280,
+                    alignment: Alignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              cadastrar();
+                            },
+                            child: new Text('Cadastrar')),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ],
@@ -134,29 +114,53 @@ class _CadastroUserState extends State<CadastroUser> {
       ),
     );
   }
-}
 
-Container campTexto(String title, final controller) {
-  return new Container(
-    margin: EdgeInsets.only(bottom: 10),
-    child: new TextField(
-      controller: controller,
-      decoration: InputDecoration(
-          labelText: title,
-          labelStyle:
-              TextStyle(color: Color.fromRGBO(224, 224, 224, 1), fontSize: 18),
-          border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-          focusedBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.orange))),
-    ),
-  );
-}
+  Container campTexto(String title, final controller) {
+    return new Container(
+      margin: EdgeInsets.only(bottom: 10),
+      child: new TextField(
+        controller: controller,
+        decoration: InputDecoration(
+            labelText: title,
+            labelStyle: TextStyle(
+                color: Color.fromRGBO(224, 224, 224, 1), fontSize: 18),
+            border:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.orange))),
+      ),
+    );
+  }
 
-void cadastrar() {
-  UsuarioService service = new UsuarioService();
+  void cadastrar() {
+    UsuarioService service = new UsuarioService();
 
-  int ultimoID = service.listarUsuario().length;
+    int ultimoID = service.listarUsuario().length;
 
-  
+    DadosCadast dadosCadast =
+        DadosCadast(
+          id: ultimoID + 1,
+          email: email.text,
+          senha: senha.text);
+
+    String mensagem = service.cadastrarUsuario(usuario);
+
+    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+      content: Text(
+        mensagem,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.grey.shade300),
+      ),
+      duration: Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+    ));
+
+    // Redirecionamento para a login page
+
+    Future.delayed(Duration(milliseconds: 1500), (() {
+      // CircularProgressIndicator();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+    }));
+  }
 }
