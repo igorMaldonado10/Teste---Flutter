@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:teste/controllers/usuários.dart';
 import 'package:teste/controllers/usuarioService.dart';
 import 'package:teste/view/login_page.dart';
+import 'package:teste/view/theme.dart';
 
 class CadastroUser extends StatefulWidget {
   const CadastroUser({Key? key}) : super(key: key);
@@ -16,12 +17,12 @@ class _CadastroUserState extends State<CadastroUser> {
   final email = TextEditingController();
   final senha = TextEditingController();
   
-  DadosCadast get usuario => usuario;
+  DadosCadast get  usuario => usuario;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(47, 84, 115, 100),
+      backgroundColor: AppColors.darkBg,
       // appBar: AppBar(),
       body: SingleChildScrollView(
         // Formulário
@@ -53,9 +54,9 @@ class _CadastroUserState extends State<CadastroUser> {
               new Container(
                 margin: EdgeInsets.only(bottom: 10),
                 child: TextField(
+                  keyboardType: TextInputType.text,
                   // Atributo que recebe valor do campo
                   controller: email,
-
                   decoration: InputDecoration(
                       labelText: 'E-mail',
                       hintText: 'exemplo: nome@gmail.com',
@@ -119,6 +120,7 @@ class _CadastroUserState extends State<CadastroUser> {
     return new Container(
       margin: EdgeInsets.only(bottom: 10),
       child: new TextField(
+        keyboardType: TextInputType.text,
         controller: controller,
         decoration: InputDecoration(
             labelText: title,
@@ -135,6 +137,7 @@ class _CadastroUserState extends State<CadastroUser> {
   void cadastrar() {
     UsuarioService service = new UsuarioService();
 
+    // Guardar ultimo ID cadastrado
     int ultimoID = service.listarUsuario().length;
 
     DadosCadast dadosCadast =
@@ -163,4 +166,8 @@ class _CadastroUserState extends State<CadastroUser> {
           context, MaterialPageRoute(builder: (context) => LoginPage()));
     }));
   }
+
+  
 }
+
+

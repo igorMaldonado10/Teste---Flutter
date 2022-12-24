@@ -4,6 +4,7 @@ class DadosCadast {
   int id;
   String email;
   String senha;
+  
 
   DadosCadast({
     required this.id,

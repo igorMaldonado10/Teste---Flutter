@@ -9,8 +9,6 @@ import 'package:teste/controllers/usu%C3%A1rios.dart';
 class LoginPage extends StatelessWidget {
   LoginController _controller = LoginController();
 
-  LoginPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
