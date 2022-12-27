@@ -15,7 +15,8 @@ class UsuarioService {
     DadosCadast(
       id: 1,
       email: 'abner@gmail.com',
-      senha: '123456')
+      senha: '123456'),
+      
   ];
 
   // Método para Cadastrar USUÁRIOS no App
@@ -26,6 +27,6 @@ class UsuarioService {
   }
 
   List listarUsuario() {
-    return usuarios;
+    return usuarios; 
   }
 }

@@ -6,7 +6,12 @@ import 'package:teste/controllers/login_controller.dart';
 import 'package:teste/view/cadatroUsuario.dart';
 import 'package:teste/controllers/usu%C3%A1rios.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   LoginController _controller = LoginController();
 
   @override
@@ -41,6 +46,15 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  decoration: BoxDecoration(gradient: 
+                  LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors:[ 
+                      Color.fromRGBO(211, 111, 47, 100),
+                    Colors.white]
+                    )
+                  ),
                   padding: EdgeInsets.all(28),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

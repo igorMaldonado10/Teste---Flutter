@@ -156,7 +156,7 @@ class _CadastroUserState extends State<CadastroUser> {
       ),
       duration: Duration(seconds: 2),
       behavior: SnackBarBehavior.floating,
-    ));
+    )); 
 
     // Redirecionamento para a login page
 
@@ -164,7 +164,7 @@ class _CadastroUserState extends State<CadastroUser> {
       // CircularProgressIndicator();
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
-    }));
+    })); 
   }
 
   
