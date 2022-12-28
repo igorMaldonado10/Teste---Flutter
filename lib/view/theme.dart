@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
 
-ThemeData tema() {
-  final ThemeData tema = ThemeData();
-  return tema.copyWith(
-      colorScheme: tema.colorScheme.copyWith(
-          brightness: Brightness.light,
-          primary: Color.fromRGBO(211, 111, 47, 100),
-          secondary: Color.fromRGBO(47, 84, 115, 100)));
+ThemeData temaLight() {
+  final ThemeData temaLight = ThemeData();
+  return temaLight.copyWith(
+      colorScheme: temaLight.colorScheme.copyWith(
+        brightness: Brightness.light,
+        primary: Color.fromRGBO(211, 111, 47, 100),
+        secondary: Color.fromRGBO(186, 188, 190, 100),
+      ),
+      scaffoldBackgroundColor: Colors.white,
+      cardColor: Color.fromRGBO(187, 170, 187, 100),
+      bottomAppBarColor: Color.fromRGBO(211, 111, 47, 100));
 }
 
-mixin AppColors {
-  static Color darkBg = Color.fromRGBO(47, 84, 115, 100);
+mixin BgGradient {
+  static Container GradBg = Container(
+     decoration: BoxDecoration(gradient: 
+                  LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors:[ 
+                      Color.fromRGBO(211, 111, 47, 100),
+                    Colors.white]
+                    )
+                  ),
+  );
 }

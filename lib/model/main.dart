@@ -8,7 +8,7 @@ import 'package:teste/view/theme.dart';
 void main() {
   runApp(MaterialApp(
     title: 'Treine+',
-    theme: tema(),
+    theme: temaLight(),
     home: const HomeScreen(),
     debugShowCheckedModeBanner: false,
     initialRoute: '/splash',
