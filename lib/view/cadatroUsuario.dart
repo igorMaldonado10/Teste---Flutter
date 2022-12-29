@@ -1,10 +1,12 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teste/controllers/usuários.dart';
-import 'package:teste/controllers/usuarioService.dart';
+import 'package:teste/controllers/preferences_keys.dart';
 import 'package:teste/view/login_page.dart';
 import 'package:teste/view/theme.dart';
 
@@ -23,7 +25,7 @@ class _CadastroUserState extends State<CadastroUser> {
   TextEditingController _senhaInputController = TextEditingController();
   TextEditingController _confirmInputController = TextEditingController();
 
-  DadosCadast get usuario => usuario;
+  Usuario get usuario => usuario;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +125,8 @@ class _CadastroUserState extends State<CadastroUser> {
                         ),
                         TextFormField(
                           controller: _senhaInputController,
-                          obscureText:(this.showPassword == true) ? false : true,
+                          obscureText:
+                              (this.showPassword == true) ? false : true,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             labelText: "Senha",
@@ -146,46 +149,50 @@ class _CadastroUserState extends State<CadastroUser> {
                             ),
                           ),
                         ),
-                        (this.showPassword == false) ?
+                        (this.showPassword == false)
+                            ?
 
-                        // Confirmar senha
-                        TextFormField(
-                          controller: _confirmInputController,
-                          obscureText: true,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            labelText: "Confirme a Senha",
-                            labelStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            prefixIcon: Icon(
-                              Icons.vpn_key_sharp,
-                              color: Colors.white,
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ) : Container(),
+                            // Confirmar senha
+                            TextFormField(
+                                controller: _confirmInputController,
+                                obscureText: true,
+                                style: TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  labelText: "Confirme a Senha",
+                                  labelStyle: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.vpn_key_sharp,
+                                    color: Colors.white,
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(),
                         Row(
                           children: [
                             Checkbox(
-                              activeColor: Color.fromRGBO(211, 111, 47, 100),
-                              
-                              value: this.showPassword, onChanged: (Value){
-                              setState(() {
-                                this.showPassword = Value;
-                              });
-                            }),
-                            new Text('Mostrar senha',
-                            style: TextStyle(color: Colors.white),)
+                                activeColor: Color.fromRGBO(211, 111, 47, 100),
+                                value: this.showPassword,
+                                onChanged: (Value) {
+                                  setState(() {
+                                    this.showPassword = Value;
+                                  });
+                                }),
+                            new Text(
+                              'Mostrar senha',
+                              style: TextStyle(color: Colors.white),
+                            )
                           ],
                         ),
 
@@ -214,7 +221,9 @@ class _CadastroUserState extends State<CadastroUser> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        _doSignUp();
+                                      },
                                       child: new Text('Cadastrar')),
                                 ],
                               ),
@@ -229,17 +238,24 @@ class _CadastroUserState extends State<CadastroUser> {
             ))));
   }
 
-  Container campTexto(String title, final controller) {
-    return new Container(
-        margin: EdgeInsets.only(bottom: 10),
-        child: new TextField(
-          keyboardType: TextInputType.text,
-          controller: controller,
-          decoration: InputDecoration(
-            labelText: title,
-            labelStyle: TextStyle(fontSize: 18),
-            // border: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey) ),
-          ),
-        ));
+  void _doSignUp() {
+    // .text no controller me da o texto atual
+    Usuario newUser = Usuario(
+        name: _nomeInputController.text,
+        email: _emailInputController.text,
+        senha: _senhaInputController.text,
+        keep0n: true);
+
+    print(newUser);
+    _saveUser(newUser);
   }
+}
+
+// Para gravarmos ela deve ser uma função async pois como é um processo demorado a programação pode continuar acontecendo
+void _saveUser(Usuario usuario) async {
+  // Resgatar essas preferências
+  // getInstance = utilizando uma intância do SharedPreferences
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // encode = pega um objeto que é do tipo Map e tranforma o json em String
+  prefs.setString(PreferencesKeys.activeUser, jsonEncode(usuario.toJson()));
 }
