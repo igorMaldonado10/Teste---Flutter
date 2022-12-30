@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teste/view/cadatroUsuario.dart';
-import 'package:teste/view/homeScreen.dart';
-import 'package:teste/view/login_page.dart';
+import 'package:teste/view/recursos/cadatroUsuario.dart';
+import 'package:teste/view/recursos/homeScreen.dart';
+import 'package:teste/view/recursos/login_page.dart';
 import 'package:teste/view/splash_page.dart';
 import 'package:teste/view/theme.dart';
 

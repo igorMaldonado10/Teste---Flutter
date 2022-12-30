@@ -71,7 +71,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/imgs/logo_app.png 
-
+    - assets/imgs/image_pag_in.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
