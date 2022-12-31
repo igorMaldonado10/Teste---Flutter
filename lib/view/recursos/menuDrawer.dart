@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/view/recursos/homeScreen.dart';
+import 'package:teste/view/recursos/perfil_page.dart';
 
 class MenuDrawer extends StatelessWidget {
 // Dados vindos do banco de dados(simulação)
@@ -38,14 +39,16 @@ class MenuDrawer extends StatelessWidget {
 
            // Perfil
           new ListTile(
-            title: mostrarTitulo('Perfil'),
+            title: mostrarTitulo('Perfil do Usuário'),
             subtitle: Text('Editar Informações'),
             trailing: FaIcon(FontAwesomeIcons.chevronRight),
             leading: FaIcon(FontAwesomeIcons.solidCircleUser,
             size: 32),
 
             onTap: () {
-              
+              Navigator.push(
+                context, MaterialPageRoute(
+                  builder: ((context) => PerfilPage())));
             },
           ), 
 

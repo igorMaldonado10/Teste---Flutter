@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               new Text(
                                 'ou',
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 15),
                               )
                             ]),
                         Container(
@@ -217,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
         content: new Text(
       texto1,
       textAlign: TextAlign.center,
-      style: TextStyle(color: Colors.grey.shade300),
+      style: TextStyle(color: Colors.white),
     ));
   }
 }
