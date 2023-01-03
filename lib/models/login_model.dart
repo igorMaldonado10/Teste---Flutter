@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Usuario {
+class LoginModel {
   String? name;
   String? email;
   String? senha;
   bool? keep0n;
 
-  Usuario({this.name, this.email, this.senha, this.keep0n});
+  LoginModel({this.name, this.email, this.senha, this.keep0n});
 
-  Usuario.fromJson(Map<String, dynamic> json) {
+  LoginModel.fromJson(Map<String, dynamic> json) {
     // name = json['name'];
     email = json['email'];
     senha = json['senha'];

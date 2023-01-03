@@ -4,11 +4,13 @@ import 'package:teste/Global/provider/treinoProvider.dart';
 import 'package:teste/Global/routes/app_routes.dart';
 import 'package:teste/Global/treino_form.dart';
 import 'package:teste/view/recursos/cadatroUsuario.dart';
-import 'package:teste/view/recursos/homeScreen.dart';
-import 'package:teste/view/recursos/login_page.dart';
+import 'package:teste/view/recursos/home/homeScreen.dart';
+import 'package:teste/view/recursos/login/login_page.dart';
 import 'package:teste/view/recursos/splash_page.dart';
+
+import '../view/recursos/thema/theme.dart';
 // import 'package:teste/view/splash_page.dart';
-import 'package:teste/view/theme.dart';
+// import 'package:teste/view/theme.dart';
 
 void main() {
   runApp(ValueListenableBuilder(
@@ -26,13 +28,13 @@ void main() {
             themeMode: tema.value,
             theme: temaLight(),
             darkTheme: temaDark(),
-            home: const HomeScreen(),
+            home: const HomePage(),
             debugShowCheckedModeBanner: false,
             initialRoute: '/splash',
             routes: {
               '/splash': (_) => const SplashScreen(),
               '/login': (_) => LoginPage(),
-              '/home': (_) => HomeScreen(),
+              '/home': (_) => HomePage(),
               '/cadastrar': (_) => CadastroUser(),
               AppRoutes.TREINO_FORM: (_) => TreinoForm(),
             },

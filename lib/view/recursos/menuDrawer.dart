@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/treino_list.dart';
-import 'package:teste/view/recursos/homeScreen.dart';
+import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/Profile/perfil_page.dart';
 
 class MenuDrawer extends StatelessWidget {
@@ -64,7 +64,7 @@ class MenuDrawer extends StatelessWidget {
               onTap: () {
                 //  Vai para a página Home
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                    context, MaterialPageRoute(builder: (context) => HomePage()));
               }),
           new ListTile(
             title: mostrarTitulo('Treino'),

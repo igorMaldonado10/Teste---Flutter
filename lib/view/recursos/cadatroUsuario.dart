@@ -1,13 +1,13 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:teste/model/usu%C3%A1rios.dart';
 import 'package:teste/controllers/shared/preferences_keys.dart';
-import 'package:teste/view/theme.dart';
+import 'package:teste/models/login_model.dart';
+
+
 
 class CadastroUser extends StatefulWidget {
   const CadastroUser({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _CadastroUserState extends State<CadastroUser> {
   TextEditingController _senhaInputController = TextEditingController();
   TextEditingController _confirmInputController = TextEditingController();
 
-  Usuario get usuario => usuario;
+  LoginModel get usuario => usuario;
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +239,7 @@ class _CadastroUserState extends State<CadastroUser> {
 
   void _doSignUp() {
     // .text no controller me da o texto atual
-    Usuario newUser = Usuario(
+    LoginModel newUser = LoginModel(
         // name: _nomeInputController.text,
         email: _emailInputController.text,
         senha: _senhaInputController.text,
@@ -251,7 +251,7 @@ class _CadastroUserState extends State<CadastroUser> {
 }
 
 // Para gravarmos ela deve ser uma função async pois como é um processo demorado a programação pode continuar acontecendo
-void _saveUser(Usuario usuario) async {
+void _saveUser(LoginModel usuario) async {
   // Resgatar essas preferências
   // getInstance = utilizando uma intância do SharedPreferences
   SharedPreferences prefs = await SharedPreferences.getInstance();

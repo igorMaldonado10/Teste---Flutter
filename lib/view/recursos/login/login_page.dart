@@ -8,8 +8,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:teste/controllers/login_controller.dart';
 import 'package:teste/controllers/shared/preferences_keys.dart';
+import 'package:teste/models/login_model.dart';
 import 'package:teste/view/recursos/cadatroUsuario.dart';
-import 'package:teste/model/usu%C3%A1rios.dart';
+
+// import '../../../models/usuários.dart';
+
 
 
 class LoginPage extends StatefulWidget {
@@ -182,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
     String emailForm = this.emailInputController.text;
     String senhaForm = this.senhaInputController.text;
 
-    Usuario savedUser = await _getSavedUser();
+    LoginModel savedUser = await _getSavedUser();
 
     if (emailForm == savedUser.email && senhaForm == savedUser.senha) {
       
@@ -202,13 +205,13 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<Usuario> _getSavedUser() async {
+  Future<LoginModel> _getSavedUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jsonUser = prefs.getString(PreferencesKeys.activeUser);
     print(jsonUser);
 
     Map<String, dynamic> mapUser = json.decode(jsonUser!);
-    Usuario usuario = Usuario.fromJson(mapUser);
+    LoginModel usuario = LoginModel.fromJson(mapUser);
     return usuario;
   }
 

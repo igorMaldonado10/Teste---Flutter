@@ -5,14 +5,14 @@ import 'package:teste/view/recursos/menuDrawer.dart';
 
 final tema = ValueNotifier(ThemeMode.light);
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => HomeScreen())));
+                              builder: ((context) => HomePage())));
                     },
                     icon: new FaIcon(FontAwesomeIcons.houseChimney))),
 

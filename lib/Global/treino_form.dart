@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:teste/Global/provider/treinoProvider.dart';
-import 'package:teste/model/treino_model.dart';
+import 'package:teste/Global/treino_list.dart';
+
+import '../models/treino_model.dart';
+
 
 class TreinoForm extends StatelessWidget {
   // Para que eu possa submeter meu formulário eu preciso ter acesso a ele, e com isso devo criar uma GlobalKey;
   final _form = GlobalKey<FormState>();
-  final Map<String, String> _formData = {};
+  final Map<String?, String?> _formData = {};
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         //Esconde o ícone original (menu)
@@ -33,7 +37,9 @@ class TreinoForm extends StatelessWidget {
                           dataDoTreino: _formData['dataDoTreino']!,
                           objetivo: _formData['objetivo']!,
                           icon: _formData['iconeURL']!));
-                  Navigator.of(context).pop();
+                  // Navigator.of(context).pop();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TreinoList()));
                 }
               },
               icon: Icon(Icons.save))
@@ -76,8 +82,8 @@ class TreinoForm extends StatelessWidget {
                     }),
                 TextFormField(
                     decoration: InputDecoration(labelText: 'URL do ícone'),
-                    onSaved: (newValue) {
-                      _formData['iconeURL'] = newValue!;
+                    onSaved: (value) {
+                      _formData['iconeURL'] = value!;
                     })
               ],
             )),

@@ -3,8 +3,10 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/routes/app_routes.dart';
-import 'package:teste/model/treino_model.dart';
-import 'package:teste/view/color_schemes.g.dart';
+import 'package:teste/view/recursos/thema/color_schemes.g.dart';
+
+
+import '../models/treino_model.dart';
 
 class TreinoTile extends StatelessWidget {
   final Treino treino;

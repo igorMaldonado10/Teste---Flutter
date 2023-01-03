@@ -1,7 +1,7 @@
-import 'package:teste/model/treino_model.dart';
-
 
 // Dados mocados
+import '../models/treino_model.dart';
+
 const TREINOS_ARQ = {
 
 '1': const Treino(

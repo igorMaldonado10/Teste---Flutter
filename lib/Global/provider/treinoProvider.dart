@@ -4,11 +4,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:teste/Global/treino_arq.dart';
-import 'package:teste/model/treino_model.dart';
+
+import '../../models/treino_model.dart';
 
 // ChangeNotifier : mixin
 
 class TreinosProvider with ChangeNotifier {
+
+  
   final Map<String, Treino> _items = {...TREINOS_ARQ};
 
   List<Treino> get all {
@@ -46,7 +49,7 @@ class TreinosProvider with ChangeNotifier {
       final id = Random().nextDouble().toString();
       _items.putIfAbsent(
         id,
-        () => Treino(
+        () => Treino(  
             id: id,
             icon: treino.icon,
             tipoDeTreino: treino.tipoDeTreino,
@@ -67,6 +70,7 @@ class TreinosProvider with ChangeNotifier {
       _items.remove(treino.id);
       // chamo o notifyListeners() só para garantir que ele notificará quem efetuará qualquer mudança dentro do changeNotify/provider
       notifyListeners(); 
+      
     }
   }
 }
