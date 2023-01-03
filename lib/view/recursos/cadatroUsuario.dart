@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:teste/controllers/usuários.dart';
-import 'package:teste/controllers/preferences_keys.dart';
+import 'package:teste/model/usu%C3%A1rios.dart';
+import 'package:teste/controllers/shared/preferences_keys.dart';
 import 'package:teste/view/theme.dart';
 
 class CadastroUser extends StatefulWidget {

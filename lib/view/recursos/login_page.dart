@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:teste/controllers/login_controller.dart';
-import 'package:teste/controllers/preferences_keys.dart';
+import 'package:teste/controllers/shared/preferences_keys.dart';
 import 'package:teste/view/recursos/cadatroUsuario.dart';
-import 'package:teste/controllers/usu%C3%A1rios.dart';
+import 'package:teste/model/usu%C3%A1rios.dart';
 
 
 class LoginPage extends StatefulWidget {

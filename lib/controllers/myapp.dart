@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/view/recursos/cadatroUsuario.dart';
 import 'package:teste/view/recursos/homeScreen.dart';
 import 'package:teste/view/recursos/login_page.dart';
-import 'package:teste/view/splash_page.dart';
+import 'package:teste/view/recursos/splash_page.dart';
+// import 'package:teste/view/splash_page.dart';
 import 'package:teste/view/theme.dart';
 
 // final tema = ValueNotifier(ThemeMode.light);
@@ -18,7 +18,6 @@ class Myapp extends StatelessWidget {
         valueListenable: tema,
         builder: ((context, value, child) {
           return MaterialApp(
-            title: 'Treine+',
             themeMode: tema.value,
             theme: temaLight(),
             darkTheme: temaDark(),
@@ -34,6 +33,4 @@ class Myapp extends StatelessWidget {
           );
         }));
   }
-
-  
 }

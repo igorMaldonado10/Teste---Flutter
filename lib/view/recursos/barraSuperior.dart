@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Gerenciador de estado
-final tema = ValueNotifier(ThemeMode.light);
+// final tema = ValueNotifier(ThemeMode.light);
 
 class BarraSuperior extends StatefulWidget {
   const BarraSuperior({Key? key}) : super(key: key);
