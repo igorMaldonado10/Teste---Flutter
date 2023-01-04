@@ -5,9 +5,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teste/controllers/shared/preferences_keys.dart';
+import 'package:teste/controllers/shared/sign_up_service.dart';
 import 'package:teste/models/login_model.dart';
-
-
 
 class CadastroUser extends StatefulWidget {
   const CadastroUser({Key? key}) : super(key: key);
@@ -23,6 +22,8 @@ class _CadastroUserState extends State<CadastroUser> {
   TextEditingController _emailInputController = TextEditingController();
   TextEditingController _senhaInputController = TextEditingController();
   TextEditingController _confirmInputController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   LoginModel get usuario => usuario;
 
@@ -64,6 +65,7 @@ class _CadastroUserState extends State<CadastroUser> {
                   // Inputs(campos do /formulário)
                   //Campo de texto (email)
                   Form(
+                    key: _formKey,
                     child: Column(
                       children: [
                         // TextFormField(
@@ -238,6 +240,12 @@ class _CadastroUserState extends State<CadastroUser> {
   }
 
   void _doSignUp() {
+    // if (_formKey.currentState!.validate()) {
+    //   SignUpService()
+    //       .signUp(_emailInputController.text, _senhaInputController.text);
+    // } else {
+    //   print('invalido');
+    // }
     // .text no controller me da o texto atual
     LoginModel newUser = LoginModel(
         // name: _nomeInputController.text,

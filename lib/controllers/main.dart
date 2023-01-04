@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:teste/Global/provider/treinoProvider.dart';
 import 'package:teste/Global/routes/app_routes.dart';
 import 'package:teste/Global/treino_form.dart';
-import 'package:teste/view/recursos/cadatroUsuario.dart';
+import 'package:teste/view/recursos/login/cadatroUsuario.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/view/recursos/login/login_page.dart';
 import 'package:teste/view/recursos/splash_page.dart';

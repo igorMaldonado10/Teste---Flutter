@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:teste/controllers/login_controller.dart';
 import 'package:teste/controllers/shared/preferences_keys.dart';
 import 'package:teste/models/login_model.dart';
-import 'package:teste/view/recursos/cadatroUsuario.dart';
+import 'package:teste/view/recursos/login/cadatroUsuario.dart';
 
 // import '../../../models/usuários.dart';
 

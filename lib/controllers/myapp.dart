@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teste/view/recursos/cadatroUsuario.dart';
+import 'package:teste/view/recursos/login/cadatroUsuario.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/view/recursos/login/login_page.dart';
 import 'package:teste/view/recursos/splash_page.dart';

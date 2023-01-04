@@ -7,15 +7,17 @@ import 'package:teste/Global/treino_list.dart';
 
 import '../models/treino_model.dart';
 
-
 class TreinoForm extends StatelessWidget {
+  TextEditingController tipoTreinoController = TextEditingController();
+  TextEditingController dataDoTreinoController = TextEditingController();
+  TextEditingController objetivoController = TextEditingController();
+  TextEditingController iconeUrlController = TextEditingController();
   // Para que eu possa submeter meu formulário eu preciso ter acesso a ele, e com isso devo criar uma GlobalKey;
   final _form = GlobalKey<FormState>();
-  final Map<String?, String?> _formData = {};
+  final Map<String, String> _formData = {};
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         //Esconde o ícone original (menu)
@@ -33,13 +35,13 @@ class TreinoForm extends StatelessWidget {
                   Provider.of<TreinosProvider>(context, listen: false).put(
                       Treino(
                           id: _formData['id']!,
-                          tipoDeTreino: _formData['tipoDeTreino']!,
-                          dataDoTreino: _formData['dataDoTreino']!,
-                          objetivo: _formData['objetivo']!,
-                          icon: _formData['iconeURL']!));
-                  // Navigator.of(context).pop();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => TreinoList()));
+                          tipoDeTreino: _formData["tipoTreino"]!,
+                          dataDoTreino: _formData["dataDoTreino"]!,
+                          objetivo: _formData["objetivo"]!,
+                          icon: _formData["iconeUrl"]!));
+
+                  Navigator.of(context).pop();
+                 
                 }
               },
               icon: Icon(Icons.save))
@@ -65,25 +67,26 @@ class TreinoForm extends StatelessWidget {
                       return null;
                     },
                     onSaved: (value) {
-                      _formData['tipoDeTreino'] = value!;
+                      _formData["tipoTreino"] = value!;
                     }),
                 TextFormField(
+                    controller: dataDoTreinoController,
                     decoration: InputDecoration(
                       labelText: 'Prazo do treino',
                       // hintText: '**/**/** até **/**/**'
                     ),
                     onSaved: (value) {
-                      _formData['dataDoTreino'] = value!;
+                      _formData["dataDoTreino"] = value!;
                     }),
                 TextFormField(
                     decoration: InputDecoration(labelText: 'Objetivo'),
                     onSaved: (value) {
-                      _formData['objetivo'] = value!;
+                      _formData["objetivo"] = value!;
                     }),
                 TextFormField(
                     decoration: InputDecoration(labelText: 'URL do ícone'),
                     onSaved: (value) {
-                      _formData['iconeURL'] = value!;
+                      _formData["iconeURL"] = value!;
                     })
               ],
             )),
