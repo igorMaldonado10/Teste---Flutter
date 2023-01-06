@@ -41,6 +41,118 @@ class _HomePageState extends State<HomePage> {
                           // fit: BoxFit.fitWidth,
                         ),
                       ),
+            SizedBox(height: 10,),
+
+            // ListView.builder(
+            // padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
+            // itemCount: treinoService.listarTreinos().length,
+            // // recebo o índice e o contexto do elemento que vou retornar, eu posso criar por ex. um text
+            // itemBuilder: (BuildContext context, int index) {
+            //   // Guarda o retorno da lista no objeto da classe
+
+            //   // Objeto que busca o arquivo treino que retorna a simulação de banco de dados e faz a listagem por id;
+            //   Treino_dois treino_dois = treinoService.listarTreinos().elementAt(index);
+
+            //   // exportação da lista de ARQuivos
+            //   final avatar = treino.icon == null || treino.icon.isEmpty
+            //       ? CircleAvatar(
+            //           radius: 35,
+            //           backgroundColor: Color(0xFF9B4501),
+            //           child: FaIcon(
+            //             FontAwesomeIcons.person,
+            //             color: Colors.white,
+            //             size: 30,
+            //           ))
+            //       : CircleAvatar(
+            //           backgroundImage: NetworkImage(treino.icon),
+            //         );
+
+            //   return Container(
+            //     // decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+            //     height: 150,
+            //     color: Colors.grey.shade200,
+            //     padding: EdgeInsets.all(5),
+            //     margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            //     child: ListTile(
+            //       // leading:
+
+            //       // avatar,
+
+            //       title: Row(
+            //         children: [
+            //           Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Row(
+            //                 children: [
+            //                   Text(
+            //                     treino_dois.tipoDeTreino,
+            //                     style: TextStyle(
+            //                         fontSize: 25, fontWeight: FontWeight.bold),
+            //                   ),
+            //                   IconButton(
+            //                       // iconSize: ,
+            //                       onPressed: () {
+            //                         Navigator.push(
+            //                             context,
+            //                             MaterialPageRoute(
+            //                                 builder: (context) => new EditTreino(
+            //                                   id: treino_dois.id,
+            //                                 )
+            //                                 )
+            //                                 );
+            //                       },
+            //                       icon: Icon(
+            //                         Icons.more_vert_rounded,
+            //                         // color: darkColorScheme.secondary,
+            //                       )),
+            //                 ],
+            //               ),
+            //               SizedBox(
+            //                 height: 10,
+            //               ),
+            //               new Text('Objetivo:' + treino_dois.objetivo),
+            //               SizedBox(height: 5),
+            //               new Text(treino_dois.dataDoTreino),
+            //             ],
+            //           ),
+            //         ],
+            //       ),
+
+            //       trailing: Container(
+            //         alignment: Alignment.center,
+            //         height: 100,
+            //         width: 70,
+            //         child: Row(
+            //           children: [
+            //             // IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined)),
+            //             // IconButton(
+            //             //     iconSize: 25,
+            //             //     onPressed: () {},
+            //             //     icon: Icon(
+            //             //       Icons.delete,
+            //             //       color: lightColorScheme.error,
+            //             //     )),
+
+            //             Column(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 IconButton(
+            //                   iconSize: 40,
+            //                   onPressed: () {},
+            //                   icon: FaIcon(FontAwesomeIcons.chevronRight),
+            //                   // icon: Icon(Icons.more_vert_rounded)
+            //                 ),
+            //               ],
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   );
+              
+            // })
+                      // Bottom profile
                     ]),
               ],
             ),

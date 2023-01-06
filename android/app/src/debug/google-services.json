@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "124607823120",
+    "firebase_url": "https://teste-gmr-ims-default-rtdb.firebaseio.com",
+    "project_id": "teste-gmr-ims",
+    "storage_bucket": "teste-gmr-ims.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124607823120:android:1b5147fefd7efc2f81f995",
+        "android_client_info": {
+          "package_name": "com.example.teste"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124607823120-6ts16eh65bkjg199rgsgq6eoc3slbt2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpRDSl3I8VpEMZL1hmWZxdnpRFPjpWpGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124607823120-6ts16eh65bkjg199rgsgq6eoc3slbt2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

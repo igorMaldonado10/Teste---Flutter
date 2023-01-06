@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teste/Global/treino_list.dart';
 import 'package:teste/view/recursos/barraSuperior.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';

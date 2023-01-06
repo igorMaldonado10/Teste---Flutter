@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teste/Global/treino_list.dart';
+import 'package:teste/Global/treino_2.0/treino_list2.dart';
+
 import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/Profile/perfil_page.dart';
+
+import '../../Global/treino_1.0/treino_list.dart';
 
 class MenuDrawer extends StatelessWidget {
 // Dados vindos do banco de dados(simulação)
@@ -75,10 +78,13 @@ class MenuDrawer extends StatelessWidget {
               size: 32,
             ),
 
-            // Vai ppara a página busca 
+            // Vai para a página treino
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => TreinoList()));
+                  context, MaterialPageRoute(builder: (context) => TreinoList2()
+                  // TreinoList()
+                  
+                  ));
             },
           ),
 

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Treino {
+class Treino_dois {
   // Atributos
-  final String id;
-  final String icon;
-  final String tipoDeTreino;
-  final String dataDoTreino;
-  final String objetivo;
+  late int id;
+  late String icon;
+  late String tipoDeTreino;
+  late String dataDoTreino;
+  late String objetivo;
 
   // Construtor
-  const Treino({
+   Treino_dois({
     required this.id,
     required this.icon,
     required this.tipoDeTreino,

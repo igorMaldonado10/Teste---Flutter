@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:teste/Global/provider/treinoProvider.dart';
-import 'package:teste/Global/treino_list.dart';
 
-import '../models/treino_model.dart';
+import '../../models/treino_model.dart';
 
 class TreinoForm extends StatelessWidget {
   TextEditingController tipoTreinoController = TextEditingController();

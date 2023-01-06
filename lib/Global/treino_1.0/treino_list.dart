@@ -5,8 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:teste/Global/provider/treinoProvider.dart';
 import 'package:teste/Global/routes/app_routes.dart';
-import 'package:teste/Global/treino_arq.dart';
-import 'package:teste/Global/treino_tile.dart';
+import 'package:teste/Global/treino_1.0/treino_tile.dart';
+// import 'package:teste/Global/treino_arq.dart';
+// import 'package:teste/Global/treino_tile.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
 

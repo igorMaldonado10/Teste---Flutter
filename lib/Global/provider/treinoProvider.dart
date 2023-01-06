@@ -1,10 +1,8 @@
 // O objetivo do provider e fazer com que externalize o arquivo (no caso a lista) para não precisar ficar acessando diretamente a lista dentro de um determinado widget
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:teste/Global/treino_arq.dart';
-
+import 'package:teste/Global/treino_1.0/treino_arq.dart';
 import '../../models/treino_model.dart';
 
 // ChangeNotifier : mixin
