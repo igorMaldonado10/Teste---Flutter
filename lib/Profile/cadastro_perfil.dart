@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
-// import 'package:teste/Global/treino_2.0/edit_treino.dart';
-import 'package:teste/Global/treino_2.0/treino_list2.dart';
-import 'package:teste/Global/treino_2.0/treino_model2.dart';
-import 'package:teste/Global/treino_2.0/treino_service.dart';
-import 'package:teste/models/treino_model.dart';
-import 'package:teste/view/recursos/login/cadatroUsuario.dart';
+import 'package:teste/Profile/perfil_model.dart';
+import 'package:teste/Profile/perfil_page.dart';
+import 'package:teste/Profile/perfil_service.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
-class CadastroTreino extends StatefulWidget {
+class CadastroPerfil extends StatefulWidget {
   // const CadastroTreino({Key? key}) : super(key: key);
 
   @override
-  State<CadastroTreino> createState() => _CadastroTreinoState();
+  State<CadastroPerfil> createState() => _CadastroPerfilState();
 }
 
-class _CadastroTreinoState extends State<CadastroTreino> {
-  final tipoDeTreino = TextEditingController();
-  final objetivo = TextEditingController();
-  final data = TextEditingController();
+class _CadastroPerfilState extends State<CadastroPerfil> {
+  final name = TextEditingController();
+  final dataNasc = TextEditingController();
+  final pesoAtual = TextEditingController();
+  final icon = TextEditingController();
+  final textBio = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appaBarHome(Text('Cadastro Treino')),
+      appBar: appaBarHome(Text('Cadastro Perfil')),
       drawer: MenuDrawer(),
       body: SingleChildScrollView(
         // Container do Form
@@ -46,15 +42,16 @@ class _CadastroTreinoState extends State<CadastroTreino> {
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(bottom: 45),
                 child: Text(
-                  'Cadastro de Treino',
+                  'Cadastro de Perfil',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
 
               // Campos do formulários
-              addTexForm('Tipo de treino', tipoDeTreino),
-              addTexForm('Objetivo', objetivo),
-              addTexForm('Validade', data),
+              addTexForm('Nome', name),
+              addTexForm('Data de nascimento', dataNasc),
+              addTexForm('Peso atual', pesoAtual),
+              addTexForm('URL do icon', icon),
 
               // SizedBox(height: 15),
 
@@ -121,20 +118,22 @@ class _CadastroTreinoState extends State<CadastroTreino> {
 
   // método de Cadastrar
   void cadastrar() {
-    TreinoService treinoService = new TreinoService();
+    PerfilService perfilService = new PerfilService();
 
     // Guardar o último ID cadastrado
-    int ultimoID = treinoService.listarTreinos().length;
+    int ultimoID = perfilService.listaUser().length;
 
-    Treino_dois treino_dois = Treino_dois(
-        id: ultimoID + 1,
-        tipoDeTreino: tipoDeTreino.text,
-        dataDoTreino: data.text,
-        objetivo: objetivo.text,
-        );
+    User user = User(
+      id: ultimoID + 1,
+      name: name.text,
+      dataNasc: dataNasc.text,
+      pesoAtual: pesoAtual.text,
+      icon: icon.text,
+      textBio: textBio.text,
+    );
 
 // Envia o objeto preenchido para adicionar na lista
-    String mensagem = treinoService.cadastrarTreino(treino_dois);
+    String mensagem = perfilService.cadastrarPerfil(user);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Row(
@@ -150,15 +149,8 @@ class _CadastroTreinoState extends State<CadastroTreino> {
     // Redireciona para a tela de busca
     Future.delayed(Duration(milliseconds: 2500), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => TreinoList2()));
+          context, MaterialPageRoute(builder: (context) => PerfilPage()));
     });
-  }
-
-  // Limpar campos
-  void limpar() {
-    tipoDeTreino.text = '';
-    objetivo.text = '';
-    data.text = '';
   }
 
   AppBar appaBarHome(Text texto) {
@@ -181,5 +173,13 @@ class _CadastroTreinoState extends State<CadastroTreino> {
               icon: FaIcon(FontAwesomeIcons.bars),
               onPressed: () => Scaffold.of(context).openDrawer());
         }));
+  }
+  // Limpar campos
+  void limpar() {
+    name.text = '';
+    dataNasc.text = '';
+    pesoAtual.text = '';
+    icon.text = '';
+    textBio.text = '';
   }
 }

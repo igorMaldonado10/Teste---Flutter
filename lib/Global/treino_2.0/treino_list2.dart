@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/treino_2.0/cadastro_treino.dart';
-import 'package:teste/Global/treino_2.0/edit_treino.dart';
+import 'package:teste/Global/treino_2.0/editarTreino/informacoes.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 import 'package:teste/models/treino_model.dart';
@@ -9,7 +10,7 @@ import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
 import '../../view/recursos/menuDrawer.dart';
-import '../treino_1.0/treino_tile.dart';
+// import '../treino_1.0/treino_tile.dart';
 import 'dart:ui';
 
 class TreinoList2 extends StatefulWidget {
@@ -29,27 +30,12 @@ class _TreinoList2State extends State<TreinoList2> {
         body: ListView.builder(
             padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
             itemCount: treinoService.listarTreinos().length,
-            // recebo o índice e o contexto do elemento que vou retornar, eu posso criar por ex. um text
+            // recebo o índice e o contexto do elemento que vou retornar;
             itemBuilder: (BuildContext context, int index) {
               // Guarda o retorno da lista no objeto da classe
 
               // Objeto que busca o arquivo treino que retorna a simulação de banco de dados e faz a listagem por id;
-              Treino_dois treino_dois =
-                  treinoService.listarTreinos().elementAt(index);
-
-              // exportação da lista de ARQuivos
-              // final avatar = treino.icon == null || treino.icon.isEmpty
-              //     ? CircleAvatar(
-              //         radius: 35,
-              //         backgroundColor: Color(0xFF9B4501),
-              //         child: FaIcon(
-              //           FontAwesomeIcons.dumbbell,
-              //           color: Colors.white,
-              //           size: 30,
-              //         ))
-              //     : CircleAvatar(
-              //         backgroundImage: NetworkImage(treino.icon),
-              //       );
+              Treino_dois treino_dois = treinoService.listarTreinos().elementAt(index);
 
               return Container(
                 // decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
@@ -94,7 +80,7 @@ class _TreinoList2State extends State<TreinoList2> {
                           SizedBox(
                             height: 10,
                           ),
-                          new Text('Objetivo:' + treino_dois.objetivo),
+                          new Text('Objetivo:' + ' ' + treino_dois.objetivo),
                           SizedBox(height: 5),
                           new Text(treino_dois.dataDoTreino),
                         ],
@@ -122,7 +108,10 @@ class _TreinoList2State extends State<TreinoList2> {
                           children: [
                             IconButton(
                               iconSize: 40,
-                              onPressed: () {},
+                              onPressed: () {
+                                // Cada treino tem o seu próprio ID, então, lógicamente cada ID tem a sua página de treino
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ExercisesList(id: treino_dois.id)));
+                              },
                               icon: FaIcon(FontAwesomeIcons.chevronRight),
                               // icon: Icon(Icons.more_vert_rounded)
                             ),
@@ -137,7 +126,8 @@ class _TreinoList2State extends State<TreinoList2> {
         floatingActionButton: FloatingActionButton(
             child: FaIcon(FontAwesomeIcons.plus),
             onPressed: () {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=> CadastroTreino()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CadastroTreino()));
             }));
   }
 

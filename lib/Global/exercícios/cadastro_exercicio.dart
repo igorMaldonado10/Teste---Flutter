@@ -1,36 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercicios_service.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
-// import 'package:teste/Global/treino_2.0/edit_treino.dart';
-import 'package:teste/Global/treino_2.0/treino_list2.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
-import 'package:teste/models/treino_model.dart';
-import 'package:teste/view/recursos/login/cadatroUsuario.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
-class CadastroTreino extends StatefulWidget {
+class CadastroExercicio extends StatefulWidget {
   // const CadastroTreino({Key? key}) : super(key: key);
 
+  //  Guardar o ID do contato selecionado
+  // final int id;
+
+  // CadastroExercicio({required this.id});
+
   @override
-  State<CadastroTreino> createState() => _CadastroTreinoState();
+  State<CadastroExercicio> createState() => _CadastroExercicioState();
 }
 
-class _CadastroTreinoState extends State<CadastroTreino> {
-  final tipoDeTreino = TextEditingController();
-  final objetivo = TextEditingController();
-  final data = TextEditingController();
+class _CadastroExercicioState extends State<CadastroExercicio> {
+  final name = TextEditingController();
+  final grupoMus = TextEditingController();
+  final tipo = TextEditingController();
+  final obs = TextEditingController();
+  final numSer = TextEditingController();
+  final numReps = TextEditingController();
+  final restTime = TextEditingController();
+
+  // // Objeto de classe que contém a Busca dos contatos
+  // final TreinoService treinoService = new TreinoService();
 
   @override
   Widget build(BuildContext context) {
+    // Objeto da classe Treino
+
+    // Exercises exercises = treinoService.listarTreinos().elementAt(widget.id - 1);
+    // Exercises exercises = treinoService.listarExercicios().elementAt(widget.id - 1);
+
     return Scaffold(
-      appBar: appaBarHome(Text('Cadastro Treino')),
+      appBar: appaBarHome(Text('Cadastro Exercício')),
       drawer: MenuDrawer(),
       body: SingleChildScrollView(
-        // Container do Form
+        // CONTAINER DO FORM
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
@@ -46,19 +59,23 @@ class _CadastroTreinoState extends State<CadastroTreino> {
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(bottom: 45),
                 child: Text(
-                  'Cadastro de Treino',
+                  'Cadastro de Exercício',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
 
               // Campos do formulários
-              addTexForm('Tipo de treino', tipoDeTreino),
-              addTexForm('Objetivo', objetivo),
-              addTexForm('Validade', data),
+              addTexForm('Nome', name),
+              addTexForm('Grupo muscular', grupoMus),
+              addTexForm('Tipo', tipo),
+              addTexForm('observação', obs),
+              addTexForm('Número de séries', numSer),
+              addTexForm('Número de repetições', numReps),
+              addTexForm('Tempo de descanso', restTime),
 
               // SizedBox(height: 15),
 
-              // Botões
+              // BOTÕES
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -67,6 +84,10 @@ class _CadastroTreinoState extends State<CadastroTreino> {
                     return ElevatedButton(
                         onPressed: () {
                           cadastrar();
+
+                          Future.delayed(Duration(milliseconds: 2500), () {
+                            Navigator.pop(context);
+                          });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -121,20 +142,25 @@ class _CadastroTreinoState extends State<CadastroTreino> {
 
   // método de Cadastrar
   void cadastrar() {
-    TreinoService treinoService = new TreinoService();
+    // TreinoService treinoService = TreinoService();
+    ExercicioService exercicioService = ExercicioService();
 
     // Guardar o último ID cadastrado
-    int ultimoID = treinoService.listarTreinos().length;
-
-    Treino_dois treino_dois = Treino_dois(
+    // int ultimoID = treinoService.listarExercicios().length;
+    int ultimoID = exercicioService.listarExercicios().length;
+    Exercises exercises = Exercises(
         id: ultimoID + 1,
-        tipoDeTreino: tipoDeTreino.text,
-        dataDoTreino: data.text,
-        objetivo: objetivo.text,
-        );
+        name: name.text,
+        grupoMusc: grupoMus.text,
+        tipo: tipo.text,
+        obs: obs.text,
+        numSeries: numSer.text,
+        numRepeti: numReps.text,
+        restTime: restTime.text);
 
 // Envia o objeto preenchido para adicionar na lista
-    String mensagem = treinoService.cadastrarTreino(treino_dois);
+    // String mensagem = treinoService.cadastrarExercicio(exercises);
+    String mensagem = exercicioService.cadastrarExercicio(exercises);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Row(
@@ -148,17 +174,21 @@ class _CadastroTreinoState extends State<CadastroTreino> {
     ));
 
     // Redireciona para a tela de busca
-    Future.delayed(Duration(milliseconds: 2500), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => TreinoList2()));
-    });
+    // Future.delayed(Duration(milliseconds: 2500), () {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (context) => ExercisesList(id: id)));
+    // });
   }
 
   // Limpar campos
   void limpar() {
-    tipoDeTreino.text = '';
-    objetivo.text = '';
-    data.text = '';
+    name.text = '';
+    grupoMus.text = '';
+    tipo.text = '';
+    obs.text = '';
+    numSer.text = '';
+    numReps.text = '';
+    restTime.text = '';
   }
 
   AppBar appaBarHome(Text texto) {
@@ -183,3 +213,5 @@ class _CadastroTreinoState extends State<CadastroTreino> {
         }));
   }
 }
+
+/// PROBLEMA: não conseguir sincronizar cada treino ao seu respectivo treino;

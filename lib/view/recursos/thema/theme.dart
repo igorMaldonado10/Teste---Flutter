@@ -4,7 +4,8 @@ import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
 ThemeData temaLight() {
   final ThemeData temaLight = ThemeData();
-  return temaLight.copyWith(useMaterial3: true, colorScheme: lightColorScheme
+  return temaLight.copyWith(useMaterial3: true,
+   colorScheme: lightColorScheme
 
       // temaLight.colorScheme.copyWith(
 

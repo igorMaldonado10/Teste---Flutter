@@ -9,7 +9,7 @@ import 'package:teste/view/recursos/login/login_page.dart';
 import 'package:teste/view/recursos/splash_page.dart';
 import '../Global/treino_1.0/treino_form.dart';
 import '../view/recursos/thema/theme.dart';
-import 'dart:io';
+
 // import 'package:teste/view/splash_page.dart';
 // import 'package:teste/view/theme.dart';
 

@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailInputController = TextEditingController();
   TextEditingController senhaInputController = TextEditingController();
 
-  bool? continueConnected = false;
+  bool? ocultSenha = false;
 
   @override
   Widget build(BuildContext context) {
@@ -93,16 +93,16 @@ class _LoginPageState extends State<LoginPage> {
                             border: OutlineInputBorder(),
                           ),
                           obscureText:
-                              (this.continueConnected == true) ? false : true,
+                              (this.ocultSenha == true) ? false : true,
                         ),
                         Row(
                           children: [
                             Checkbox(
                                 activeColor: Color.fromRGBO(211, 111, 47, 100),
-                                value: this.continueConnected,
+                                value: this.ocultSenha,
                                 onChanged: (newValue) {
                                   setState(() {
-                                    this.continueConnected = newValue;
+                                    this.ocultSenha = newValue;
                                   });
                                 }),
                             new Text('Mostrar senha')

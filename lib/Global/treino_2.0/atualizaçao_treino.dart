@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,18 +5,25 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/treino_2.0/treino_list2.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
+import 'package:teste/view/recursos/home/homeScreen.dart';
 
-class TreinoForm2 extends StatelessWidget {
-  // const TreinoForm2({Key? key}) : super(key: key);
-  TextEditingController tipoDeTreinoController = TextEditingController();
-  TextEditingController dataDoTreinoController = TextEditingController();
-  TextEditingController objetivoController = TextEditingController();
-
-  // Guardar o ID do contato que vai ser modificado
+class TreinoForm2 extends StatefulWidget {
   final int id;
 
   // Construtor com o atributo obrigatório (id)
   TreinoForm2({required this.id});
+
+  @override
+  State<TreinoForm2> createState() => _TreinoForm2State();
+}
+
+class _TreinoForm2State extends State<TreinoForm2> {
+  // const TreinoForm2({Key? key}) : super(key: key);
+  TextEditingController tipoDeTreinoController = TextEditingController();
+
+  TextEditingController dataDoTreinoController = TextEditingController();
+
+  TextEditingController objetivoController = TextEditingController();
 
   // // Objeto de classe que contém a Busca dos contatos
   final TreinoService treinoService = new TreinoService();
@@ -26,10 +31,10 @@ class TreinoForm2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Objeto da classe Treino
-    Treino_dois treino = treinoService.listarTreinos().elementAt(id - 1);
+    Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id -1);
 
     return Scaffold(
-      appBar: appaBarHome(Text('Treino')),
+      appBar: appaBarHome(Text('Editar' + ' - ' '${treino.tipoDeTreino}')),
       body: Padding(
         padding: EdgeInsets.all(
           15,
@@ -62,15 +67,23 @@ class TreinoForm2 extends StatelessWidget {
               child: Column(
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Tipo de treino'),
+                    decoration: InputDecoration(
+                      labelText: 'Tipo de treino',
+                      hintText: treino.tipoDeTreino),
+                    
                     controller: tipoDeTreinoController,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Objetivo'),
+                    decoration: InputDecoration(
+                      labelText: 'Objetivo',
+                      hintText: treino.objetivo
+                      ),
                     controller: objetivoController,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Vaidade do treino'),
+                    decoration: InputDecoration(labelText: 'Validade do treino',
+                    hintText: treino.dataDoTreino
+                    ),
                     controller: dataDoTreinoController,
                   ),
                 ],
@@ -86,8 +99,13 @@ class TreinoForm2 extends StatelessWidget {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        atualizarList();
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>TreinoList2()));
+                        setState(() {
+                          treino.tipoDeTreino = tipoDeTreinoController.text;
+                          treino.objetivo = objetivoController.text;
+                          treino.dataDoTreino = dataDoTreinoController.text;
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>TreinoList2()));
+                        });
                       },
                       child: new Text('Confirmar')),
                 ],
@@ -96,19 +114,21 @@ class TreinoForm2 extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: barraInferior(),
     );
   }
 
-  void atualizarList() {
-    Treino_dois treino = treinoService.listarTreinos().elementAt(id - 1);
-    treino.tipoDeTreino = tipoDeTreinoController.text;
-    treino.objetivo = objetivoController.text;
-    // String tipoDeTreino = tipoDeTreinoController.text;
-    String objetivo = tipoDeTreinoController.text;
-    String data = dataDoTreinoController.text;
+  // void atualizarList() {
+  //   // Treino_dois treino = treinoService.listarTreinos().elementAt(id - 1);
+  //   setState(() {});
+  //   treino.tipoDeTreino = tipoDeTreinoController.text;
+  //   // treino.objetivo = objetivoController.text;
+  //   // String tipoDeTreino = tipoDeTreinoController.text;
+  //   String objetivo = tipoDeTreinoController.text;
+  //   String data = dataDoTreinoController.text;
 
-    // treinoService.listarTreinos().elementAt(id);
-  }
+  //   // treinoService.listarTreinos().elementAt(id);
+  // }
 
   AppBar appaBarHome(Text texto) {
     return AppBar(
@@ -129,6 +149,30 @@ class TreinoForm2 extends StatelessWidget {
           return IconButton(
               icon: FaIcon(FontAwesomeIcons.bars),
               onPressed: () => Scaffold.of(context).openDrawer());
-        }));
+        }
+        )
+        );
+  }
+
+  BottomNavigationBar barraInferior(){
+    return BottomNavigationBar(items: [
+      BottomNavigationBarItem(
+                label: 'Home',
+                icon: new IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => HomePage())));
+                    },
+                    icon: new FaIcon(FontAwesomeIcons.houseChimney))),
+
+            BottomNavigationBarItem(
+                label: 'Perfil',
+                icon: new IconButton(
+                    onPressed: () {},
+                    icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
+    ]
+    );
   }
 }
