@@ -14,11 +14,15 @@ import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
 import '../../view/recursos/menuDrawer.dart';
 
 class ExercisesList extends StatefulWidget {
-// Guardar o ID do contato selecionado
+// Guardar a ID do treino selecionado
   final int id;
 
+
+// Guardar a list do treino selecionado
+  // final List list;
+
   // Construtor com o atributo obrigatório (id)
-  ExercisesList({required this.id});
+  ExercisesList({ required this.id });
 
   @override
   State<ExercisesList> createState() => _ExercisesListState();
@@ -28,19 +32,17 @@ class _ExercisesListState extends State<ExercisesList> {
   // Objeto do model
   TreinoService treinoService = new TreinoService();
 
+// Objeto que busca o arquivo exercicio que retorna a simulação de banco de dados;
   final ExercicioService exercicioService = new ExercicioService();
 
   bool? exerCheck = false;
-
-  // // Objeto de classe que contém os treinos
-  // final TreinoService treinoService = new TreinoService();
 
   @override
   Widget build(BuildContext context) {
     //  // Objeto da classe Treino
     //  Treino_dois treino = treinoService.listarExercicios().elementAt(widget.id - 1);
-    // Treino_dois treino =
-        // exercicioService.listarExercicios().elementAt(widget.id - 1);
+    Treino_dois treino =
+    exercicioService.listarExercicios().elementAt(widget.id - 1);
     // Exercises exercises = exercicioService.listarExercicios().elementAt(widget.id - 1);
 
     return Scaffold(
@@ -49,20 +51,38 @@ class _ExercisesListState extends State<ExercisesList> {
       body: ListView.builder(
           padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
           itemCount: exercicioService.listarExercicios().length,
-          //       // recebo o índice e o contexto do elemento que vou retornar;
+          // recebo o índice e o contexto do elemento que vou retornar;
           itemBuilder: (BuildContext context, int index) {
-            //         // Guarda o retorno da lista no objeto da classe
-            //         // Objeto que busca o arquivo treino que retorna a simulação de banco de dados e faz a listagem por id;
+            // Guarda o retorno da lista no objeto da classe
+            //         // Objeto que busca o arquivo exercicíos que retorna a simulação de banco de dados e faz a listagem por id;
 
             Exercises exercises =
                 exercicioService.listarExercicios().elementAt(index);
-            //         // Treino_dois treino_dois = treinoService.listarExercicios().elementAt(index);
+            // Treino_dois treino_dois = treinoService.listarExercicios().elementAt(index);
+            int _numInicial = 0;
+            // void increment() {
+            //   // for (int i = 0; i <= int.parse(exercises.numSeries); i++) {
+            //   setState(() {
+            //     if (_numInicial <= exercises.numSeries) {
+            //       _numInicial++;
+            //       // }
+            //     }
+            //   });
+            // }
+
+            // void decrement() {
+            //   setState(() {
+            //     _numInicial--;
+            //   });
+            // }
+
+            // ;
 
             return Container(
               // decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
               height: 150,
               // width: 200,
-              color: Colors.grey.shade200,
+              color: Theme.of(context).cardColor,
               padding: EdgeInsets.all(5),
               margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               child: ListTile(
@@ -110,26 +130,25 @@ class _ExercisesListState extends State<ExercisesList> {
                         SizedBox(
                           height: 10,
                         ),
-                        new Text('nº repetições:' + ' ' + exercises.numRepeti),
+                        new Text(
+                            'nº repetições:' + ' ' + '${exercises.numRepeti}'),
                         SizedBox(height: 5),
                         Row(
                           children: [
                             new Text('Séries:' + ' '),
                             IconButton(
                                 onPressed: () {
-                                  for (int i = 0;
-                                      i <= int.parse(exercises.numSeries);
-                                      i++) {
-                                    if (i <= int.parse(exercises.numSeries)) {
-
-                                    }
-                                  }
+                                  // decrement();
                                 },
                                 icon: FaIcon(FontAwesomeIcons.minus)),
-                            new Text(' 0 '),
+                            new Text('$_numInicial'),
                             new Text('/'),
-                            new Text(exercises.numSeries),
-                            IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.plus))
+                            new Text('${exercises.numSeries}'),
+                            IconButton(
+                                onPressed: () {
+                                  // increment();
+                                },
+                                icon: FaIcon(FontAwesomeIcons.plus))
                           ],
                         ),
                       ],
@@ -172,20 +191,11 @@ class _ExercisesListState extends State<ExercisesList> {
       floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.plus),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CadastroExercicio(
-                      // id: treino.id,
-                    )));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CadastroExercicio(id: widget.id,)));
           }),
     );
   }
-
-  // void Increment(){
-
-  //   for(i = 4; )
-  // }
 
   AppBar appaBarHome(Text texto) {
     return AppBar(

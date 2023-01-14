@@ -5,6 +5,7 @@ import 'package:teste/view/recursos/barraSuperior.dart';
 import 'package:teste/view/recursos/login/cadatroUsuario.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
+import 'package:teste/view/recursos/thema/theme.dart';
 
 final tema = ValueNotifier(ThemeMode.light);
 
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.white, Color.fromRGBO(186, 188, 190, 100)])),
+                  colors: [ Theme.of(context).backgroundColor,Theme.of(context).canvasColor])),
           child: SingleChildScrollView(
             child: Stack(
               children: [
@@ -158,36 +159,7 @@ class _HomePageState extends State<HomePage> {
 
                       // })
 
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                              margin: EdgeInsets.all(5),
-                              padding: EdgeInsets.all(5),
-                              color: lightColorScheme.primary,
-                              child: Row(
-                                children: [
-                                  new Text(
-                                    'Cadastrar perfil',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CadastroPerfil()));
-                                      },
-                                      icon:
-                                          FaIcon(FontAwesomeIcons.arrowRight)),
-                                ],
-                              )),
-                        ],
-                      )
+                    
                       // Bottom profile
                     ]),
               ],
@@ -225,6 +197,7 @@ class _HomePageState extends State<HomePage> {
         title: texto,
         actions: [
           Switch(
+              activeColor: Theme.of(context).backgroundColor,
               value: tema.value == ThemeMode.dark,
               onChanged: (isDark) {
                 setState(() {

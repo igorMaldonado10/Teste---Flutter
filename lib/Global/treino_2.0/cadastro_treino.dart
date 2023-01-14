@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercicios_service.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
 // import 'package:teste/Global/treino_2.0/edit_treino.dart';
 import 'package:teste/Global/treino_2.0/treino_list2.dart';
@@ -30,6 +31,7 @@ class _CadastroTreinoState extends State<CadastroTreino> {
       appBar: appaBarHome(Text('Cadastro Treino')),
       drawer: MenuDrawer(),
       body: SingleChildScrollView(
+        
         // Container do Form
         child: Container(
           alignment: Alignment.center,
@@ -37,7 +39,8 @@ class _CadastroTreinoState extends State<CadastroTreino> {
           margin: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.grey.shade200),
+              color: Theme.of(context).cardColor),
+              
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -100,6 +103,8 @@ class _CadastroTreinoState extends State<CadastroTreino> {
       ),
     );
   }
+
+  
 
   //  Retorna a estrutura do campo input
   Container addTexForm(String nomoDoCampo, TextEditingController controller) {

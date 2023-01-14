@@ -8,8 +8,10 @@ class Treino_dois {
   late String tipoDeTreino;
   late String dataDoTreino;
   late String objetivo;
+
   late List<Exercises> listExercises;
 
+  
   // Construtor
   Treino_dois(
       {required this.id,
@@ -17,6 +19,7 @@ class Treino_dois {
       required this.tipoDeTreino,
       required this.dataDoTreino,
       required this.objetivo,
+      
       // required this.listExercises
       });
 }

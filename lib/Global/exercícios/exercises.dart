@@ -4,8 +4,8 @@ class Exercises {
   late String grupoMusc;
   late String tipo;
   late String obs;
-  late String numSeries;
-  late String numRepeti;
+  late int numSeries;
+  late int numRepeti;
   late String restTime;
 
   Exercises(

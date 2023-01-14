@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
-
+ 
 ThemeData temaLight() {
-  final ThemeData temaLight = ThemeData();
+ 
+  final ThemeData temaLight = ThemeData.light();
   return temaLight.copyWith(useMaterial3: true,
-   colorScheme: lightColorScheme
+   colorScheme: lightColorScheme,
+   brightness: Brightness.light,
 
       // temaLight.colorScheme.copyWith(
 
@@ -21,11 +23,14 @@ ThemeData temaLight() {
       );
 }
 
+
+
 ThemeData temaDark() {
-  final ThemeData temaDark = ThemeData();
+  final ThemeData temaDark = ThemeData.dark();
   return temaDark.copyWith(
     useMaterial3: true,
-    colorScheme: darkColorScheme
+    colorScheme: darkColorScheme,
+    brightness: Brightness.dark,
   );
 }
 

@@ -33,7 +33,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
           margin: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.grey.shade200),
+              color: Theme.of(context).cardColor),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -52,6 +52,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
               addTexForm('Data de nascimento', dataNasc),
               addTexForm('Peso atual', pesoAtual),
               addTexForm('URL do icon', icon),
+              addTexForm('Bio', textBio),
 
               // SizedBox(height: 15),
 
@@ -121,10 +122,10 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
     PerfilService perfilService = new PerfilService();
 
     // Guardar o último ID cadastrado
-    int ultimoID = perfilService.listaUser().length;
+    int id = perfilService.listaUser().length;
 
     User user = User(
-      id: ultimoID + 1,
+      id: id,
       name: name.text,
       dataNasc: dataNasc.text,
       pesoAtual: pesoAtual.text,
@@ -148,8 +149,8 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
 
     // Redireciona para a tela de busca
     Future.delayed(Duration(milliseconds: 2500), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PerfilPage()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: ((context) => PerfilPage())));
     });
   }
 
@@ -174,6 +175,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
               onPressed: () => Scaffold.of(context).openDrawer());
         }));
   }
+
   // Limpar campos
   void limpar() {
     name.text = '';

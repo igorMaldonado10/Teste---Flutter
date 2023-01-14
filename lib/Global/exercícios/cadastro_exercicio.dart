@@ -3,18 +3,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_service.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
+import 'package:teste/Global/exerc%C3%ADcios/list_of_chips.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
 class CadastroExercicio extends StatefulWidget {
+  // final List<String> items;
   // const CadastroTreino({Key? key}) : super(key: key);
-
+  // final List list;
   //  Guardar o ID do contato selecionado
-  // final int id;
+  final int id;
 
-  // CadastroExercicio({required this.id});
+  CadastroExercicio({required this.id});
 
   @override
   State<CadastroExercicio> createState() => _CadastroExercicioState();
@@ -30,13 +32,13 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
   final restTime = TextEditingController();
 
   // // Objeto de classe que contém a Busca dos contatos
-  // final TreinoService treinoService = new TreinoService();
+  final TreinoService treinoService = new TreinoService();
 
   @override
   Widget build(BuildContext context) {
     // Objeto da classe Treino
 
-    // Exercises exercises = treinoService.listarTreinos().elementAt(widget.id - 1);
+    Exercises exercises = treinoService.listarTreinos().elementAt(widget.id - 1);
     // Exercises exercises = treinoService.listarExercicios().elementAt(widget.id - 1);
 
     return Scaffold(
@@ -50,7 +52,7 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
           margin: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.grey.shade200),
+              color: Theme.of(context).cardColor),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -65,8 +67,18 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
               ),
 
               // Campos do formulários
-              addTexForm('Nome', name),
-              addTexForm('Grupo muscular', grupoMus),
+              addTexForm('Nome do exercício', name),
+              // addTexForm('Grupo muscular', grupoMus),
+              Row(
+                children: [
+                  ListOfChips(
+                    onSelectedChange: (String value) {
+                      grupoMus.text = value;
+                    },
+                    items: ['Toráx', 'Abdômen'],
+                  )
+                ],
+              ),
               addTexForm('Tipo', tipo),
               addTexForm('observação', obs),
               addTexForm('Número de séries', numSer),
@@ -145,22 +157,24 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
     // TreinoService treinoService = TreinoService();
     ExercicioService exercicioService = ExercicioService();
 
+    // Treino_dois treino_dois =
+      
     // Guardar o último ID cadastrado
     // int ultimoID = treinoService.listarExercicios().length;
-    int ultimoID = exercicioService.listarExercicios().length;
-    Exercises exercises = Exercises(
+    int ultimoID = treinoService.listarTreinos().length;
+    Exercises umExer = Exercises(
         id: ultimoID + 1,
         name: name.text,
         grupoMusc: grupoMus.text,
         tipo: tipo.text,
         obs: obs.text,
-        numSeries: numSer.text,
-        numRepeti: numReps.text,
+        numSeries: int.parse(numSer.text),
+        numRepeti: int.parse(numReps.text),
         restTime: restTime.text);
 
 // Envia o objeto preenchido para adicionar na lista
     // String mensagem = treinoService.cadastrarExercicio(exercises);
-    String mensagem = exercicioService.cadastrarExercicio(exercises);
+    String mensagem = exercicioService.cadastrarExercicio(umExer, widget.id);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Row(

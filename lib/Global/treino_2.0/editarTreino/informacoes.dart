@@ -40,7 +40,7 @@ class _EditTreinoState extends State<EditTreino> {
 
     return Scaffold(
       // Barra de título
-      appBar: appaBarHome(Text('Informações')),
+      appBar: appaBarHome(Text('Informações:')),
       // Menu (Hambúrguer)
       drawer: MenuDrawer(),
 
@@ -67,7 +67,10 @@ class _EditTreinoState extends State<EditTreino> {
 
             // Objetivo e Data
             Container(
-              color: Colors.grey.shade200,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).cardColor),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -96,7 +99,10 @@ class _EditTreinoState extends State<EditTreino> {
 
             // Data do treino
             Container(
-              color: Colors.grey.shade200,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).cardColor),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -131,17 +137,20 @@ class _EditTreinoState extends State<EditTreino> {
                       color: lightColorScheme.error,
                       size: 50,
                     )),
-                SizedBox(
-                  width: 10,
-                  height: 10,
-                ),
-
-                Text(
-                  'Deletar treino',
-                  style: TextStyle(
-                      color: lightColorScheme.error,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                // SizedBox(
+                //   width: 10,
+                //   height: 10,
+                // ),
+                
+                Container(
+                  padding: EdgeInsets.only(top: 20, left: 10),
+                  child: Text(
+                    'Deletar treino',
+                    style: TextStyle(
+                        color: lightColorScheme.error,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
                 )
               ],
             )

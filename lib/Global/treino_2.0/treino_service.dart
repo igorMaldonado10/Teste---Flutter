@@ -7,25 +7,25 @@ class TreinoService {
 
 // Lista que será preenchida
   // static = ela não se criará mais de uma vez, ou seja, não se modifica
-  // static List<Exercises> exercicios = [];
+  static List<Exercises> exercicios = [];
 
-  // void atualizarExercicio(int id) {
-  //   exercicios;
-  // }
+  void atualizarExercicio(int id) {
+    exercicios;
+  }
 
-  // String removerExercicio(int id) {
-  //   exercicios.removeWhere((element) => element.id == id);
+  String removerExercicio(int id) {
+    exercicios.removeWhere((element) => element.id == id);
 
-  //   return "Treino excluido";
-  // }
+    return "Treino excluido";
+  }
 
-  // // Método para cadastrar os treinos na treino_list2
-  // String cadastrarExercicio(Exercises exercises) {
+  // Método para cadastrar os treinos na treino_list2
+  String cadastrarExercicio(Exercises exercises) {
     
-  //   exercicios.add(exercises);
+    exercicios.add(exercises);
 
-  //   return "Novo exercício cadastrado: ${exercises.name}";
-  // }
+    return "Novo exercício cadastrado: ${exercises.name}";
+  }
 
   // // Método para buscar todos os treinos registrados
   // List listarExercicios() {

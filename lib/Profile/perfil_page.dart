@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:teste/Profile/atualiza%C3%A7%C3%A3o_perfil.dart';
+import 'package:teste/Profile/cadastro_perfil.dart';
 import 'package:teste/Profile/editar_perfil.dart';
 import 'package:teste/Profile/perfil_model.dart';
 import 'package:teste/Profile/perfil_service.dart';
@@ -15,7 +17,7 @@ class PerfilPage extends StatefulWidget {
   // const EditTreino({Key? key}) : super(key: key);
 
   // Guardar o ID do contato selecionado
-  // final int id;
+  int id = 1;
 
   // // // // Construtor com o atributo obrigatório (id)
   // PerfilPage({required this.id});
@@ -34,6 +36,8 @@ class _PerfilPageState extends State<PerfilPage> {
 
     // Objeto da classe Treino
     // User user = perfilService.listaUser().elementAt();
+    PerfilService perfilService = PerfilService();
+    //  PerfilService perfil = perfilService.listaUser().elementAt(widget.id - 1);
 
     return Scaffold(
       // Barra de título
@@ -42,204 +46,249 @@ class _PerfilPageState extends State<PerfilPage> {
       drawer: MenuDrawer(),
 
       // Corpo
-      body: ListView.builder(
-        itemCount: perfilService.listaUser().length,
-        itemBuilder: (BuildContext context, int index) {
-          
-          User user = perfilService.listaUser().elementAt(index);
-
-          final avatar = user.icon == null || user.icon.isEmpty
-              ? CircleAvatar(
-                  radius: 75,
-                  backgroundColor: Color(0xFF9B4501),
-                  child: FaIcon(
-                    FontAwesomeIcons.dumbbell,
-                    color: Colors.white,
-                    size: 65,
-                  ))
-              : CircleAvatar(
-                  backgroundImage: NetworkImage(user.icon),
-                );
-
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 25),
-            child: ListTile(
-              title: Column(
-              children: [
-                SizedBox(
-                  height: 15,
-                ),
-                //  Nome do usuario
-                Column(
-                  children: [
-                    Container(
-                      // padding: EdgeInsets.all(10),
-                      height: 150,
-                      width: 150,
-                      child: CircleAvatar(
-                        child: avatar,
-                        minRadius: 50,
-                        maxRadius: 75,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    new Row(
+      body: (perfilService.listaUser().length == null ||
+              perfilService.listaUser().isEmpty)
+          ? SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          user.name,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30),
-                        )
+                        FaIcon(
+                          FontAwesomeIcons.faceSadTear,
+                          size: 200,
+                          color: Theme.of(context).shadowColor,
+                        ),
+                        Padding(padding: EdgeInsets.only(bottom: 20)),
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CadastroPerfil()));
+                            },
+                            child: Text('Cadastrar Perfil',
+                             style: TextStyle(
+                              color: Theme.of(context).shadowColor
+                             ),
+                            ))
                       ],
                     ),
-                  ],
-                ),
-
-                SizedBox(height: 15),
-
-                // Objetivo e Data
-                Container(
-                  color: Colors.grey.shade200,
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //'Objetivo'
-                      new Text(
-                        'Data de nascimento:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            // color: Colors.grey.
-                            fontSize: 20),
-                      ),
-
-                      // Objetivo
-                      new Text(
-                        user.dataNasc,
-                        style: TextStyle(
-                            // color: Colors.grey.
-                            fontSize: 23),
-                      ),
-                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-
-                // Data do treino
-                Container(
-                  color: Colors.grey.shade200,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      new Text(
-                        'Peso atual:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      new Text(
-                        "${user.pesoAtual}kg",
-                        style: TextStyle(fontSize: 23),
-                      )
-                    ],
-                  ),
-                  
-                ),
-
-                SizedBox(height: 10),
-
-                Container(
-                  color: Colors.grey.shade200,
-                  child: Row(
-                    children: [
-                      Text('Bio:',  
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                      ),
-                     ),
-                     
-                     SizedBox(width: 5),
-
-                     Text(user.textBio,
-                     style: TextStyle(
-                      fontSize: 18
-                     ),)
-                    ],
-                  ),
-                ),
-
-                new Container(
-                  padding: EdgeInsets.only(top: 25, bottom: 25),
-                  child: Divider(height: 5),
-                ),
-
-                // Ações
-                // new Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     // delete
-                //     IconButton(
-                //         onPressed: () {
-                //           // removerTreino();
-                //         },
-                //         icon: Icon(
-                //           Icons.delete,
-                //           color: lightColorScheme.error,
-                //           size: 50,
-                //         )),
-                //     SizedBox(
-                //       width: 10,
-                //       height: 10,
-                //     ),
-
-                //     Text(
-                //       'Deletar treino',
-                //       style: TextStyle(
-                //           color: lightColorScheme.error,
-                //           fontSize: 20,
-                //           fontWeight: FontWeight.bold),
-                //     )
-                //   ],
-                // )
-              ],
-            ),
+                ],
+              ),
             )
-          );
-        },
-      ),
+          : Container(
+              child: ListView.builder(
+                itemCount: perfilService.listaUser().length,
+                itemBuilder: (BuildContext context, int index) {
+                  User user = perfilService.listaUser().elementAt(index);
 
-      // Botão flutuante
-      floatingActionButton: FloatingActionButton(
-          child: FaIcon(FontAwesomeIcons.pen),
-          onPressed: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => PerfilForm(
-                          
-            //             )));
-          }),
+                   Object avatar = user.icon == null || user.icon.isEmpty
+                      ? NetworkImage('https://cdn.pixabay.com/photo/2022/10/23/10/09/dumbbell-7540929__340.png')
+                      : NetworkImage(user.icon);
+
+                  return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: ListTile(
+                        title: Column(
+                          children: [
+                            SizedBox(
+                              height: 15,
+                            ),
+                            //  Nome do usuario
+                            Column(
+                              children: [
+                                Stack(children: [
+                                  Container(
+                                    width: 130,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 4,
+                                            color:
+                                                Theme.of(context).canvasColor),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              spreadRadius: 2,
+                                              blurRadius: 10,
+                                              color:
+                                                  Colors.black.withOpacity(0.1))
+                                        ],
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover, image: 
+                                            (user.icon == null || user.icon.isEmpty)?
+                                             NetworkImage('https://media.istockphoto.com/id/1215191367/pt/vetorial/muscular-man-line-and-solid-icon-bodybuilder-fitness-model-with-muscles-symbol-outline.jpg?s=612x612&w=0&k=20&c=uQKRwzB-ciFDLeuGPT2X_Qhv6cS_j-lMkNJPigTshQ4=',
+                                             ):
+                                             NetworkImage(user.icon)
+                                            )),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(shape: BoxShape.circle,
+                                      border: Border.all(
+                                        width: 4,
+                                        color: Theme.of(context).canvasColor
+                                      ),
+                                      color: Theme.of(context).backgroundColor
+                                      ),
+                                      child: IconButton(
+                                        // alignment: Alignment.topCenter,
+                                        padding: EdgeInsets.only(bottom: 4, left: 3, top: 2),
+                                        icon: Icon(Icons.edit,
+                                        color: Colors.white,),
+                                        onPressed: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AtualizarPerfil()));
+                                        },
+                                      ),
+                                    )
+                                    )
+                                ]),
+                                SizedBox(height: 10),
+                                new Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      user.name,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+
+                            SizedBox(height: 15),
+
+                            // Objetivo e Data
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Theme.of(context).cardColor),
+                              child: new Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //'Objetivo'
+                                  new Text(
+                                    'Nascimento',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        // color: Colors.grey.
+                                        fontSize: 20),
+                                  ),
+                                  SizedBox(width: 5),
+                                  // Objetivo
+                                  new Text(
+                                    user.dataNasc,
+                                    style: TextStyle(
+                                        // color: Colors.grey.
+                                        fontSize: 23),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+
+                            // Data do treino
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Theme.of(context).cardColor),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  new Text(
+                                    'Peso atual:',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  new Text(
+                                    "${user.pesoAtual}kg",
+                                    style: TextStyle(fontSize: 23),
+                                  )
+                                ],
+                              ),
+                            ),
+
+                            SizedBox(height: 10),
+
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Theme.of(context).cardColor),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Bio:',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    user.textBio,
+                                    style: TextStyle(fontSize: 18),
+                                  )
+                                ],
+                              ),
+                            ),
+
+                            new Container(
+                              padding: EdgeInsets.only(top: 25, bottom: 25),
+                              child: Divider(height: 5),
+                            ),
+
+                          //  OUTRAS AÇÕES
+                          ],
+                        ),
+                      ));
+                },
+              ),
+            ),
+            bottomNavigationBar: barraInferior(),
     );
   }
 
-  // void removerTreino() {
-  //   String mensagem = treinoService.removerTreino(widget.id);
+  BottomNavigationBar barraInferior(){
+    return BottomNavigationBar(items: [
+      BottomNavigationBarItem(
+                label: 'Home',
+                icon: new IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => HomePage())));
+                    },
+                    icon: new FaIcon(FontAwesomeIcons.houseChimney))),
 
-  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       content: Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: [
-  //       Text(mensagem),
-  //     ],
-  //   )));
-
-  //   Future.delayed(Duration(milliseconds: 2500), () {
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: ((context) => TreinoList2())));
-  //   });
-  // }
+            BottomNavigationBarItem(
+                label: 'Perfil',
+                icon: new IconButton(
+                    onPressed: () {},
+                    icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
+    ]
+    );
+  }
 
   AppBar appaBarHome(Text texto) {
     return AppBar(
@@ -247,15 +296,6 @@ class _PerfilPageState extends State<PerfilPage> {
 
         centerTitle: true,
         title: texto,
-        //  actions: [
-        //   Switch(
-        //       value: tema.value == ThemeMode.dark,
-        //       onChanged: (isDark) {
-        //         setState(() {
-        //                 tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
-        //         });
-        //       })
-        // ],
         leading: Builder(builder: (BuildContext context) {
           return IconButton(
               icon: FaIcon(FontAwesomeIcons.bars),

@@ -1,4 +1,6 @@
 import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
+import 'package:teste/Global/treino_2.0/treino_model2.dart';
+import 'package:teste/Global/treino_2.0/treino_service.dart';
 
 class ExercicioService {
   // ATRIBUTOS DA CLASSE
@@ -18,9 +20,12 @@ class ExercicioService {
   }
 
   // Método para cadastrar os treinos na treino_list2
-  String cadastrarExercicio(Exercises exercises) {
-    
-    exercicios.add(exercises);
+  String cadastrarExercicio(Exercises exercises, int id) {
+    TreinoService treinoService = TreinoService();
+    Treino_dois treino = treinoService.listarTreinos().elementAt(id);
+
+    treino.listExercises.add(exercises);
+    // exercicios.add(exercises);
 
     return "Novo exercício cadastrado: ${exercises.name}";
   }
@@ -29,21 +34,20 @@ class ExercicioService {
   List listarExercicios() {
     // Simulando o bando de dados
 
-  // exercicios = [
-  // Exercises(
-  //       id: 1,
-  //       name: 'Cadeira flexora',
-  //       grupoMusc: 'Posterior de coxa',
-  //       // Maquina, livre com halteres, peso do corpo
-  //       tipo: 'Máquina',
-  //       obs: 'Vázia',
-  //       numSeries: 4.toString(),
-  //       numRepeti: '20',
-  //       restTime: '2 min'
-  //       )
+    // exercicios = [
+    // Exercises(
+    //       id: 1,
+    //       name: 'Cadeira flexora',
+    //       grupoMusc: 'Posterior de coxa',
+    //       // Maquina, livre com halteres, peso do corpo
+    //       tipo: 'Máquina',
+    //       obs: 'Vázia',
+    //       numSeries: 4.toString(),
+    //       numRepeti: '20',
+    //       restTime: '2 min'
+    //       )
 
-  // ];
-  
+    // ];
 
     //  Exercises(
     //     id: 2,

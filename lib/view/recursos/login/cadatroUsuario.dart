@@ -6,7 +6,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teste/controllers/shared/preferences_keys.dart';
 import 'package:teste/controllers/shared/sign_up_service.dart';
-import 'package:teste/models/login_model.dart';
+import 'package:teste/view/recursos/login/login_model.dart';
+import 'package:teste/view/recursos/login/login_page.dart';
 
 class CadastroUser extends StatefulWidget {
   const CadastroUser({Key? key}) : super(key: key);
@@ -247,18 +248,28 @@ class _CadastroUserState extends State<CadastroUser> {
     //   print('invalido');
     // }
     // .text no controller me da o texto atual
+
     LoginModel newUser = LoginModel(
-        // name: _nomeInputController.text,
         email: _emailInputController.text,
         senha: _senhaInputController.text,
+        // Varíavel de continuar
         keep0n: true);
 
     print(newUser);
     _saveUser(newUser);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Usuario cadastrado com sucesso'),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 3)));
+
+    Future.delayed(Duration(seconds: 3)).then((value) =>
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginPage())));
   }
 }
 
-// Para gravarmos ela deve ser uma função async pois como é um processo demorado a programação pode continuar acontecendo
+// Para gravarmos ela deve ser uma função async pois como é um processo demorado a programação deve esperar para só após isso, continue a execução do programa
 void _saveUser(LoginModel usuario) async {
   // Resgatar essas preferências
   // getInstance = utilizando uma intância do SharedPreferences
