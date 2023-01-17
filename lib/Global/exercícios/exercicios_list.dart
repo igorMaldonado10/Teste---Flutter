@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/exerc%C3%ADcios/cadastro_exercicio.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercicios_service.dart';
-import 'package:teste/Global/treino_2.0/cadastro_treino.dart';
-import 'package:teste/Global/treino_2.0/editarTreino/informacoes.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
-// import 'package:teste/models/treino_model.dart';
-// import 'package:teste/view/recursos/home/homeScreen.dart';
-// import 'package:teste/view/recursos/thema/color_schemes.g.dart';
-
-import '../../view/recursos/menuDrawer.dart';
+import 'package:teste/view/recursos/menuDrawer.dart';
 
 class ExercisesList extends StatefulWidget {
 // Guardar a ID do treino selecionado
   final int id;
 
-
-// Guardar a list do treino selecionado
-  // final List list;
-
   // Construtor com o atributo obrigatório (id)
-  ExercisesList({ required this.id });
+  ExercisesList({required this.id});
 
   @override
   State<ExercisesList> createState() => _ExercisesListState();
@@ -33,7 +22,7 @@ class _ExercisesListState extends State<ExercisesList> {
   TreinoService treinoService = new TreinoService();
 
 // Objeto que busca o arquivo exercicio que retorna a simulação de banco de dados;
-  final ExercicioService exercicioService = new ExercicioService();
+  // final ExercicioService exercicioService = new ExercicioService();
 
   bool? exerCheck = false;
 
@@ -41,23 +30,32 @@ class _ExercisesListState extends State<ExercisesList> {
   Widget build(BuildContext context) {
     //  // Objeto da classe Treino
     //  Treino_dois treino = treinoService.listarExercicios().elementAt(widget.id - 1);
-    Treino_dois treino =
-    exercicioService.listarExercicios().elementAt(widget.id - 1);
+
+    // Treino_dois treino = exercicioService.listarExercicios().elementAt(widget.id -1);
+    Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
+
     // Exercises exercises = exercicioService.listarExercicios().elementAt(widget.id - 1);
 
     return Scaffold(
-      appBar: appaBarHome(Text('Exercícios')),
+      appBar: appaBarHome(Text('Exercícios' + ' - ' '${treino.tipoDeTreino}')),
       drawer: MenuDrawer(),
       body: ListView.builder(
           padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
-          itemCount: exercicioService.listarExercicios().length,
+          itemCount: 
+          treino.listExercises?.length ?? 0
+          // exercicioService.listarExercicios().length
+          ,
           // recebo o índice e o contexto do elemento que vou retornar;
           itemBuilder: (BuildContext context, int index) {
             // Guarda o retorno da lista no objeto da classe
-            //         // Objeto que busca o arquivo exercicíos que retorna a simulação de banco de dados e faz a listagem por id;
+            // Objeto que busca o arquivo exercicíos que retorna a simulação de banco de dados e faz a listagem por id;
 
-            Exercises exercises =
-                exercicioService.listarExercicios().elementAt(index);
+            Exercises? exercises = treinoService.listarTreinos().elementAt(index);
+            // Treino_dois treino_dois = treino.listExercises?.elementAt(index);
+
+            // Exercises exercises =
+            //     exercicioService.listarExercicios().elementAt(index);
+
             // Treino_dois treino_dois = treinoService.listarExercicios().elementAt(index);
             int _numInicial = 0;
             // void increment() {
@@ -97,7 +95,7 @@ class _ExercisesListState extends State<ExercisesList> {
                         Row(
                           children: [
                             Text(
-                              exercises.name,
+                              exercises!.name,
                               style: TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.bold),
                             ),
@@ -191,8 +189,12 @@ class _ExercisesListState extends State<ExercisesList> {
       floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.plus),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CadastroExercicio(id: widget.id,)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CadastroExercicio(
+                          id: widget.id,
+                        )));
           }),
     );
   }

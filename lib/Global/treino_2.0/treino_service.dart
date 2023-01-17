@@ -4,33 +4,38 @@ import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/models/treino_model.dart';
 
 class TreinoService {
-
 // Lista que será preenchida
   // static = ela não se criará mais de uma vez, ou seja, não se modifica
-  static List<Exercises> exercicios = [];
+  // static List<Exercises> exercicios = [];
 
-  void atualizarExercicio(int id) {
-    exercicios;
-  }
+  // void atualizarExercicio(int id) {
+  //   exercicios;
+  // }
 
-  String removerExercicio(int id) {
-    exercicios.removeWhere((element) => element.id == id);
+  // // Método para remover os exercicios na lista de cada treino especifico
+  // String removerExercicio(int id) {
+  //   exercicios.removeWhere((element) => element.id == id);
 
-    return "Treino excluido";
-  }
+  //   return "Treino excluido";
+  // }
 
-  // Método para cadastrar os treinos na treino_list2
-  String cadastrarExercicio(Exercises exercises) {
+  // Método para cadastrar os exercicios na lista de cada treino especifico
+  String cadastrarExercicio(Exercises exercises, int id) {
     
-    exercicios.add(exercises);
+
+    Treino_dois treino = listarTreinos().elementAt(id);
+    
+    
+    treino.listExercises?.add(exercises);
 
     return "Novo exercício cadastrado: ${exercises.name}";
   }
 
-  // // Método para buscar todos os treinos registrados
+  // // // Método para buscar todos os treinos registrados
   // List listarExercicios() {
   //   // Simulando o bando de dados
 
+    
   //   // Exercises(
   //   //     id: 1,
   //   //     name: 'Cadeira flexora',
@@ -56,11 +61,7 @@ class TreinoService {
   //   //     );
 
   //   return exercicios;
-  // } 
-
-
-
-
+  // }
 
   // ATRIBUTOS DA CLASSE
 

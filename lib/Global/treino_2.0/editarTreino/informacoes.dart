@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
 import 'package:teste/Global/treino_2.0/atualiza%C3%A7ao_treino.dart';
 // import 'package:teste/Global/treino_2.0/edit_treino.dart';
 import 'package:teste/Global/treino_2.0/treino_list2.dart';
@@ -31,6 +32,9 @@ class _EditTreinoState extends State<EditTreino> {
   // Objeto de classe que contém a Busca dos contatos
   final TreinoService treinoService = new TreinoService();
 
+  bool? exerCheck = false;
+
+
   @override
   Widget build(BuildContext context) {
     // Objeto que busca o arquivo treino que retorna a simulação de banco de dados e faz a listagem por id;
@@ -57,9 +61,17 @@ class _EditTreinoState extends State<EditTreino> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  treino.tipoDeTreino,
+                  treino.tipoDeTreino!,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                )
+                ),
+                IconButton(onPressed: (){
+                   Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TreinoForm2(
+                          id: treino.id!,
+                        )));
+                }, icon: Icon(Icons.edit))
               ],
             ),
 
@@ -85,7 +97,7 @@ class _EditTreinoState extends State<EditTreino> {
 
                   // Objetivo
                   new Text(
-                    treino.objetivo,
+                    treino.objetivo!,
                     style: TextStyle(
                         // color: Colors.grey.
                         fontSize: 23),
@@ -111,7 +123,7 @@ class _EditTreinoState extends State<EditTreino> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
                   ),
                   new Text(
-                    treino.dataDoTreino,
+                    treino.dataDoTreino!,
                     style: TextStyle(fontSize: 23),
                   )
                 ],
@@ -153,22 +165,25 @@ class _EditTreinoState extends State<EditTreino> {
                   ),
                 )
               ],
-            )
+            ),
+
           ],
         ),
       ),
 
+      
+
       // Botão flutuante
-      floatingActionButton: FloatingActionButton(
-          child: FaIcon(FontAwesomeIcons.pen),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TreinoForm2(
-                          id: treino.id,
-                        )));
-          }),
+      // floatingActionButton: FloatingActionButton(
+      //     child: FaIcon(FontAwesomeIcons.pen),
+      //     onPressed: () {
+      //       Navigator.push(
+      //           context,
+      //           MaterialPageRoute(
+      //               builder: (context) => TreinoForm2(
+      //                     id: treino.id,
+      //                   )));
+      //     }),
     );
   }
 

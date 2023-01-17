@@ -1,7 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercicios_service.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
 import 'package:teste/Global/exerc%C3%ADcios/list_of_chips.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
@@ -14,7 +14,9 @@ class CadastroExercicio extends StatefulWidget {
   // const CadastroTreino({Key? key}) : super(key: key);
   // final List list;
   //  Guardar o ID do contato selecionado
-  final int id;
+
+
+  late int id;
 
   CadastroExercicio({required this.id});
 
@@ -38,8 +40,9 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
   Widget build(BuildContext context) {
     // Objeto da classe Treino
 
-    Exercises exercises = treinoService.listarTreinos().elementAt(widget.id - 1);
+    // Exercises exercises = treinoService.listarTreinos().elementAt(widget.id - 1);
     // Exercises exercises = treinoService.listarExercicios().elementAt(widget.id - 1);
+    // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
 
     return Scaffold(
       appBar: appaBarHome(Text('Cadastro Exercício')),
@@ -95,7 +98,9 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
                   new Builder(builder: (BuildContext context) {
                     return ElevatedButton(
                         onPressed: () {
-                          cadastrar();
+                          setState(() {
+                            cadastrar();
+                          });
 
                           Future.delayed(Duration(milliseconds: 2500), () {
                             Navigator.pop(context);
@@ -134,7 +139,7 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
     );
   }
 
-  //  Retorna a estrutura do campo input
+  //  Retorna a estrutura do campos de texto
   Container addTexForm(String nomoDoCampo, TextEditingController controller) {
     return new Container(
       margin: EdgeInsets.only(bottom: 10),
@@ -154,16 +159,18 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
 
   // método de Cadastrar
   void cadastrar() {
-    // TreinoService treinoService = TreinoService();
-    ExercicioService exercicioService = ExercicioService();
+    // ExercicioService exercicioService = ExercicioService();
 
-    // Treino_dois treino_dois =
-      
+    
+    Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id);
+
     // Guardar o último ID cadastrado
     // int ultimoID = treinoService.listarExercicios().length;
-    int ultimoID = treinoService.listarTreinos().length;
-    Exercises umExer = Exercises(
-        id: ultimoID + 1,
+    // int ultimoID = treinoService.listarTreinos().length;
+    int ultimoID = treino.listExercises!.length;
+
+    Exercises exercises = Exercises(
+        id: ultimoID,
         name: name.text,
         grupoMusc: grupoMus.text,
         tipo: tipo.text,
@@ -173,8 +180,8 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
         restTime: restTime.text);
 
 // Envia o objeto preenchido para adicionar na lista
-    // String mensagem = treinoService.cadastrarExercicio(exercises);
-    String mensagem = exercicioService.cadastrarExercicio(umExer, widget.id);
+    String mensagem = treinoService.cadastrarExercicio(exercises, widget.id);
+    // String mensagem = exercicioService.cadastrarExercicio(exercises, widget.id);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Row(
@@ -187,11 +194,11 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
       behavior: SnackBarBehavior.floating,
     ));
 
-    // Redireciona para a tela de busca
-    // Future.delayed(Duration(milliseconds: 2500), () {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => ExercisesList(id: id)));
-    // });
+    // Redireciona para a tela de busca de exercícios
+    Future.delayed(Duration(milliseconds: 2500), () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ExercisesList(id: widget.id)));
+    });
   }
 
   // Limpar campos

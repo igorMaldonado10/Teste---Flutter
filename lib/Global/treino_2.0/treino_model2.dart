@@ -3,23 +3,26 @@ import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
 
 class Treino_dois {
   // Atributos
-  late int id;
+  int? id;
   // late String icon;
-  late String tipoDeTreino;
-  late String dataDoTreino;
-  late String objetivo;
+  String? tipoDeTreino;
+  String? dataDoTreino;
+  String? objetivo;
 
-  late List<Exercises> listExercises;
+  // static 
+  
 
   
   // Construtor
   Treino_dois(
-      {required this.id,
+      {this.id,
       // required this.icon,
-      required this.tipoDeTreino,
-      required this.dataDoTreino,
-      required this.objetivo,
+       this.tipoDeTreino,
+       this.dataDoTreino,
+       this.objetivo,
       
       // required this.listExercises
       });
+
+   List<Exercises>? listExercises;
 }
