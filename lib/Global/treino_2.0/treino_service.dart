@@ -20,10 +20,10 @@ class TreinoService {
   // }
 
   // Método para cadastrar os exercicios na lista de cada treino especifico
-  String cadastrarExercicio(Exercises exercises, int id) {
+  String cadastrarExercicio(Exercises exercises, Treino_dois treino ) {
     
 
-    Treino_dois treino = listarTreinos().elementAt(id);
+    // Treino_dois treino = listarTreinos().elementAt(id);
     
     
     treino.listExercises?.add(exercises);
@@ -91,21 +91,52 @@ class TreinoService {
     // Simulando o bando de dados
 
     // treinos = [
-    //   // Treino_dois(
-    //   //     id: 1,
-    //   //     tipoDeTreino: 'Treino A',
-    //   //     dataDoTreino: '31/12/22',
-    //   //     objetivo: 'Hipertrofia'),
-    //   // Treino_dois(
-    //   //     id: 2,
-    //   //     tipoDeTreino: 'Treino B',
-    //   //     dataDoTreino: '31/12/22',
-    //   //     objetivo: 'Perda de peso'),
-    //   // Treino_dois(
-    //   //     id: 3,
-    //   //     tipoDeTreino: 'Treino C',
-    //   //     dataDoTreino: '31/12/22',
-    //   //     objetivo: 'Resistência'),
+    //   Treino_dois(
+    //       id: 1,
+    //       tipoDeTreino: 'Treino A',
+    //       dataDoTreino: '31/12/22',
+    //       objetivo: 'Hipertrofia',
+    //       listExercises: [
+    //         // Exercises(
+    //         //  name: 'Supino Reto',
+    //         //  grupoMusc: 'Peito',
+    //         //  tipo: 'Halteres',
+    //         //  obs: 'Aplitude máxima',
+    //         //  numSeries: 4,
+    //         //  numRepeti: 12, 
+    //         //  restTime: '2 min'),
+              
+    //       ]),
+    //   Treino_dois(
+    //       id: 2,
+    //       tipoDeTreino: 'Treino B',
+    //       dataDoTreino: '31/12/22',
+    //       objetivo: 'Perda de peso',
+    //       listExercises: [
+    //         Exercises(
+    //           name: 'Agachamento', 
+    //           grupoMusc: 'Peito',
+    //           tipo: 'Halteres',
+    //           obs: 'Amplitude ', 
+    //           numSeries: 4, 
+    //           numRepeti: 12, 
+    //           restTime: '2 minutos')
+    //       ] ),
+    //   Treino_dois(
+    //       id: 3,
+    //       tipoDeTreino: 'Treino C',
+    //       dataDoTreino: '31/12/22',
+    //       objetivo: 'Resistência',
+    //       listExercises: [
+    //         // Exercises(
+    //         //   name: 'Elevação Lateral',
+    //         //   grupoMusc: 'Ombro',
+    //         //   tipo: 'Halteres', 
+    //         //   obs: 'Limite da linha do ombro', 
+    //         //   numSeries: 4, 
+    //         //   numRepeti: 12,
+    //         //   restTime: '1 min e 30 segs')
+    //       ]),
     // ];
 
     return treinos;

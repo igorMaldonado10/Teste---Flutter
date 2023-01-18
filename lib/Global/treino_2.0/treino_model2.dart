@@ -8,7 +8,7 @@ class Treino_dois {
   String? tipoDeTreino;
   String? dataDoTreino;
   String? objetivo;
-
+  List<Exercises>? listExercises;
   // static 
   
 
@@ -20,9 +20,10 @@ class Treino_dois {
        this.tipoDeTreino,
        this.dataDoTreino,
        this.objetivo,
+       this.listExercises
       
       // required this.listExercises
       });
 
-   List<Exercises>? listExercises;
+  
 }

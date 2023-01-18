@@ -136,6 +136,7 @@ class _CadastroTreinoState extends State<CadastroTreino> {
         tipoDeTreino: tipoDeTreino.text,
         dataDoTreino: data.text,
         objetivo: objetivo.text,
+        listExercises: []
         );
 
 // Envia o objeto preenchido para adicionar na lista

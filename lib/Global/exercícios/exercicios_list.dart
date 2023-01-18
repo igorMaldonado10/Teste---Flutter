@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/exerc%C3%ADcios/cadastro_exercicio.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercicio_item.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
@@ -8,10 +9,11 @@ import 'package:teste/view/recursos/menuDrawer.dart';
 
 class ExercisesList extends StatefulWidget {
 // Guardar a ID do treino selecionado
-  final int id;
-
+  // final int id;
+  final Treino_dois? treino;
+  // final int? id;
   // Construtor com o atributo obrigatório (id)
-  ExercisesList({required this.id});
+  ExercisesList(this.treino);
 
   @override
   State<ExercisesList> createState() => _ExercisesListState();
@@ -22,8 +24,6 @@ class _ExercisesListState extends State<ExercisesList> {
   TreinoService treinoService = new TreinoService();
 
 // Objeto que busca o arquivo exercicio que retorna a simulação de banco de dados;
-  // final ExercicioService exercicioService = new ExercicioService();
-
   bool? exerCheck = false;
 
   @override
@@ -32,26 +32,25 @@ class _ExercisesListState extends State<ExercisesList> {
     //  Treino_dois treino = treinoService.listarExercicios().elementAt(widget.id - 1);
 
     // Treino_dois treino = exercicioService.listarExercicios().elementAt(widget.id -1);
-    Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
+    // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
 
     // Exercises exercises = exercicioService.listarExercicios().elementAt(widget.id - 1);
 
     return Scaffold(
-      appBar: appaBarHome(Text('Exercícios' + ' - ' '${treino.tipoDeTreino}')),
+      appBar: appaBarHome(Text('Exercícios' + ' - ' '${widget.treino!.tipoDeTreino}')),
       drawer: MenuDrawer(),
       body: ListView.builder(
           padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
-          itemCount: 
-          treino.listExercises?.length ?? 0
-          // exercicioService.listarExercicios().length
+          itemCount: widget.treino?.listExercises?.length ?? 0 // exercicioService.listarExercicios().length
           ,
           // recebo o índice e o contexto do elemento que vou retornar;
           itemBuilder: (BuildContext context, int index) {
             // Guarda o retorno da lista no objeto da classe
             // Objeto que busca o arquivo exercicíos que retorna a simulação de banco de dados e faz a listagem por id;
 
-            Exercises? exercises = treinoService.listarTreinos().elementAt(index);
-            // Treino_dois treino_dois = treino.listExercises?.elementAt(index);
+            // Exercises? exercises =
+            //     treinoService.listarTreinos().elementAt(index);
+            // Exercises exercises = treino!.listExercises!.elementAt(index);
 
             // Exercises exercises =
             //     exercicioService.listarExercicios().elementAt(index);
@@ -76,115 +75,7 @@ class _ExercisesListState extends State<ExercisesList> {
 
             // ;
 
-            return Container(
-              // decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
-              height: 150,
-              // width: 200,
-              color: Theme.of(context).cardColor,
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              child: ListTile(
-                // leading:
-
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              exercises!.name,
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.bold),
-                            ),
-                            Checkbox(
-                                activeColor: Color.fromRGBO(211, 111, 47, 100),
-                                value: this.exerCheck,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    this.exerCheck = newValue;
-                                  });
-                                }),
-
-                            // IconButton(
-                            //     // iconSize: ,
-                            //     onPressed: () {
-                            //       Navigator.push(
-                            //           context,
-                            //           MaterialPageRoute(
-                            //               builder: (context) =>
-                            //                   new EditExercises(
-                            //                     id: exercises.id,
-                            //                   )));
-                            //     },
-                            //     icon: Icon(
-                            //       Icons.more_vert_rounded,
-                            //       // color: darkColorScheme.secondary,
-                            //     )),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        new Text(
-                            'nº repetições:' + ' ' + '${exercises.numRepeti}'),
-                        SizedBox(height: 5),
-                        Row(
-                          children: [
-                            new Text('Séries:' + ' '),
-                            IconButton(
-                                onPressed: () {
-                                  // decrement();
-                                },
-                                icon: FaIcon(FontAwesomeIcons.minus)),
-                            new Text('$_numInicial'),
-                            new Text('/'),
-                            new Text('${exercises.numSeries}'),
-                            IconButton(
-                                onPressed: () {
-                                  // increment();
-                                },
-                                icon: FaIcon(FontAwesomeIcons.plus))
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-                trailing: Container(
-                  alignment: Alignment.center,
-                  height: 100,
-                  width: 70,
-                  child: Row(
-                    children: [
-                      // IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined)),
-                      // IconButton(
-                      //     iconSize: 25,
-                      //     onPressed: () {},
-                      //     icon: Icon(
-                      //       Icons.delete,
-                      //       color: lightColorScheme.error,
-                      //     )),
-
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            iconSize: 40,
-                            onPressed: () {},
-                            icon: FaIcon(FontAwesomeIcons.chevronRight),
-                            // icon: Icon(Icons.more_vert_rounded)
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            );
+            return ListExerciseItem(widget.treino!.listExercises![index]);
           }),
       floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.plus),
@@ -193,7 +84,7 @@ class _ExercisesListState extends State<ExercisesList> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => CadastroExercicio(
-                          id: widget.id,
+                          treino: widget.treino,
                         )));
           }),
     );

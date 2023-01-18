@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
@@ -15,10 +14,10 @@ class CadastroExercicio extends StatefulWidget {
   // final List list;
   //  Guardar o ID do contato selecionado
 
+  // final int? id;
+  final Treino_dois? treino;
 
-  late int id;
-
-  CadastroExercicio({required this.id});
+  CadastroExercicio({ this.treino});
 
   @override
   State<CadastroExercicio> createState() => _CadastroExercicioState();
@@ -98,13 +97,13 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
                   new Builder(builder: (BuildContext context) {
                     return ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            cadastrar();
-                          });
-
+                         setState(() {
+                              cadastrar();
+                          
                           Future.delayed(Duration(milliseconds: 2500), () {
                             Navigator.pop(context);
                           });
+                         });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -161,16 +160,16 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
   void cadastrar() {
     // ExercicioService exercicioService = ExercicioService();
 
-    
-    Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id);
+    // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id!);
 
     // Guardar o último ID cadastrado
     // int ultimoID = treinoService.listarExercicios().length;
-    // int ultimoID = treinoService.listarTreinos().length;
-    int ultimoID = treino.listExercises!.length;
+    int ultimoID = widget.treino!.listExercises!.length;
+    // int ultimoID = treino.listExercises!.length;
+    
 
     Exercises exercises = Exercises(
-        id: ultimoID,
+        id: ultimoID + 1,
         name: name.text,
         grupoMusc: grupoMus.text,
         tipo: tipo.text,
@@ -180,7 +179,7 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
         restTime: restTime.text);
 
 // Envia o objeto preenchido para adicionar na lista
-    String mensagem = treinoService.cadastrarExercicio(exercises, widget.id);
+    String mensagem = treinoService.cadastrarExercicio(exercises, widget.treino!);
     // String mensagem = exercicioService.cadastrarExercicio(exercises, widget.id);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -195,10 +194,10 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
     ));
 
     // Redireciona para a tela de busca de exercícios
-    Future.delayed(Duration(milliseconds: 2500), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ExercisesList(id: widget.id)));
-    });
+    // Future.delayed(Duration(milliseconds: 2500), () {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (context) => ExercisesList(widget.treino)));
+    // });
   }
 
   // Limpar campos

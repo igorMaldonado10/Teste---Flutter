@@ -1,21 +1,21 @@
 class Exercises {
-  late int id;
-  late String name;
-  late String grupoMusc;
-  late String tipo;
-  late String obs;
-  late int numSeries;
-  late int numRepeti;
-  late String restTime;
+  int? id;
+  String? name;
+  String? grupoMusc;
+  String? tipo;
+  String? obs;
+  int? numSeries;
+  int? numRepeti;
+  String? restTime;
 
   Exercises(
       {
-      required this.id,
-      required this.name,
-      required this.grupoMusc,
-      required this.tipo,
-      required this.obs,
-      required this.numSeries,
-      required this.numRepeti,
-      required this.restTime});
+      this.id,
+      this.name,
+      this.grupoMusc,
+      this.tipo,
+      this.obs,
+      this.numSeries,
+      this.numRepeti,
+      this.restTime});
 }
