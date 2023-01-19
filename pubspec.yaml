@@ -44,6 +44,7 @@ dependencies:
   http: ^0.13.3 
   shared_preferences: ^2.0.15
   firebase_auth: ^4.2.4
+  image_picker: ^0.8.6
   
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,7 @@ flutter:
   assets:
     - assets/imgs/logo_app.png 
     - assets/imgs/image_pag_in.png
+    - assets\imgs\profileGenericPhoto.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

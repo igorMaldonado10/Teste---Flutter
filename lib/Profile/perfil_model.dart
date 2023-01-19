@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class User {
   late int id;
   late String name;
   late String dataNasc;
   late String pesoAtual;
-  late String icon;
+  late PickedFile icon;
   late String textBio;
 
   User(

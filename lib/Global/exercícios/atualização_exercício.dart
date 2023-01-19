@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:teste/Profile/perfil_model.dart';
-import 'package:teste/Profile/perfil_page.dart';
-import 'package:teste/Profile/perfil_service.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
+import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
 
-class PerfilForm extends StatefulWidget {
-  final int id;
-
+class ExerciseForm extends StatefulWidget {
+  // final int? id;
+  final Treino_dois? treino;
+  final Exercises? exercises;
   // Construtor com o atributo obrigatório (id)
-  PerfilForm({required this.id});
+  ExerciseForm({this.treino, this.exercises});
 
   @override
-  State<PerfilForm> createState() => _PerfilFormState();
+  State<ExerciseForm> createState() => _ExerciseFormState();
 }
 
-class _PerfilFormState extends State<PerfilForm> {
+class _ExerciseFormState extends State<ExerciseForm> {
   // const TreinoForm2({Key? key}) : super(key: key);
-  TextEditingController nomeController = TextEditingController();
-  TextEditingController pesoAtualController = TextEditingController();
-  TextEditingController dataNascController = TextEditingController();
-  TextEditingController iconController = TextEditingController();
+  TextEditingController nameExercisesController = TextEditingController();
 
-  XFile? foto;
+  TextEditingController obsController = TextEditingController();
 
+  TextEditingController grupoMuscController = TextEditingController();
 
   // // Objeto de classe que contém a Busca dos contatos
-  final PerfilService perfilService = new PerfilService();
+  // final TreinoService treinoService = new TreinoService();
 
   @override
   Widget build(BuildContext context) {
     // Objeto da classe Treino
-    User user = perfilService.listaUser().elementAt(widget.id - 1);
+    // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
 
     return Scaffold(
-      appBar: appaBarHome(Text('Perfil')),
+      appBar: appaBarHome(Text('Editar' + ' - ' '${widget.exercises!.name!}')),
       body: Padding(
         padding: EdgeInsets.all(
           15,
@@ -68,20 +66,22 @@ class _PerfilFormState extends State<PerfilForm> {
               child: Column(
                 children: [
                   TextFormField(
-                    decoration:
-                        InputDecoration(labelText: 'nome', hintText: user.name),
-                    controller: nomeController,
+                    decoration: InputDecoration(
+                        labelText: 'Nome do treino',
+                        hintText: widget.exercises?.name!),
+                    controller: nameExercisesController,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        labelText: 'Data de nascimento',
-                        hintText: user.dataNasc),
-                    controller: dataNascController,
+                        labelText: 'Grupo muscular',
+                        hintText: widget.exercises!.grupoMusc!),
+                    controller: grupoMuscController,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        labelText: 'Peso', hintText: user.pesoAtual),
-                    controller: pesoAtualController,
+                        labelText: 'Validade do treino',
+                        hintText: widget.exercises!.obs!),
+                    controller: obsController,
                   ),
                 ],
               ),
@@ -97,14 +97,15 @@ class _PerfilFormState extends State<PerfilForm> {
                   ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          user.name = nomeController.text;
-                          user.dataNasc = dataNascController.text;
-                          user.pesoAtual = pesoAtualController.text;
+                          widget.exercises?.name = nameExercisesController.text;
+                          widget.exercises?.grupoMusc =
+                              grupoMuscController.text;
+                          widget.exercises?.obs = obsController.text;
 
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PerfilPage()));
+                                  builder: (context) => ExercisesList(widget.treino)));
                         });
                       },
                       child: new Text('Confirmar')),

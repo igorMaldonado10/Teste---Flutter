@@ -96,15 +96,6 @@ class _ExercisesListState extends State<ExercisesList> {
 
         centerTitle: true,
         title: texto,
-        //  actions: [
-        //   Switch(
-        //       value: tema.value == ThemeMode.dark,
-        //       onChanged: (isDark) {
-        //         setState(() {
-        //                 tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
-        //         });
-        //       })
-        // ],
         leading: Builder(builder: (BuildContext context) {
           return IconButton(
               icon: FaIcon(FontAwesomeIcons.bars),

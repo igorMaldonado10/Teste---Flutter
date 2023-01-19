@@ -12,20 +12,20 @@ class TreinoService {
   //   exercicios;
   // }
 
-  // // Método para remover os exercicios na lista de cada treino especifico
-  // String removerExercicio(int id) {
-  //   exercicios.removeWhere((element) => element.id == id);
+  // Método para remover os exercicios na lista de cada treino especifico
+  String removerExercicio(int id, Treino_dois treino) {
 
-  //   return "Treino excluido";
-  // }
+    treino.listExercises?.removeWhere((element) => element.id == id);
+    // exercicios.removeWhere((element) => element.id == id);
+    
+
+    return "Exercício excluido";
+  }
 
   // Método para cadastrar os exercicios na lista de cada treino especifico
-  String cadastrarExercicio(Exercises exercises, Treino_dois treino ) {
-    
-
+  String cadastrarExercicio(Exercises exercises, Treino_dois treino) {
     // Treino_dois treino = listarTreinos().elementAt(id);
-    
-    
+
     treino.listExercises?.add(exercises);
 
     return "Novo exercício cadastrado: ${exercises.name}";
@@ -35,7 +35,6 @@ class TreinoService {
   // List listarExercicios() {
   //   // Simulando o bando de dados
 
-    
   //   // Exercises(
   //   //     id: 1,
   //   //     name: 'Cadeira flexora',
@@ -103,9 +102,9 @@ class TreinoService {
     //         //  tipo: 'Halteres',
     //         //  obs: 'Aplitude máxima',
     //         //  numSeries: 4,
-    //         //  numRepeti: 12, 
+    //         //  numRepeti: 12,
     //         //  restTime: '2 min'),
-              
+
     //       ]),
     //   Treino_dois(
     //       id: 2,
@@ -114,12 +113,12 @@ class TreinoService {
     //       objetivo: 'Perda de peso',
     //       listExercises: [
     //         Exercises(
-    //           name: 'Agachamento', 
+    //           name: 'Agachamento',
     //           grupoMusc: 'Peito',
     //           tipo: 'Halteres',
-    //           obs: 'Amplitude ', 
-    //           numSeries: 4, 
-    //           numRepeti: 12, 
+    //           obs: 'Amplitude ',
+    //           numSeries: 4,
+    //           numRepeti: 12,
     //           restTime: '2 minutos')
     //       ] ),
     //   Treino_dois(
@@ -131,9 +130,9 @@ class TreinoService {
     //         // Exercises(
     //         //   name: 'Elevação Lateral',
     //         //   grupoMusc: 'Ombro',
-    //         //   tipo: 'Halteres', 
-    //         //   obs: 'Limite da linha do ombro', 
-    //         //   numSeries: 4, 
+    //         //   tipo: 'Halteres',
+    //         //   obs: 'Limite da linha do ombro',
+    //         //   numSeries: 4,
     //         //   numRepeti: 12,
     //         //   restTime: '1 min e 30 segs')
     //       ]),

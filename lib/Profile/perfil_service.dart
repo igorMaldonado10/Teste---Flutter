@@ -17,7 +17,7 @@ class PerfilService {
   String cadastrarPerfil(User user) {
       perfil.add(user);
 
-      return "Perfil cadastrado ${user.name}";
+      return "Perfil cadastrado: ${user.name}";
     
   }
 

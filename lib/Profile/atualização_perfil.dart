@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:teste/Profile/editar_perfil.dart';
 import 'package:teste/Profile/perfil_model.dart';
 import 'package:teste/Profile/perfil_page.dart';
@@ -20,17 +21,16 @@ class _AtualizarPerfilState extends State<AtualizarPerfil> {
   // const TreinoForm2({Key? key}) : super(key: key);
   
   TextEditingController iconController = TextEditingController();
-
   TextEditingController nomeController = TextEditingController();
-
   TextEditingController pesoAtualController = TextEditingController();
-
   TextEditingController nasciController = TextEditingController();
-
   TextEditingController textBioController = TextEditingController();
 
   // // Objeto de classe que contém a Busca do perfil
   final PerfilService perfilService = new PerfilService();
+
+  XFile? foto;
+
 
   @override
   Widget build(BuildContext context) {

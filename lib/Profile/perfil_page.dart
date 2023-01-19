@@ -1,6 +1,10 @@
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:teste/Profile/atualiza%C3%A7%C3%A3o_perfil.dart';
 import 'package:teste/Profile/cadastro_perfil.dart';
 import 'package:teste/Profile/editar_perfil.dart';
@@ -10,6 +14,7 @@ import 'package:teste/view/recursos/barraSuperior.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
+import 'package:image_picker/image_picker.dart';
 
 // final tema = ValueNotifier(ThemeMode.light)
 
@@ -17,8 +22,9 @@ class PerfilPage extends StatefulWidget {
   // const EditTreino({Key? key}) : super(key: key);
 
   // Guardar o ID do contato selecionado
-  int id = 1;
-
+  // int? id = 1;
+  // XFile? foto;
+  // PerfilPage({this.foto});
   // // // // Construtor com o atributo obrigatório (id)
   // PerfilPage({required this.id});
 
@@ -72,10 +78,10 @@ class _PerfilPageState extends State<PerfilPage> {
                                   MaterialPageRoute(
                                       builder: (context) => CadastroPerfil()));
                             },
-                            child: Text('Cadastrar Perfil',
-                             style: TextStyle(
-                              color: Theme.of(context).shadowColor
-                             ),
+                            child: Text(
+                              'Cadastrar Perfil',
+                              style: TextStyle(
+                                  color: Theme.of(context).shadowColor),
                             ))
                       ],
                     ),
@@ -83,15 +89,17 @@ class _PerfilPageState extends State<PerfilPage> {
                 ],
               ),
             )
-          : Container(
+          : 
+          Container(
               child: ListView.builder(
                 itemCount: perfilService.listaUser().length,
                 itemBuilder: (BuildContext context, int index) {
                   User user = perfilService.listaUser().elementAt(index);
 
-                   Object avatar = user.icon == null || user.icon.isEmpty
-                      ? NetworkImage('https://cdn.pixabay.com/photo/2022/10/23/10/09/dumbbell-7540929__340.png')
-                      : NetworkImage(user.icon);
+                  //  Object avatar = user.icon == null
+                  //     ? NetworkImage('https://cdn.pixabay.com/photo/2022/10/23/10/09/dumbbell-7540929__340.png')
+                  //     : ;
+                  
 
                   return Container(
                       padding: EdgeInsets.symmetric(horizontal: 25),
@@ -105,54 +113,66 @@ class _PerfilPageState extends State<PerfilPage> {
                             Column(
                               children: [
                                 Stack(children: [
-                                  Container(
-                                    width: 130,
-                                    height: 130,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 4,
-                                            color:
-                                                Theme.of(context).canvasColor),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              spreadRadius: 2,
-                                              blurRadius: 10,
-                                              color:
-                                                  Colors.black.withOpacity(0.1))
-                                        ],
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover, image: 
-                                            (user.icon == null || user.icon.isEmpty)?
-                                             NetworkImage('https://media.istockphoto.com/id/1215191367/pt/vetorial/muscular-man-line-and-solid-icon-bodybuilder-fitness-model-with-muscles-symbol-outline.jpg?s=612x612&w=0&k=20&c=uQKRwzB-ciFDLeuGPT2X_Qhv6cS_j-lMkNJPigTshQ4=',
-                                             ):
-                                             NetworkImage(user.icon)
-                                            )),
-                                  ),
+                                  
+//                                   Container(
+//                                     width: 130,
+//                                     height: 130,
+//                                     decoration: BoxDecoration(
+//                                         border: Border.all(
+//                                             width: 4,
+//                                             color:
+//                                                 Theme.of(context).canvasColor),
+//                                         boxShadow: [
+//                                           BoxShadow(
+//                                               spreadRadius: 2,
+//                                               blurRadius: 10,
+//                                               color:
+//                                                   Colors.black.withOpacity(0.1))
+//                                         ],
+//                                         shape: BoxShape.circle,
+//                                         image: DecorationImage(
+//                                             fit: BoxFit.cover,
+//                                             image: user.icon ,
+                                               
+// )),
+//                                   ),
+                           CircleAvatar(
+                           radius: 80.0,
+                           backgroundImage: user.icon == null ?
+                            AssetImage('assets/imgs/logo_app.png'): 
+                            FileImage(File(user.icon.path)) as ImageProvider
+                           ),
                                   Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: BoxDecoration(shape: BoxShape.circle,
-                                      border: Border.all(
-                                        width: 4,
-                                        color: Theme.of(context).canvasColor
-                                      ),
-                                      color: Theme.of(context).backgroundColor
-                                      ),
-                                      child: IconButton(
-                                        // alignment: Alignment.topCenter,
-                                        padding: EdgeInsets.only(bottom: 4, left: 3, top: 2),
-                                        icon: Icon(Icons.edit,
-                                        color: Colors.white,),
-                                        onPressed: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AtualizarPerfil()));
-                                        },
-                                      ),
-                                    )
-                                    )
+                                      bottom: 0,
+                                      right: 0,
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                width: 4,
+                                                color: Theme.of(context)
+                                                    .canvasColor),
+                                            color: Theme.of(context)
+                                                .backgroundColor),
+                                        child: IconButton(
+                                          // alignment: Alignment.topCenter,
+                                          padding: EdgeInsets.only(
+                                              bottom: 4, left: 3, top: 2),
+                                          icon: Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                          onPressed: () {
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             AtualizarPerfil()));
+                                          },
+                                        ),
+                                      ))
                                 ]),
                                 SizedBox(height: 10),
                                 new Row(
@@ -257,37 +277,33 @@ class _PerfilPageState extends State<PerfilPage> {
                               child: Divider(height: 5),
                             ),
 
-                          //  OUTRAS AÇÕES
+                            //  OUTRAS AÇÕES
                           ],
                         ),
-                      ));
+                      )
+                      );
                 },
               ),
             ),
-            bottomNavigationBar: barraInferior(),
+      bottomNavigationBar: barraInferior(),
     );
   }
 
-  BottomNavigationBar barraInferior(){
+  BottomNavigationBar barraInferior() {
     return BottomNavigationBar(items: [
       BottomNavigationBarItem(
-                label: 'Home',
-                icon: new IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => HomePage())));
-                    },
-                    icon: new FaIcon(FontAwesomeIcons.houseChimney))),
-
-            BottomNavigationBarItem(
-                label: 'Perfil',
-                icon: new IconButton(
-                    onPressed: () {},
-                    icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
-    ]
-    );
+          label: 'Home',
+          icon: new IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => HomePage())));
+              },
+              icon: new FaIcon(FontAwesomeIcons.houseChimney))),
+      BottomNavigationBarItem(
+          label: 'Perfil',
+          icon: new IconButton(
+              onPressed: () {}, icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
+    ]);
   }
 
   AppBar appaBarHome(Text texto) {
