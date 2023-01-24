@@ -17,11 +17,11 @@ class InfoExercises extends StatefulWidget {
 
   // Guardar o ID do Exercício selecionado
   final int? id;
-  final Treino_dois? treino;
+  final Treino_dois treino;
   final Exercises? exercises;
 
   // Construtor com o atributo obrigatório (id)
-  InfoExercises({this.treino, this.exercises, this.id});
+  InfoExercises({required this.treino, this.exercises, this.id});
 
   @override
   State<InfoExercises> createState() => _InfoExercisesState();
@@ -270,8 +270,7 @@ class _InfoExercisesState extends State<InfoExercises> {
   }
 
   void removerExercise() {
-    String mensagem = treinoService.removerExercicio(widget.id!,
-     widget.treino!,
+    String mensagem = treinoService.removerExercicio(widget.id ?? 0, widget.treino,
     // widget.exercises!
     );
 
@@ -283,13 +282,13 @@ class _InfoExercisesState extends State<InfoExercises> {
       ],
     )));
 
-    // Future.delayed(Duration(milliseconds: 2500), () {
-    //   // Navigator.push(
-    //   //     context,
-    //   //     MaterialPageRoute(
-    //   //         builder: ((context) => ExercisesList(widget.treino))));
-    //   Navigator.pop(context);
-    // });
+    Future.delayed(Duration(milliseconds: 2500), () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => ExercisesList(widget.treino))));
+      // Navigator.pop(context);
+    });
   }
 
   AppBar appaBarHome(Text texto) {

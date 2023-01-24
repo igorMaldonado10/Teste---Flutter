@@ -16,8 +16,8 @@ class TreinoService {
   String removerExercicio(int id, Treino_dois treino,
     
   ) {
-    // treino.listExercises?.removeAt(id);
-    treino.listExercises?.removeWhere((element) => element.id == id);
+    treino.listExercises?.removeAt(id);
+    // treino.listExercises?.removeWhere((element) => element.id == id);
     // exercicios.removeWhere((element) => element.id == id);
 
     return "Exercício excluido";

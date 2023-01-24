@@ -4,13 +4,15 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/exerc%C3%ADcios/informa%C3%A7%C3%B5es_exer.dart';
+import 'package:teste/Global/treino_2.0/treino_model2.dart';
 
 class ListExerciseItem extends StatelessWidget {
   // const ListExerciseItem({Key? key}) : super(key: key);,
   
   final Exercises exercises;
+  final Treino_dois? treino;
   // final int id;
-  ListExerciseItem(this.exercises);
+  ListExerciseItem({required this.exercises, this.treino});
 
   bool? exerCheck = false;
 
@@ -121,7 +123,7 @@ class ListExerciseItem extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: ((context) => InfoExercises(
-                                    exercises: exercises,
+                                    exercises: exercises, treino: treino! ,
                                   ))));
                     },
                     icon: FaIcon(FontAwesomeIcons.chevronRight),

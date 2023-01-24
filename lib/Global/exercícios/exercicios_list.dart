@@ -75,7 +75,7 @@ class _ExercisesListState extends State<ExercisesList> {
 
             // ;
 
-            return ListExerciseItem(widget.treino!.listExercises![index]);
+            return ListExerciseItem(exercises: widget.treino!.listExercises![index], treino: widget.treino,);
           }),
       floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.plus),
