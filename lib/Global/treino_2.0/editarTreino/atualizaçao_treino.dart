@@ -9,9 +9,10 @@ import 'package:teste/view/recursos/home/homeScreen.dart';
 
 class TreinoForm2 extends StatefulWidget {
   final int id;
+  final Treino_dois treino;
 
   // Construtor com o atributo obrigatório (id)
-  TreinoForm2({required this.id});
+  TreinoForm2({required this.id, required this.treino});
 
   @override
   State<TreinoForm2> createState() => _TreinoForm2State();
@@ -29,9 +30,18 @@ class _TreinoForm2State extends State<TreinoForm2> {
   final TreinoService treinoService = new TreinoService();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tipoDeTreinoController.text = widget.treino.tipoDeTreino!;
+    objetivoController.text = widget.treino.objetivo!;
+    dataDoTreinoController.text = widget.treino.dataDoTreino!;
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Objeto da classe Treino
-    Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id -1);
+    Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
 
     return Scaffold(
       appBar: appaBarHome(Text('Editar' + ' - ' '${treino.tipoDeTreino}')),
@@ -68,22 +78,19 @@ class _TreinoForm2State extends State<TreinoForm2> {
                 children: [
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Tipo de treino',
-                      hintText: treino.tipoDeTreino),
-                    
+                        labelText: 'Tipo de treino',
+                        hintText: treino.tipoDeTreino),
                     controller: tipoDeTreinoController,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Objetivo',
-                      hintText: treino.objetivo
-                      ),
+                        labelText: 'Objetivo', hintText: treino.objetivo),
                     controller: objetivoController,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Validade do treino',
-                    hintText: treino.dataDoTreino
-                    ),
+                    decoration: InputDecoration(
+                        labelText: 'Validade do treino',
+                        hintText: treino.dataDoTreino),
                     controller: dataDoTreinoController,
                   ),
                 ],
@@ -104,7 +111,10 @@ class _TreinoForm2State extends State<TreinoForm2> {
                           treino.objetivo = objetivoController.text;
                           treino.dataDoTreino = dataDoTreinoController.text;
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>TreinoList2()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TreinoList2()));
                         });
                       },
                       child: new Text('Confirmar')),
@@ -149,30 +159,23 @@ class _TreinoForm2State extends State<TreinoForm2> {
           return IconButton(
               icon: FaIcon(FontAwesomeIcons.bars),
               onPressed: () => Scaffold.of(context).openDrawer());
-        }
-        )
-        );
+        }));
   }
 
-  BottomNavigationBar barraInferior(){
+  BottomNavigationBar barraInferior() {
     return BottomNavigationBar(items: [
       BottomNavigationBarItem(
-                label: 'Home',
-                icon: new IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => HomePage())));
-                    },
-                    icon: new FaIcon(FontAwesomeIcons.houseChimney))),
-
-            BottomNavigationBarItem(
-                label: 'Perfil',
-                icon: new IconButton(
-                    onPressed: () {},
-                    icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
-    ]
-    );
+          label: 'Home',
+          icon: new IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => HomePage())));
+              },
+              icon: new FaIcon(FontAwesomeIcons.houseChimney))),
+      BottomNavigationBarItem(
+          label: 'Perfil',
+          icon: new IconButton(
+              onPressed: () {}, icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
+    ]);
   }
 }

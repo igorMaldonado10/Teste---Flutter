@@ -6,8 +6,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/exerc%C3%ADcios/informa%C3%A7%C3%B5es_exer.dart';
 
 class ListExerciseItem extends StatelessWidget {
-  // const ListExerciseItem({Key? key}) : super(key: key);
+  // const ListExerciseItem({Key? key}) : super(key: key);,
+  
   final Exercises exercises;
+  // final int id;
   ListExerciseItem(this.exercises);
 
   bool? exerCheck = false;
@@ -118,7 +120,9 @@ class ListExerciseItem extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => InfoExercises(exercises: exercises,))));
+                              builder: ((context) => InfoExercises(
+                                    exercises: exercises,
+                                  ))));
                     },
                     icon: FaIcon(FontAwesomeIcons.chevronRight),
                     // icon: Icon(Icons.more_vert_rounded)

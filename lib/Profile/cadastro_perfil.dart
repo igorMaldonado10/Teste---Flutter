@@ -23,6 +23,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
   final pesoAtual = TextEditingController();
   final icon = TextEditingController();
   final textBio = TextEditingController();
+  final sobrenome = TextEditingController();
 
   // XFile? foto;
   PickedFile? _imageFile;
@@ -83,7 +84,8 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
               // ),
               imageProfile(),
               SizedBox(height: 20),
-              addTexForm('Nome', name),
+              addTexForm('Nome', name ),
+              addTexForm('Sobrenome', sobrenome),
               addTexForm('Data de nascimento', dataNasc),
               addTexForm('Peso atual', pesoAtual),
               // addTexForm('URL do icon', icon),
@@ -230,17 +232,15 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
   }
 
   //  Retorna a estrutura do campo input
-  Container addTexForm(String nomoDoCampo, TextEditingController controller) {
+  Container addTexForm(String nomoDoCampo,TextEditingController controller) {
     return new Container(
       margin: EdgeInsets.only(bottom: 10),
-      child: TextField(
+      child: TextFormField(
         // recebe o valor dos campos
         controller: controller,
 
         decoration: InputDecoration(
-          labelText: nomoDoCampo,
-
-          // Borda do Input
+          labelText: nomoDoCampo,        // Borda do Input
           border: OutlineInputBorder(borderSide: BorderSide()),
         ),
       ),
@@ -258,6 +258,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
     User user = User(
       id: id,
       name: name.text,
+      sobrenome: sobrenome.text,
       dataNasc: dataNasc.text,
       pesoAtual: pesoAtual.text,
       icon: _imageFile!

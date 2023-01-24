@@ -13,11 +13,12 @@ class TreinoService {
   // }
 
   // Método para remover os exercicios na lista de cada treino especifico
-  String removerExercicio(int id, Treino_dois treino) {
-
+  String removerExercicio(int id, Treino_dois treino,
+    
+  ) {
+    // treino.listExercises?.removeAt(id);
     treino.listExercises?.removeWhere((element) => element.id == id);
     // exercicios.removeWhere((element) => element.id == id);
-    
 
     return "Exercício excluido";
   }

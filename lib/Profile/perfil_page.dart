@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -19,12 +18,14 @@ import 'package:image_picker/image_picker.dart';
 // final tema = ValueNotifier(ThemeMode.light)
 
 class PerfilPage extends StatefulWidget {
-  // const EditTreino({Key? key}) : super(key: key);
+ 
 
+  const PerfilPage({Key? key}) : super(key: key);
+
+  final int id = 0;
   // Guardar o ID do contato selecionado
   // int? id = 1;
-  // XFile? foto;
-  // PerfilPage({this.foto});
+
   // // // // Construtor com o atributo obrigatório (id)
   // PerfilPage({required this.id});
 
@@ -89,9 +90,9 @@ class _PerfilPageState extends State<PerfilPage> {
                 ],
               ),
             )
-          : 
-          Container(
+          : Container(
               child: ListView.builder(
+                shrinkWrap: true,
                 itemCount: perfilService.listaUser().length,
                 itemBuilder: (BuildContext context, int index) {
                   User user = perfilService.listaUser().elementAt(index);
@@ -99,7 +100,6 @@ class _PerfilPageState extends State<PerfilPage> {
                   //  Object avatar = user.icon == null
                   //     ? NetworkImage('https://cdn.pixabay.com/photo/2022/10/23/10/09/dumbbell-7540929__340.png')
                   //     : ;
-                  
 
                   return Container(
                       padding: EdgeInsets.symmetric(horizontal: 25),
@@ -113,7 +113,6 @@ class _PerfilPageState extends State<PerfilPage> {
                             Column(
                               children: [
                                 Stack(children: [
-                                  
 //                                   Container(
 //                                     width: 130,
 //                                     height: 130,
@@ -133,15 +132,16 @@ class _PerfilPageState extends State<PerfilPage> {
 //                                         image: DecorationImage(
 //                                             fit: BoxFit.cover,
 //                                             image: user.icon ,
-                                               
+
 // )),
 //                                   ),
-                           CircleAvatar(
-                           radius: 80.0,
-                           backgroundImage: user.icon == null ?
-                            AssetImage('assets/imgs/logo_app.png'): 
-                            FileImage(File(user.icon.path)) as ImageProvider
-                           ),
+                                  CircleAvatar(
+                                      radius: 80.0,
+                                      backgroundImage: user.icon == null
+                                          ? AssetImage(
+                                              'assets/imgs/logo_app.png')
+                                          : FileImage(File(user.icon.path))
+                                              as ImageProvider),
                                   Positioned(
                                       bottom: 0,
                                       right: 0,
@@ -165,6 +165,10 @@ class _PerfilPageState extends State<PerfilPage> {
                                             color: Colors.white,
                                           ),
                                           onPressed: () {
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder: ((builder) =>
+                                                    updateFoto()));
                                             // Navigator.push(
                                             //     context,
                                             //     MaterialPageRoute(
@@ -183,56 +187,86 @@ class _PerfilPageState extends State<PerfilPage> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 30),
-                                    )
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: ((builder) =>
+                                                  updateNameProfile()));
+                                        },
+                                        icon: Icon(Icons.edit))
                                   ],
                                 ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    new Text(user.sobrenome,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 30))
+                                  ],
+                                )
                               ],
                             ),
 
-                            SizedBox(height: 15),
-
                             // Objetivo e Data
-                            Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Theme.of(context).cardColor),
-                              child: new Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  //'Objetivo'
-                                  new Text(
-                                    'Nascimento',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        // color: Colors.grey.
-                                        fontSize: 20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: ((builder) =>
+                                                  updateDateProfile()));
+                                        },
+                                        icon: Icon(Icons.edit)),
+                                  ],
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 5, right: 5),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Theme.of(context).cardColor),
+                                  child: new Row(
+                                    children: [
+                                      //'Objetivo'
+                                      new Text(
+                                        'Nascimento:',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            // color: Colors.grey.
+                                            fontSize: 20),
+                                      ),
+                                      SizedBox(width: 10),
+                                      // Objetivo
+                                      new Text(
+                                        user.dataNasc,
+                                        style: TextStyle(
+                                            // color: Colors.grey.
+                                            fontSize: 23),
+                                      ),
+                                      // SizedBox(width: 10,),
+                                    ],
                                   ),
-                                  SizedBox(width: 5),
-                                  // Objetivo
-                                  new Text(
-                                    user.dataNasc,
-                                    style: TextStyle(
-                                        // color: Colors.grey.
-                                        fontSize: 23),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 15,
                             ),
 
-                            // Data do treino
+                            // Peso atual
                             Container(
-                              padding: EdgeInsets.all(5),
+                              padding: EdgeInsets.only(left: 5, right: 5),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Theme.of(context).cardColor),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   new Text(
                                     'Peso atual:',
@@ -240,34 +274,57 @@ class _PerfilPageState extends State<PerfilPage> {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20),
                                   ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                   new Text(
                                     "${user.pesoAtual}kg",
                                     style: TextStyle(fontSize: 23),
-                                  )
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: ((builder) =>
+                                                updatePesoUser()));
+                                      },
+                                      icon: Icon(Icons.edit))
                                 ],
                               ),
                             ),
 
-                            SizedBox(height: 10),
-
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Bio:',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          builder: ((builder) =>
+                                              updateBioUser()));
+                                    },
+                                    icon: Icon(Icons.edit))
+                              ],
+                            ),
                             Container(
-                              padding: EdgeInsets.all(5),
+                              padding: EdgeInsets.only(
+                                  bottom: 80, top: 5, right: 5, left: 5),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Theme.of(context).cardColor),
                               child: Row(
                                 children: [
-                                  Text(
-                                    'Bio:',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
                                   SizedBox(width: 5),
                                   Text(
                                     user.textBio,
-                                    style: TextStyle(fontSize: 18),
-                                  )
+                                    style: TextStyle(fontSize: 16),
+                                  ),
                                 ],
                               ),
                             ),
@@ -280,14 +337,344 @@ class _PerfilPageState extends State<PerfilPage> {
                             //  OUTRAS AÇÕES
                           ],
                         ),
-                      )
-                      );
+                      ));
                 },
               ),
             ),
       bottomNavigationBar: barraInferior(),
     );
   }
+
+  Container addTexForm(String nomoDoCampo, TextEditingController controller) {
+    return Container(
+      padding: EdgeInsets.only(right: 15, left: 15),
+      margin: EdgeInsets.only(bottom: 10),
+      child: TextField(
+        // autofillHints:  ,
+        // recebe o valor dos campos
+        controller: controller,
+
+        decoration: InputDecoration(
+          labelText: nomoDoCampo,
+
+          // Borda do Input
+          // border: OutlineInputBorder(borderSide: BorderSide()),
+        ),
+      ),
+    );
+  }
+
+  // Atualizações do perfil
+  Widget updateNameProfile() {
+    User user = perfilService.listaUser().elementAt(widget.id);
+    final nomeController = TextEditingController();
+    final sobrenomeController = TextEditingController();
+
+    @override
+    void initState() {
+      super.initState();
+      nomeController.text = user.name;
+      sobrenomeController.text = user.sobrenome;
+    }
+
+    return SingleChildScrollView(
+      child: Container(
+        height: 600,
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  'Escolha outro nome',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.cancel_outlined))
+              ],
+            ),
+
+            Container(
+              padding: EdgeInsets.only(right: 10, left: 10),
+              child: Divider(),
+            ),
+            SizedBox(height: 20),
+
+            addTexForm('Nome', nomeController),
+            addTexForm('Sobrenome', sobrenomeController),
+            Container(
+              width: 325,
+              height: 50,
+              child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      
+                      user.name = nomeController.text;
+                      user.sobrenome = sobrenomeController.text;
+
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Text(
+                    'Alterar',
+                    style: TextStyle(fontSize: 23),
+                  )),
+            )
+            // SizedBox(height: 10),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget updateDateProfile() {
+    User user = perfilService.listaUser().elementAt(widget.id);
+    final birthdayController = TextEditingController();
+    // final sobrenomeController = TextEditingController();
+
+    return SingleChildScrollView(
+      child: Container(
+        height: 600,
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  'Altere a data',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.cancel_outlined))
+              ],
+            ),
+
+            Container(
+              padding: EdgeInsets.only(right: 10, left: 10),
+              child: Divider(),
+            ),
+            SizedBox(height: 20),
+
+            addTexForm('Aniversário', birthdayController),
+
+            Container(
+              width: 325,
+              height: 50,
+              child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      user.dataNasc = birthdayController.text;
+
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Text(
+                    'Alterar',
+                    style: TextStyle(fontSize: 23),
+                  )),
+            )
+            // SizedBox(height: 10),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget updatePesoUser() {
+    User user = perfilService.listaUser().elementAt(widget.id);
+    final pesoController = TextEditingController();
+    // final sobrenomeController = TextEditingController();
+
+    return SingleChildScrollView(
+      child: Container(
+        height: 600,
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  'Altere o peso',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.cancel_outlined))
+              ],
+            ),
+
+            Container(
+              padding: EdgeInsets.only(right: 10, left: 10),
+              child: Divider(),
+            ),
+            SizedBox(height: 20),
+
+            addTexForm('Peso', pesoController),
+
+            Container(
+              width: 325,
+              height: 50,
+              child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      user.pesoAtual = pesoController.text;
+
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Text(
+                    'Alterar',
+                    style: TextStyle(fontSize: 23),
+                  )),
+            )
+            // SizedBox(height: 10),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget updateBioUser() {
+    User user = perfilService.listaUser().elementAt(widget.id);
+    final bioController = TextEditingController();
+    // final sobrenomeController = TextEditingController();
+
+    return SingleChildScrollView(
+      child: Container(
+        height: 600,
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  'Altere o texto da bio',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.cancel_outlined))
+              ],
+            ),
+
+            Container(
+              padding: EdgeInsets.only(right: 10, left: 10),
+              child: Divider(),
+            ),
+            SizedBox(height: 20),
+
+            addTexForm('Bio', bioController),
+
+            Container(
+              width: 325,
+              height: 50,
+              child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      user.textBio = bioController.text;
+
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Text(
+                    'Alterar',
+                    style: TextStyle(fontSize: 23),
+                  )),
+            )
+            // SizedBox(height: 10),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget updateFoto() {
+    return Container(
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        children: [
+          Text(
+            'Escolha a sua foto',
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    takePhoto(ImageSource.camera);
+                  },
+                  icon: Icon(Icons.camera)),
+              Text('Câmera'),
+              SizedBox(
+                width: 10,
+              ),
+              IconButton(
+                  onPressed: () {
+                    takePhoto(ImageSource.gallery);
+                  },
+                  icon: Icon(Icons.image)),
+              Text('Galleria'),
+              SizedBox(height: 5),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  void takePhoto(ImageSource source) async {
+    User user = perfilService.listaUser().elementAt(widget.id);
+    PickedFile? _imageFile;
+    final ImagePicker _picker = ImagePicker();
+    final pickedFile = await _picker.getImage(source: source);
+    setState(() {
+      _imageFile = pickedFile;
+      user.icon = _imageFile!;
+    });
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   BottomNavigationBar barraInferior() {
     return BottomNavigationBar(items: [

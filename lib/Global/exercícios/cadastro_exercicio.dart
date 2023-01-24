@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:teste/Global/exerc%C3%ADcios/Toggle%20Buttons/toggleButtons1.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
-import 'package:teste/Global/exerc%C3%ADcios/list_of_chips.dart';
+import 'package:teste/Global/exerc%C3%ADcios/Chips/list_of_chips.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
@@ -71,22 +72,85 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
               // Campos do formulários
               addTexForm('Nome do exercício', name),
               // addTexForm('Grupo muscular', grupoMus),
-              Row(
-                children: [
-                  ListOfChips(
-                    onSelectedChange: (String value) {
-                      grupoMus.text = value;
-                    },
-                    items: ['Toráx', 'Abdômen'],
-                  )
-                ],
+              Container(
+                padding: EdgeInsets.only(right: 175),
+                child: Text('Grupo muscular'),
               ),
-              addTexForm('Tipo', tipo),
-              addTexForm('observação', obs),
-              addTexForm('Número de séries', numSer),
-              addTexForm('Número de repetições', numReps),
-              addTexForm('Tempo de descanso', restTime),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: ListOfChips(
+                  onSelectedChange: (String value) {
+                    grupoMus.text = value;
+                  },
+                  items: ['Toráx', 'Abdômen', 'Costas', 'Ombros', 'Peito', 'Bíceps', 'Tríceps', 'Lombar', 'Quadríceps', 'Posterior coxa', 'Gêmeos' ],
+                ),
+              ),
+             
+              Container(
+                padding: EdgeInsets.only(right: 165),
+                child: Text('Tipo de exercício'),
+              ),
 
+              SizedBox(height: 30),
+
+             ToggleButtons1(),
+
+             Padding(padding: EdgeInsets.all(10)),
+
+              
+              addTexForm('observação', obs),
+              
+
+              new Container(
+              margin: EdgeInsets.only(bottom: 10),
+              child: TextField(
+              keyboardType: TextInputType.number,
+              // recebe o valor dos campos
+              controller: numSer,
+
+              decoration: InputDecoration(
+              labelText: 'Número de séries',
+
+              // Borda do Input
+              border: OutlineInputBorder(borderSide: BorderSide()),
+        ),
+      ),
+    ),
+
+
+              new Container(
+              margin: EdgeInsets.only(bottom: 10),
+              child: TextField(
+              keyboardType: TextInputType.number,
+             // recebe o valor dos campos
+             controller: numReps,
+
+             decoration: InputDecoration(
+             labelText: 'Número de repetições',
+
+            // Borda do Input
+            border: OutlineInputBorder(borderSide: BorderSide()),
+        ),
+      ),
+    ),
+
+              new Container(
+              margin: EdgeInsets.only(bottom: 10),
+              child: TextField(
+                keyboardType: TextInputType.number,
+             // recebe o valor dos campos
+             controller: restTime,
+
+            decoration: InputDecoration(
+            labelText: 'Tempo de descanso(minutos)',
+          // hintText: '',
+          // Borda do Input
+            border: OutlineInputBorder(borderSide: BorderSide()),
+        ),
+      ),
+    ),
+              // addTexForm('Tempo de descanso', restTime),
+ 
               // SizedBox(height: 15),
 
               // BOTÕES

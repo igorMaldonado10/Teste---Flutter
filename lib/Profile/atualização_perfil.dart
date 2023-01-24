@@ -29,7 +29,7 @@ class _AtualizarPerfilState extends State<AtualizarPerfil> {
   // // Objeto de classe que contém a Busca do perfil
   final PerfilService perfilService = new PerfilService();
 
-  XFile? foto;
+  // XFile? foto;
 
 
   @override
