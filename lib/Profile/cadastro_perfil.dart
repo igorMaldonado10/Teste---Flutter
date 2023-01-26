@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:teste/Profile/perfil_model.dart';
+import 'package:teste/Profile/model/perfil_model.dart';
 import 'package:teste/Profile/perfil_page.dart';
 import 'package:teste/Profile/perfil_service.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';

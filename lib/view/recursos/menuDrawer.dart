@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/treino_2.0/treino_list2.dart';
-import 'package:teste/Profile/perfil_model.dart';
+import 'package:teste/Profile/model/perfil_model.dart';
 import 'package:teste/Profile/perfil_service.dart';
 import 'package:teste/view/recursos/IMC/calc_ims.dart';
 
 import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/Profile/perfil_page.dart';
 
-import '../../Global/treino_1.0/treino_list.dart';
+// import '../../Global/treino_1.0/treino_list.dart';
 
 class MenuDrawer extends StatelessWidget {
 

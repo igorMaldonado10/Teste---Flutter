@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/exerc%C3%ADcios/Toggle%20Buttons/toggleButtons1.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
+import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/exerc%C3%ADcios/Chips/list_of_chips.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';

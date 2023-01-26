@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
+import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 
 class Treino_dois {
   // Atributos

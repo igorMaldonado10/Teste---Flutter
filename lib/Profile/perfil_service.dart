@@ -1,4 +1,4 @@
-import 'package:teste/Profile/perfil_model.dart';
+import 'package:teste/Profile/model/perfil_model.dart';
 
 class PerfilService {
   static List<User> perfil = [];

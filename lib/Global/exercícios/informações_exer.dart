@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:teste/Global/exerc%C3%ADcios/atualiza%C3%A7%C3%A3o_exerc%C3%ADcio.dart';
 import 'package:teste/Global/exerc%C3%ADcios/cadastro_exercicio.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
+import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';

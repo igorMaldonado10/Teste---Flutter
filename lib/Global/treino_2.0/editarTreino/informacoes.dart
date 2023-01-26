@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
+import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/editarTreino/atualiza%C3%A7ao_treino.dart';
 // import 'package:teste/Global/treino_2.0/edit_treino.dart';
 import 'package:teste/Global/treino_2.0/treino_list2.dart';

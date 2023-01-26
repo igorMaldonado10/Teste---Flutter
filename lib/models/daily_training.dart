@@ -1,4 +1,4 @@
-import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
+import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 
 class DailyTraining {
   late String id;

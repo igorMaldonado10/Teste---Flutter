@@ -1,41 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:teste/Profile/perfil_model.dart';
+import 'package:teste/Profile/update%20perfil/editar_perfil.dart';
+import 'package:teste/Profile/model/perfil_model.dart';
 import 'package:teste/Profile/perfil_page.dart';
 import 'package:teste/Profile/perfil_service.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
 
-class PerfilForm extends StatefulWidget {
-  final int id;
+class AtualizarPerfil extends StatefulWidget {
+  final int id = 0;
 
-  // Construtor com o atributo obrigatório (id)
-  PerfilForm({required this.id});
+  // // Construtor com o atributo obrigatório (id)
+  // AtualizarPerfil({required this.id});
 
   @override
-  State<PerfilForm> createState() => _PerfilFormState();
+  State<AtualizarPerfil> createState() => _AtualizarPerfilState();
 }
 
-class _PerfilFormState extends State<PerfilForm> {
+class _AtualizarPerfilState extends State<AtualizarPerfil> {
   // const TreinoForm2({Key? key}) : super(key: key);
+  
+  TextEditingController iconController = TextEditingController();
   TextEditingController nomeController = TextEditingController();
   TextEditingController pesoAtualController = TextEditingController();
-  TextEditingController dataNascController = TextEditingController();
-  TextEditingController iconController = TextEditingController();
+  TextEditingController nasciController = TextEditingController();
+  TextEditingController textBioController = TextEditingController();
 
-  XFile? foto;
-
-
-  // // Objeto de classe que contém a Busca dos contatos
+  // // Objeto de classe que contém a Busca do perfil
   final PerfilService perfilService = new PerfilService();
+
+  // XFile? foto;
+
 
   @override
   Widget build(BuildContext context) {
-    // Objeto da classe Treino
-    User user = perfilService.listaUser().elementAt(widget.id - 1);
+    // Objeto da classe Perfil
+    User user = perfilService.listaUser().elementAt(widget.id);
+
 
     return Scaffold(
-      appBar: appaBarHome(Text('Perfil')),
+      appBar: appaBarHome(Text('Editar' + ' - ' '${user.name}')),
       body: Padding(
         padding: EdgeInsets.all(
           15,
@@ -67,21 +71,31 @@ class _PerfilFormState extends State<PerfilForm> {
             Form(
               child: Column(
                 children: [
+                   TextFormField(
+                    decoration:
+                        InputDecoration(labelText: 'ícone',),
+                    controller: iconController,
+                  ),
                   TextFormField(
                     decoration:
-                        InputDecoration(labelText: 'nome', hintText: user.name),
+                        InputDecoration(labelText: 'Nome', hintText: user.name),
                     controller: nomeController,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        labelText: 'Data de nascimento',
+                        labelText: 'data de nascimento',
                         hintText: user.dataNasc),
-                    controller: dataNascController,
+                    controller: nasciController,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        labelText: 'Peso', hintText: user.pesoAtual),
+                        labelText: 'Peso atual', hintText: user.pesoAtual),
                     controller: pesoAtualController,
+                  ),
+                   TextFormField(
+                    decoration: InputDecoration(
+                        labelText: 'Bio', hintText: user.pesoAtual),
+                    controller: textBioController,
                   ),
                 ],
               ),
@@ -98,8 +112,9 @@ class _PerfilFormState extends State<PerfilForm> {
                       onPressed: () {
                         setState(() {
                           user.name = nomeController.text;
-                          user.dataNasc = dataNascController.text;
+                          user.dataNasc = nasciController.text;
                           user.pesoAtual = pesoAtualController.text;
+                          user.textBio = textBioController.text;
 
                           Navigator.push(
                               context,

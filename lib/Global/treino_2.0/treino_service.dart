@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercises.dart';
+import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/models/treino_model.dart';
 
@@ -12,10 +12,9 @@ class TreinoService {
   //   exercicios;
   // }
 
+
   // Método para remover os exercicios na lista de cada treino especifico
-  String removerExercicio(int id, Treino_dois treino,
-    
-  ) {
+  String removerExercicio(int id, Treino_dois treino) {
     treino.listExercises?.removeAt(id);
     // treino.listExercises?.removeWhere((element) => element.id == id);
     // exercicios.removeWhere((element) => element.id == id);
