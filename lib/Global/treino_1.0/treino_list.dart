@@ -43,7 +43,8 @@ class _TreinoListState extends State<TreinoList> {
 
         centerTitle: true,
         title: texto,
-        //  actions: [
+         actions: [
+          
         //   Switch(
         //       value: tema.value == ThemeMode.dark,
         //       onChanged: (isDark) {
@@ -51,7 +52,7 @@ class _TreinoListState extends State<TreinoList> {
         //                 tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
         //         });
         //       })
-        // ],
+        ],
         leading: Builder(builder: (BuildContext context) {
           return IconButton(
               icon: FaIcon(FontAwesomeIcons.bars),

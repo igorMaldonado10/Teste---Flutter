@@ -145,7 +145,7 @@ class _ExerciseFormState extends State<ExerciseForm> {
                       decoration: InputDecoration(
                           labelText: 'Número de repetições',
                           hintText: widget.exercises?.numRepeti!.toString()),
-                      controller: numSer,
+                      controller: numReps,
                     ),
 
                     Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
@@ -181,6 +181,10 @@ class _ExerciseFormState extends State<ExerciseForm> {
                           setState(() {
                             widget.exercises?.name =
                                 nameExercisesController.text;
+                            widget.exercises?.numSeries =
+                                int.parse(numSer.text);
+                            widget.exercises?.numRepeti =
+                                int.parse(numReps.text);
                             widget.exercises?.grupoMusc =
                                 grupoMuscController.text;
                             widget.exercises?.obs = obsController.text;

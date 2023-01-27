@@ -8,11 +8,14 @@ import 'package:teste/Global/treino_2.0/treino_service.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
 
 class ExercisesList extends StatefulWidget {
-// Guardar a ID do treino selecionado
-  // final int id;
+  /// Guardar a ID do treino selecionado
+  /// final int id;
   final Treino_dois? treino;
-  // final int? id;
-  // Construtor com o atributo obrigatório (id)
+
+  /// final int? id;
+  ///
+  /// Guardar a ID do treino selecionado
+  /// Construtor com o atributo (id)
   ExercisesList(this.treino);
 
   @override
@@ -28,20 +31,22 @@ class _ExercisesListState extends State<ExercisesList> {
 
   @override
   Widget build(BuildContext context) {
-    //  // Objeto da classe Treino
-    //  Treino_dois treino = treinoService.listarExercicios().elementAt(widget.id - 1);
+    /// Objeto da classe Treino
+    ///  Treino_dois treino = treinoService.listarExercicios().elementAt(widget.id - 1);
 
-    // Treino_dois treino = exercicioService.listarExercicios().elementAt(widget.id -1);
-    // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
+    /// Treino_dois treino = exercicioService.listarExercicios().elementAt(widget.id -1);
+    /// Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
 
-    // Exercises exercises = exercicioService.listarExercicios().elementAt(widget.id - 1);
+    /// Exercises exercises = exercicioService.listarExercicios().elementAt(widget.id - 1);
 
     return Scaffold(
-      appBar: appaBarHome(Text('Exercícios' + ' - ' '${widget.treino!.tipoDeTreino}')),
+      appBar: appaBarHome(
+          Text('Exercícios' + ' - ' '${widget.treino!.tipoDeTreino}')),
       drawer: MenuDrawer(),
       body: ListView.builder(
           padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
-          itemCount: widget.treino?.listExercises?.length ?? 0 // exercicioService.listarExercicios().length
+          itemCount: widget.treino?.listExercises?.length ??
+              0 // exercicioService.listarExercicios().length
           ,
           // recebo o índice e o contexto do elemento que vou retornar;
           itemBuilder: (BuildContext context, int index) {
@@ -57,25 +62,11 @@ class _ExercisesListState extends State<ExercisesList> {
 
             // Treino_dois treino_dois = treinoService.listarExercicios().elementAt(index);
             int _numInicial = 0;
-            // void increment() {
-            //   // for (int i = 0; i <= int.parse(exercises.numSeries); i++) {
-            //   setState(() {
-            //     if (_numInicial <= exercises.numSeries) {
-            //       _numInicial++;
-            //       // }
-            //     }
-            //   });
-            // }
 
-            // void decrement() {
-            //   setState(() {
-            //     _numInicial--;
-            //   });
-            // }
-
-            // ;
-
-            return ListExerciseItem(exercises: widget.treino!.listExercises![index], treino: widget.treino,);
+            return ListExerciseItem(
+              exercises: widget.treino!.listExercises![index],
+              treino: widget.treino,
+            );
           }),
       floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.plus),
@@ -93,7 +84,7 @@ class _ExercisesListState extends State<ExercisesList> {
   AppBar appaBarHome(Text texto) {
     return AppBar(
         automaticallyImplyLeading: false, //Esconde o ícone original (menu)
-
+    
         centerTitle: true,
         title: texto,
         leading: Builder(builder: (BuildContext context) {

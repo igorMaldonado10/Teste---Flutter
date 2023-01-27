@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/treino_2.0/cadastro_treino.dart';
 import 'package:teste/Global/treino_2.0/editarTreino/informacoes.dart';
+import 'package:teste/Global/treino_2.0/searchPageTreino.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
@@ -20,14 +21,14 @@ class _TreinoList2State extends State<TreinoList2> {
   // Objeto do model
   // Objeto criado para utilizar os métodos dessa classe
   TreinoService treinoService = new TreinoService();
+
   // static List<Treino_dois> treinos = [];
   // late List treinosAll;
 
   // List<Treino_dois> _foundWorkouts = [];
-
   // @override
   // void initState() {
-  //   _foundWorkouts = treinoService.listarTreinos().length as List<Treino_dois>;
+  //   _foundWorkouts = treinoService.listarTreinos() as List<Treino_dois>;
   //   super.initState();
   // }
 
@@ -80,18 +81,19 @@ class _TreinoList2State extends State<TreinoList2> {
                 ],
               ),
             )
-          : Column(children: [
+          : 
+          Column(children: [
               const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.only(
-                    right: 15, left: 15, bottom: 20, top: 5),
-                child: const TextField(
-                  // onChanged: (value) => _runFilter(value),
-                  decoration: InputDecoration(
-                      labelText: 'Buscar  treino',
-                      suffixIcon: Icon(Icons.search)),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //       right: 15, left: 15, bottom: 20, top: 5),
+              //   child: const TextField(
+              //     // onChanged: (value) => _runFilter(value),
+              //     decoration: InputDecoration(
+              //         labelText: 'Buscar  treino',
+              //         suffixIcon: Icon(Icons.search)),
+              //   ),
+              // ),
               const SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
@@ -244,15 +246,27 @@ class _TreinoList2State extends State<TreinoList2> {
 
         centerTitle: true,
         title: texto,
-        //  actions: [
-        //   Switch(
-        //       value: tema.value == ThemeMode.dark,
-        //       onChanged: (isDark) {
-        //         setState(() {
-        //                 tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
-        //         });
-        //       })
-        // ],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => SearchPage()
+                        // treinoService.searchPage()
+                        
+                        
+                        )));
+              },
+              icon: Icon(Icons.search))
+          //   Switch(
+          //       value: tema.value == ThemeMode.dark,
+          //       onChanged: (isDark) {
+          //         setState(() {
+          //                 tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
+          //         });
+          //       })
+        ],
         leading: Builder(builder: (BuildContext context) {
           return IconButton(
               icon: FaIcon(FontAwesomeIcons.bars),

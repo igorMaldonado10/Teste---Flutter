@@ -9,11 +9,7 @@ import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/view/recursos/login/login_page.dart';
 import 'package:teste/view/recursos/splash_page.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
-// import '../Global/treino_1.0/treino_form.dart';
-// import '../view/recursos/thema/theme.dart';
 
-// import 'package:teste/view/splash_page.dart';
-// import 'package:teste/view/theme.dart';
 
 Future main() async {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -32,21 +28,24 @@ Future main() async {
           // child: 
 
            GetMaterialApp(
-          // GetMaterialApp = Configurações pré-prontas para a utilização do GetX
+          /// GetMaterialApp = Configurações pré-prontas para a utilização do GetX
             themeMode: tema.value,
             theme: ThemeData(
               brightness: Brightness.light,
               colorScheme: lightColorScheme,
               useMaterial3: true,
+              toggleableActiveColor: Color(0xFF85746B),
               backgroundColor: 
               Color(0xFF9B4501),
               primaryColorLight: Color.fromARGB(253, 245, 137, 50),
+              /// hoverColor: Colors.white,
               shadowColor: Colors.grey.shade700
             ),
             darkTheme: ThemeData(
             brightness: Brightness.dark,
             colorScheme: darkColorScheme,
             useMaterial3: true,
+            /// hoverColor: Colors.white,
             backgroundColor: Color(0xFF9B4501),
             shadowColor: Colors.grey.shade700,
             primaryColorDark: Color.fromARGB(253, 245, 137, 50)
