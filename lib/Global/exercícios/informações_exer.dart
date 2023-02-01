@@ -35,7 +35,9 @@ class _InfoExercisesState extends State<InfoExercises> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<Controller>();
+    // final controller = Get.find<Controller>();
+
+    // widget.exercises?.tipo = controller.tipoExerc;
     // Objeto que busca o arquivo treino que retorna a simulação de banco de dados e faz a listagem por id;
 
     // Objeto da classe Treino
@@ -43,10 +45,12 @@ class _InfoExercisesState extends State<InfoExercises> {
 
     return Scaffold(
       // Barra de título
-      appBar: appaBarHome(
-          Text('Informações:' + ' ' + '${widget.exercises!.name!}')),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Informações'),
+      ),
       // Menu (Hambúrguer)
-      drawer: MenuDrawer(),
+      // drawer: MenuDrawer(),
 
       // Corpo
       body: Container(
@@ -154,17 +158,18 @@ class _InfoExercisesState extends State<InfoExercises> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
                   ),
 
-                  GetBuilder<Controller>(builder: (_) {
-                    return Text(
-                      controller.tipoExerc,
-                      style: TextStyle(fontSize: 23),
-                    );
-                  })
-                  // new Text(
-                  //   // widget.exercises!.grupoMusc!
-                  //   widget.exercises!.obs!,
-                  //   style: TextStyle(fontSize: 23),
-                  // )
+                  // GetBuilder<Controller>(builder: (_) {
+                  //   return Text(
+                  //     // widget.exercises!.tipo!,
+                  //     controller.tipoExerc,
+                  //     style: TextStyle(fontSize: 23),
+                  //   );
+                  // })
+                  new Text(
+                    // widget.exercises!.grupoMusc!
+                    widget.exercises!.tipo!,
+                    style: TextStyle(fontSize: 23),
+                  )
                 ],
               ),
             ),
@@ -226,8 +231,8 @@ class _InfoExercisesState extends State<InfoExercises> {
               children: [
                 // delete
                 IconButton(
-                    onPressed: () {             
-                        removerExercise();
+                    onPressed: () {
+                      removerExercise();
                     },
                     icon: Icon(
                       Icons.delete,
@@ -270,8 +275,9 @@ class _InfoExercisesState extends State<InfoExercises> {
   }
 
   void removerExercise() {
-    String mensagem = treinoService.removerExercicio(widget.id ?? 0, widget.treino,
-    // widget.exercises!
+    String mensagem = treinoService.removerExercicio(
+      widget.id ?? 0, widget.treino,
+      // widget.exercises!
     );
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

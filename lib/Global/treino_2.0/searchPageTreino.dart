@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 
@@ -61,6 +63,22 @@ class _SearchPageState extends State<SearchPage> {
                             title: Text(treinoService.display_list[index].tipoDeTreino!),
                             subtitle:
                                 Text("${treinoService.display_list[index].dataDoTreino}"),
+                            trailing:  IconButton(
+                                      iconSize: 30,
+                                      onPressed: () {
+                                        // Cada treino tem o seu próprio ID, então, lógicamente cada ID tem a sua página de treino
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ExercisesList(
+                                                     treinoService.display_list[index]
+                                                    )));
+                                      },
+                                      icon:
+                                          FaIcon(FontAwesomeIcons.chevronRight),
+                                      // icon: Icon(Icons.more_vert_rounded)
+                                    ),
                           ))))
             ]),
       ),

@@ -9,6 +9,7 @@ import 'package:teste/Profile/cadastro_perfil.dart';
 import 'package:teste/Profile/update%20perfil/editar_perfil.dart';
 import 'package:teste/Profile/model/perfil_model.dart';
 import 'package:teste/Profile/perfil_service.dart';
+import 'package:teste/view/recursos/barraInferior.dart';
 import 'package:teste/view/recursos/barraSuperior.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
@@ -50,7 +51,7 @@ class _PerfilPageState extends State<PerfilPage> {
       // Barra de título
       appBar: appaBarHome(Text('Perfil')),
       // Menu (Hambúrguer)
-      drawer: MenuDrawer(),
+      // drawer: MenuDrawer(),
 
       // Corpo
       body: (perfilService.listaUser().length == null ||
@@ -341,7 +342,7 @@ class _PerfilPageState extends State<PerfilPage> {
                 },
               ),
             ),
-      bottomNavigationBar: barraInferior(),
+      // bottomNavigationBar: BottomNavBar(),
     );
   }
 
@@ -676,22 +677,18 @@ class _PerfilPageState extends State<PerfilPage> {
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  BottomNavigationBar barraInferior() {
-    return BottomNavigationBar(items: [
-      BottomNavigationBarItem(
-          label: 'Home',
-          icon: new IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => HomePage())));
-              },
-              icon: new FaIcon(FontAwesomeIcons.houseChimney))),
-      BottomNavigationBarItem(
-          label: 'Perfil',
-          icon: new IconButton(
-              onPressed: () {}, icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
-    ]);
-  }
+  // BottomNavigationBar barraInferior() {
+  //   return BottomNavigationBar(items: [
+  //     BottomNavigationBarItem(
+  //         label: 'Home',
+  //         icon: new FaIcon(FontAwesomeIcons.houseChimney,),
+          
+  //         ),
+  //     BottomNavigationBarItem(
+  //         label: 'Perfil',
+  //         icon: )
+  //   ]);
+  // }
 
   AppBar appaBarHome(Text texto) {
     return AppBar(
@@ -699,10 +696,11 @@ class _PerfilPageState extends State<PerfilPage> {
 
         centerTitle: true,
         title: texto,
-        leading: Builder(builder: (BuildContext context) {
-          return IconButton(
-              icon: FaIcon(FontAwesomeIcons.bars),
-              onPressed: () => Scaffold.of(context).openDrawer());
-        }));
+        // leading: Builder(builder: (BuildContext context) {
+        //   return IconButton(
+        //       icon: FaIcon(FontAwesomeIcons.bars),
+        //       onPressed: () => Scaffold.of(context).openDrawer());
+        // })
+        );
   }
 }

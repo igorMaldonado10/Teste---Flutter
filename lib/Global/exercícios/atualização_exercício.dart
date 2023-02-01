@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:teste/Global/exerc%C3%ADcios/Toggle%20Buttons/class_GetX_bool_for_string.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
@@ -26,6 +28,7 @@ class _ExerciseFormState extends State<ExerciseForm> {
   final numSer = TextEditingController();
   final numReps = TextEditingController();
   final restTime = TextEditingController();
+  final tipo = TextEditingController();
   final grupoMuscController = TextEditingController();
 
   // // Objeto de classe que contém a Busca dos contatos
@@ -40,15 +43,21 @@ class _ExerciseFormState extends State<ExerciseForm> {
     numReps.text = widget.exercises!.numRepeti!.toString();
     restTime.text = widget.exercises!.restTime!;
     grupoMuscController.text = widget.exercises!.grupoMusc!;
+    // tipo.text = widget.exercises!.tipo!;
   }
 
   @override
   Widget build(BuildContext context) {
     // Objeto da classe Treino
     // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
+        final controller = Get.find<Controller>();
+
 
     return Scaffold(
-      appBar: appaBarHome(Text('Editar' + ' - ' '${widget.exercises!.name!}')),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Editar' + ' - ' '${widget.exercises!.name!}'),
+        ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(
@@ -128,7 +137,7 @@ class _ExerciseFormState extends State<ExerciseForm> {
 
                     SizedBox(height: 30),
 
-                    ToggleButtons1(),
+                    ToggleButtons1(exercises:widget.exercises),
 
                     Padding(padding: EdgeInsets.all(10)),
 
@@ -187,6 +196,7 @@ class _ExerciseFormState extends State<ExerciseForm> {
                                 int.parse(numReps.text);
                             widget.exercises?.grupoMusc =
                                 grupoMuscController.text;
+                           widget.exercises?.tipo = controller.tipoExerc;
                             widget.exercises?.obs = obsController.text;
 
                             Navigator.pop(context);
@@ -205,7 +215,7 @@ class _ExerciseFormState extends State<ExerciseForm> {
           ),
         ),
       ),
-      bottomNavigationBar: barraInferior(),
+      // bottomNavigationBar: barraInferior(),
     );
   }
 

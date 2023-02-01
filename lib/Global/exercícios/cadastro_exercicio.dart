@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:teste/Global/exerc%C3%ADcios/Toggle%20Buttons/class_GetX_bool_for_string.dart';
 import 'package:teste/Global/exerc%C3%ADcios/Toggle%20Buttons/toggleButtons1.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
@@ -10,15 +12,15 @@ import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
 class CadastroExercicio extends StatefulWidget {
-  // final List<String> items;
   // const CadastroTreino({Key? key}) : super(key: key);
-  // final List list;
-  //  Guardar o ID do contato selecionado
 
+  //  Guardar o ID do contato selecionado
+  // final controller = Get.find<Controller>();
   // final int? id;
+  final Exercises? exercises;
   final Treino_dois? treino;
 
-  CadastroExercicio({ this.treino});
+  CadastroExercicio({this.treino, this.exercises});
 
   @override
   State<CadastroExercicio> createState() => _CadastroExercicioState();
@@ -36,6 +38,7 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
   // // Objeto de classe que contém a Busca dos contatos
   final TreinoService treinoService = new TreinoService();
 
+
   @override
   Widget build(BuildContext context) {
     // Objeto da classe Treino
@@ -45,8 +48,11 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
     // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
 
     return Scaffold(
-      appBar: appaBarHome(Text('Cadastro Exercício')),
-      drawer: MenuDrawer(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Cadastro de Exercício'),
+      ),
+      // drawer: MenuDrawer(),
       body: SingleChildScrollView(
         // CONTAINER DO FORM
         child: Container(
@@ -82,10 +88,22 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
                   onSelectedChange: (String value) {
                     grupoMus.text = value;
                   },
-                  items: ['Toráx', 'Abdômen', 'Costas', 'Ombros', 'Peito', 'Bíceps', 'Tríceps', 'Lombar', 'Quadríceps', 'Posterior coxa', 'Gêmeos' ],
+                  items: [
+                    'Toráx',
+                    'Abdômen',
+                    'Costas',
+                    'Ombros',
+                    'Peito',
+                    'Bíceps',
+                    'Tríceps',
+                    'Lombar',
+                    'Quadríceps',
+                    'Posterior coxa',
+                    'Gêmeos'
+                  ],
                 ),
               ),
-             
+
               Container(
                 padding: EdgeInsets.only(right: 165),
                 child: Text('Tipo de exercício'),
@@ -93,64 +111,61 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
 
               SizedBox(height: 30),
 
-             ToggleButtons1(),
+              ToggleButtons1(exercises: widget.exercises),
 
-             Padding(padding: EdgeInsets.all(10)),
+              Padding(padding: EdgeInsets.all(10)),
 
-              
               addTexForm('observação', obs),
-              
 
               new Container(
-              margin: EdgeInsets.only(bottom: 10),
-              child: TextField(
-              keyboardType: TextInputType.number,
-              // recebe o valor dos campos
-              controller: numSer,
+                margin: EdgeInsets.only(bottom: 10),
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  // recebe o valor dos campos
+                  controller: numSer,
 
-              decoration: InputDecoration(
-              labelText: 'Número de séries',
+                  decoration: InputDecoration(
+                    labelText: 'Número de séries',
 
-              // Borda do Input
-              border: OutlineInputBorder(borderSide: BorderSide()),
-        ),
-      ),
-    ),
-
-
-              new Container(
-              margin: EdgeInsets.only(bottom: 10),
-              child: TextField(
-              keyboardType: TextInputType.number,
-             // recebe o valor dos campos
-             controller: numReps,
-
-             decoration: InputDecoration(
-             labelText: 'Número de repetições',
-
-            // Borda do Input
-            border: OutlineInputBorder(borderSide: BorderSide()),
-        ),
-      ),
-    ),
+                    // Borda do Input
+                    border: OutlineInputBorder(borderSide: BorderSide()),
+                  ),
+                ),
+              ),
 
               new Container(
-              margin: EdgeInsets.only(bottom: 10),
-              child: TextField(
-                keyboardType: TextInputType.number,
-             // recebe o valor dos campos
-             controller: restTime,
+                margin: EdgeInsets.only(bottom: 10),
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  // recebe o valor dos campos
+                  controller: numReps,
 
-            decoration: InputDecoration(
-            labelText: 'Tempo de descanso(minutos)',
-          // hintText: '',
-          // Borda do Input
-            border: OutlineInputBorder(borderSide: BorderSide()),
-        ),
-      ),
-    ),
+                  decoration: InputDecoration(
+                    labelText: 'Número de repetições',
+
+                    // Borda do Input
+                    border: OutlineInputBorder(borderSide: BorderSide()),
+                  ),
+                ),
+              ),
+
+              new Container(
+                margin: EdgeInsets.only(bottom: 10),
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  // recebe o valor dos campos
+                  controller: restTime,
+
+                  decoration: InputDecoration(
+                    labelText: 'Tempo de descanso(minutos)',
+                    // hintText: '',
+                    // Borda do Input
+                    border: OutlineInputBorder(borderSide: BorderSide()),
+                  ),
+                ),
+              ),
               // addTexForm('Tempo de descanso', restTime),
- 
+
               // SizedBox(height: 15),
 
               // BOTÕES
@@ -161,13 +176,17 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
                   new Builder(builder: (BuildContext context) {
                     return ElevatedButton(
                         onPressed: () {
-                         setState(() {
-                              cadastrar();
-                          
-                          Future.delayed(Duration(milliseconds: 2500), () {
-                            Navigator.pop(context);
+                          setState(() {
+                            cadastrar();
+                             Future.delayed(Duration(milliseconds: 2500), () {
+                            Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => ExercisesList(widget.treino)));
+                           });
+
+                            // Future.delayed(Duration(milliseconds: 2500), () {
+                            //   Navigator.pop(context);
+                            // });
                           });
-                         });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -222,28 +241,39 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
 
   // método de Cadastrar
   void cadastrar() {
-    // ExercicioService exercicioService = ExercicioService();
+    final controller = Get.put(Controller());
 
+
+    // GetBuilder<Controller>(builder: (_) {
+    //                 return Text(
+    //                   // widget.exercises!.tipo!,
+    //                   controller.tipoExerc,
+    //                   style: TextStyle(fontSize: 23),
+    //                 );
+    //               });
+     
     // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id!);
-
+    
+    
     // Guardar o último ID cadastrado
     // int ultimoID = treinoService.listarExercicios().length;
     int ultimoID = widget.treino!.listExercises!.length;
     // int ultimoID = treino.listExercises!.length;
-    
 
     Exercises exercises = Exercises(
         id: ultimoID + 1,
         name: name.text,
         grupoMusc: grupoMus.text,
-        tipo: tipo.text,
+        tipo: controller.tipoExerc,
+        // tipo.text,
         obs: obs.text,
         numSeries: int.parse(numSer.text),
         numRepeti: int.parse(numReps.text),
         restTime: restTime.text);
 
 // Envia o objeto preenchido para adicionar na lista
-    String mensagem = treinoService.cadastrarExercicio(exercises, widget.treino!);
+    String mensagem =
+        treinoService.cadastrarExercicio(exercises, widget.treino!);
     // String mensagem = exercicioService.cadastrarExercicio(exercises, widget.id);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -268,7 +298,7 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
   void limpar() {
     name.text = '';
     grupoMus.text = '';
-    tipo.text = '';
+    // tipo.text = '';
     obs.text = '';
     numSer.text = '';
     numReps.text = '';

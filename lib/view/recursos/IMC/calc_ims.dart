@@ -39,8 +39,18 @@ class _HomeState extends State<CalculadoraIMC> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appaBar(Text('Calculadora IMC')),
-        drawer: MenuDrawer(),
+        appBar: AppBar(
+        centerTitle: true,
+        title: Text('Calculadora IMC'),
+        actions: [
+        IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              resetFields();
+            },
+          )
+        ],
+        ),
         body: Container(
           height: MediaQuery.of(context).size.height ,
           decoration: BoxDecoration(
@@ -51,25 +61,25 @@ class _HomeState extends State<CalculadoraIMC> {
           child: SingleChildScrollView(
               padding: EdgeInsets.all(20.0), child: buildForm()),
         ),
-        bottomNavigationBar: BottomNavigationBar(items: [
-      BottomNavigationBarItem(
-                label: 'Home',
-                icon: new IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => HomePage())));
-                    },
-                    icon: new FaIcon(FontAwesomeIcons.houseChimney))),
+    //     bottomNavigationBar: BottomNavigationBar(items: [
+    //   BottomNavigationBarItem(
+    //             label: 'Home',
+    //             icon: new IconButton(
+    //                 onPressed: () {
+    //                   Navigator.push(
+    //                       context,
+    //                       MaterialPageRoute(
+    //                           builder: ((context) => HomePage())));
+    //                 },
+    //                 icon: new FaIcon(FontAwesomeIcons.houseChimney))),
 
-            BottomNavigationBarItem(
-                label: 'Perfil',
-                icon: new IconButton(
-                    onPressed: () {},
-                    icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
-    ]
-    ),
+    //         BottomNavigationBarItem(
+    //             label: 'Perfil',
+    //             icon: new IconButton(
+    //                 onPressed: () {},
+    //                 icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
+    // ]
+    // ),
         );
         
   }

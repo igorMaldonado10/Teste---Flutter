@@ -1,6 +1,7 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teste/view/recursos/barraInferior.dart';
 // import 'package:provider/provider.dart';
 // import 'package:teste/Global/provider/treinoProvider.dart';
 // import 'package:teste/Global/routes/app_routes.dart';
@@ -51,13 +52,16 @@ Future main() async {
             primaryColorDark: Color.fromARGB(253, 245, 137, 50)
             
             ),
-            home: const HomePage(),
+            home: const BottomNavBar(),
+            //  const HomePage(),
             debugShowCheckedModeBanner: false,
             initialRoute: '/splash',
             routes: {
               '/splash': (_) => const SplashScreen(),
               '/login': (_) => LoginPage(),
-              '/home': (_) => HomePage(),
+              // '/home': (_) => HomePage(),
+              '/home': (_) => BottomNavBar(),
+
               '/cadastrar': (_) => CadastroUser(),
               // AppRoutes.TREINO_FORM: (_) => TreinoForm(),
             },

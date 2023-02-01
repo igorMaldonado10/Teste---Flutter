@@ -1,30 +1,35 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
+import 'package:teste/Global/treino_2.0/treino_model2.dart';
 
-class ListOfChips extends StatefulWidget {
-  final List<String> items;
+class FilterChipExercMusc extends StatefulWidget {
+   final List<String> items_filters;
   final void Function(String value) onSelectedChange;
-  const ListOfChips(
-      {Key? key, required this.items, required this.onSelectedChange})
-      : super(key: key);
+  final Treino_dois? treino;
+
+  // const FilterChipExerc({Key? key}) : super(key: key);
+  FilterChipExercMusc({required this.items_filters, this.treino, required this.onSelectedChange});
 
   @override
-  State<ListOfChips> createState() => _ListOfChipsState();
+  State<FilterChipExercMusc> createState() => _FilterChipExercMuscState();
 }
 
-class _ListOfChipsState extends State<ListOfChips> {
-  String selected = '';
+class _FilterChipExercMuscState extends State<FilterChipExercMusc> {
+    String selected = '';
+  // late List<Exercises> display_list_exerc =
+  //     List.from(widget.treino!.listExercises!);
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80,
-      width: MediaQuery.of(context).size.width,
-      child: ListView(
+        height: 80,
+        width: MediaQuery.of(context).size.width,
+        child: ListView(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
-          children: List.from(widget.items.map((itemSelec) => Padding(
+          children: List.from(widget.items_filters.map((itemSelec) => Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InputChip(
                   label: Text(itemSelec),
@@ -33,10 +38,9 @@ class _ListOfChipsState extends State<ListOfChips> {
                   backgroundColor:
                       Theme.of(context).backgroundColor.withOpacity(.4),
                   selectedColor: Theme.of(context).backgroundColor,
-                  deleteIcon: Icon(Icons.highlight_remove_outlined),
                   onDeleted: (() {
                     setState(() {
-                      selected = '';
+                      selected = null.toString();
                     });
                   }),
                   onPressed: () {
@@ -51,6 +55,7 @@ class _ListOfChipsState extends State<ListOfChips> {
               )
               )
               ),
-    );
+            
+            );
   }
 }

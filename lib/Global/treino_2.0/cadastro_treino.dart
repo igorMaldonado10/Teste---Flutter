@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_service.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
+import 'package:teste/Global/treino_1.0/treino_list.dart';
 // import 'package:teste/Global/treino_2.0/edit_treino.dart';
 import 'package:teste/Global/treino_2.0/treino_list2.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
@@ -28,10 +29,12 @@ class _CadastroTreinoState extends State<CadastroTreino> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appaBarHome(Text('Cadastro Treino')),
-      drawer: MenuDrawer(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Cadastro de Treino'),
+      ),
+      // drawer: MenuDrawer(),
       body: SingleChildScrollView(
-        
         // Container do Form
         child: Container(
           alignment: Alignment.center,
@@ -40,7 +43,6 @@ class _CadastroTreinoState extends State<CadastroTreino> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Theme.of(context).cardColor),
-              
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -70,6 +72,11 @@ class _CadastroTreinoState extends State<CadastroTreino> {
                     return ElevatedButton(
                         onPressed: () {
                           cadastrar();
+
+                           Future.delayed(Duration(milliseconds: 2500), () {
+                           Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => TreinoList2()));
+    });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -104,8 +111,6 @@ class _CadastroTreinoState extends State<CadastroTreino> {
     );
   }
 
-  
-
   //  Retorna a estrutura do campo input
   Container addTexForm(String nomoDoCampo, TextEditingController controller) {
     return new Container(
@@ -136,8 +141,7 @@ class _CadastroTreinoState extends State<CadastroTreino> {
         tipoDeTreino: tipoDeTreino.text,
         dataDoTreino: data.text,
         objetivo: objetivo.text,
-        listExercises: []
-        );
+        listExercises: []);
 
 // Envia o objeto preenchido para adicionar na lista
     String mensagem = treinoService.cadastrarTreino(treino_dois);
@@ -154,10 +158,11 @@ class _CadastroTreinoState extends State<CadastroTreino> {
     ));
 
     // Redireciona para a tela de busca
-    Future.delayed(Duration(milliseconds: 2500), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => TreinoList2()));
-    });
+    // Future.delayed(Duration(milliseconds: 2500), () {
+    //   Navigator.pop(context);
+    //   // Navigator.push(
+    //   //     context, MaterialPageRoute(builder: (context) => TreinoList2()));
+    // });
   }
 
   // Limpar campos
@@ -182,10 +187,12 @@ class _CadastroTreinoState extends State<CadastroTreino> {
         //         });
         //       })
         // ],
-        leading: Builder(builder: (BuildContext context) {
-          return IconButton(
-              icon: FaIcon(FontAwesomeIcons.bars),
-              onPressed: () => Scaffold.of(context).openDrawer());
-        }));
+        // leading: Builder(builder: (BuildContext context) {
+        //   return IconButton(
+        //       icon: FaIcon(FontAwesomeIcons.bars),
+        //       onPressed: () => Scaffold.of(context).openDrawer());
+        // })
+        
+        );
   }
 }

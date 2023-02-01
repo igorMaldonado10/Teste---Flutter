@@ -84,7 +84,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
               // ),
               imageProfile(),
               SizedBox(height: 20),
-              addTexForm('Nome', name ),
+              addTexForm('Nome', name),
               addTexForm('Sobrenome', sobrenome),
               addTexForm('Data de nascimento', dataNasc),
               addTexForm('Peso atual', pesoAtual),
@@ -154,9 +154,10 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
     return Stack(
       children: [
         CircleAvatar(
-          radius: 80.0,
-          backgroundImage: _imageFile == null ? AssetImage('assets/imgs/logo_app.png'): FileImage(File(_imageFile!.path)) as ImageProvider
-        ),
+            radius: 80.0,
+            backgroundImage: _imageFile == null
+                ? AssetImage('assets/imgs/logo_app.png')
+                : FileImage(File(_imageFile!.path)) as ImageProvider),
         Positioned(
           bottom: 20,
           right: 20,
@@ -232,7 +233,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
   }
 
   //  Retorna a estrutura do campo input
-  Container addTexForm(String nomoDoCampo,TextEditingController controller) {
+  Container addTexForm(String nomoDoCampo, TextEditingController controller) {
     return new Container(
       margin: EdgeInsets.only(bottom: 10),
       child: TextFormField(
@@ -240,7 +241,7 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
         controller: controller,
 
         decoration: InputDecoration(
-          labelText: nomoDoCampo,        // Borda do Input
+          labelText: nomoDoCampo, // Borda do Input
           border: OutlineInputBorder(borderSide: BorderSide()),
         ),
       ),
@@ -283,8 +284,9 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
 
     // Redireciona para a tela de busca
     Future.delayed(Duration(milliseconds: 2500), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: ((context) => PerfilPage())));
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: ((context) => PerfilPage())));
+      Navigator.pop(context);
     });
   }
 

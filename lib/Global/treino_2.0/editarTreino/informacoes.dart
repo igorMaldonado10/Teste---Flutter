@@ -44,9 +44,12 @@ class _EditTreinoState extends State<EditTreino> {
 
     return Scaffold(
       // Barra de título
-      appBar: appaBarHome(Text('Informações:')),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Informações - ${treino.tipoDeTreino}')
+      ),
       // Menu (Hambúrguer)
-      drawer: MenuDrawer(),
+      // drawer: MenuDrawer(),
 
       // Corpo
       body: Container(
@@ -140,30 +143,45 @@ class _EditTreinoState extends State<EditTreino> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // delete
-                IconButton(
-                    onPressed: () {
-                      removerTreino();
-                    },
-                    icon: Icon(
-                      Icons.delete,
-                      color: lightColorScheme.error,
-                      size: 50,
-                    )),
+                Expanded(child: 
+                ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Theme.of(context).errorColor)
+                ) ,
+                onPressed: (){
+                  removerTreino();
+                }, 
+                child:
+                Text('Deletar Treino',
+                style: TextStyle(
+                  color: Theme.of(context).canvasColor
+                ),
+                )
+                 ))
+                // IconButton(
+                //     onPressed: () {
+                //       removerTreino();
+                //     },
+                //     icon: Icon(
+                //       Icons.delete,
+                //       color: lightColorScheme.error,
+                //       size: 50,
+                //     )),
                 // SizedBox(
                 //   width: 10,
                 //   height: 10,
                 // ),
                 
-                Container(
-                  padding: EdgeInsets.only(top: 20, left: 10),
-                  child: Text(
-                    'Deletar treino',
-                    style: TextStyle(
-                        color: lightColorScheme.error,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                )
+                // Container(
+                //   padding: EdgeInsets.only(top: 20, left: 10),
+                //   child: Text(
+                //     'Deletar treino',
+                //     style: TextStyle(
+                //         color: lightColorScheme.error,
+                //         fontSize: 20,
+                //         fontWeight: FontWeight.bold),
+                //   ),
+                // )
               ],
             ),
 

@@ -12,6 +12,10 @@ class TreinoService {
   ///   exercicios;
   /// }
 
+  Treino_dois? treino_dois;
+
+  // List<Exercises> exercises = treino_dois!.listExercises!;
+
   /// Método para remover os exercicios na lista de cada treino especifico
   String removerExercicio(int id, Treino_dois treino) {
     treino.listExercises?.removeAt(id);
@@ -72,7 +76,6 @@ class TreinoService {
   List<Treino_dois> treinos2 = treinos;
 
   List<Treino_dois> display_list = List.from(treinos);
-
 
   // void updateList(String value) {}
   // List pegarList() {

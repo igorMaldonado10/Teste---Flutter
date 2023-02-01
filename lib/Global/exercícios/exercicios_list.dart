@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Global/exerc%C3%ADcios/cadastro_exercicio.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicio_item.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
+import 'package:teste/Global/exerc%C3%ADcios/searchPageExercises.dart';
+import 'package:teste/Global/treino_1.0/treino_list.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
@@ -40,9 +42,27 @@ class _ExercisesListState extends State<ExercisesList> {
     /// Exercises exercises = exercicioService.listarExercicios().elementAt(widget.id - 1);
 
     return Scaffold(
-      appBar: appaBarHome(
-          Text('Exercícios' + ' - ' '${widget.treino!.tipoDeTreino}')),
-      drawer: MenuDrawer(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Exercícios' + ' - ' '${widget.treino!.tipoDeTreino}'),
+          actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => SearchPageExerc(
+                                  treino: widget.treino,
+                                )
+                            // treinoService.searchPage()
+
+                            )));
+              },
+              icon: Icon(Icons.search))
+        ]),
+      //  appaBarHome(
+      //     Text('Exercícios' + ' - ' '${widget.treino!.tipoDeTreino}')),
+      // drawer: MenuDrawer(),
       body: ListView.builder(
           padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
           itemCount: widget.treino?.listExercises?.length ??
@@ -84,13 +104,29 @@ class _ExercisesListState extends State<ExercisesList> {
   AppBar appaBarHome(Text texto) {
     return AppBar(
         automaticallyImplyLeading: false, //Esconde o ícone original (menu)
-    
+
         centerTitle: true,
         title: texto,
-        leading: Builder(builder: (BuildContext context) {
-          return IconButton(
-              icon: FaIcon(FontAwesomeIcons.bars),
-              onPressed: () => Scaffold.of(context).openDrawer());
-        }));
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => SearchPageExerc(
+                                  treino: widget.treino,
+                                )
+                            // treinoService.searchPage()
+
+                            )));
+              },
+              icon: Icon(Icons.search))
+        ]);
   }
+  // leading: Builder(builder: (BuildContext context) {
+  //   return IconButton(
+  //       icon: FaIcon(FontAwesomeIcons.bars),
+  //       onPressed: () => Scaffold.of(context).openDrawer());
+  // }
+  // )
 }

@@ -45,8 +45,8 @@ class _TreinoList2State extends State<TreinoList2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appaBarHome(Text('Treino')),
-      drawer: MenuDrawer(),
+      appBar: appaBarHome(Text('Lista de Treinos')),
+      // drawer: MenuDrawer(),
       body: (treinoService.listarTreinos().length == null ||
               treinoService.listarTreinos().isEmpty)
           ? SingleChildScrollView(
@@ -219,26 +219,9 @@ class _TreinoList2State extends State<TreinoList2> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => CadastroTreino()));
           }),
-      bottomNavigationBar: barraInferior(),
     );
   }
 
-  BottomNavigationBar barraInferior() {
-    return BottomNavigationBar(items: [
-      BottomNavigationBarItem(
-          label: 'Home',
-          icon: new IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => HomePage())));
-              },
-              icon: new FaIcon(FontAwesomeIcons.houseChimney))),
-      BottomNavigationBarItem(
-          label: 'Perfil',
-          icon: new IconButton(
-              onPressed: () {}, icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
-    ]);
-  }
 
   AppBar appaBarHome(Text texto) {
     return AppBar(
@@ -267,10 +250,11 @@ class _TreinoList2State extends State<TreinoList2> {
           //         });
           //       })
         ],
-        leading: Builder(builder: (BuildContext context) {
-          return IconButton(
-              icon: FaIcon(FontAwesomeIcons.bars),
-              onPressed: () => Scaffold.of(context).openDrawer());
-        }));
+        // leading: Builder(builder: (BuildContext context) {
+        //   return IconButton(
+        //       icon: FaIcon(FontAwesomeIcons.bars),
+        //       onPressed: () => Scaffold.of(context).openDrawer());
+        // })
+        );
   }
 }

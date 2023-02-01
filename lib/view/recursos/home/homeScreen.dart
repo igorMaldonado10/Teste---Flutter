@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:teste/Profile/cadastro_perfil.dart';
+import 'package:teste/view/recursos/barraInferior.dart';
 import 'package:teste/view/recursos/barraSuperior.dart';
 import 'package:teste/view/recursos/login/cadatroUsuario.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
@@ -17,11 +18,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+// int _opcaoSelecionada = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: appaBarHome(Text('Home')),
-        drawer: MenuDrawer(),
+        // drawer: MenuDrawer(),
         body: Container(
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
@@ -166,29 +170,14 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            // ícone Home
-            BottomNavigationBarItem(
-                label: 'Home',
-                icon: new IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => HomePage())));
-                    },
-                    icon: new FaIcon(FontAwesomeIcons.houseChimney))),
-
-            BottomNavigationBarItem(
-                label: 'Perfil',
-                icon: new IconButton(
-                    onPressed: () {},
-                    icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
-          ],
-        ));
+         
+        // bottomNavigationBar: BottomNavBar(),
+        
+        );
+        
   }
-
+  
+  
   AppBar appaBarHome(Text texto) {
     return AppBar(
         automaticallyImplyLeading: false, //Esconde o ícone original (menu)
@@ -205,10 +194,11 @@ class _HomePageState extends State<HomePage> {
                 });
               })
         ],
-        leading: Builder(builder: (BuildContext context) {
-          return IconButton(
-              icon: FaIcon(FontAwesomeIcons.bars),
-              onPressed: () => Scaffold.of(context).openDrawer());
-        }));
+        // leading: Builder(builder: (BuildContext context) {
+        //   return IconButton(
+        //       icon: FaIcon(FontAwesomeIcons.bars),
+        //       onPressed: () => Scaffold.of(context).openDrawer());
+        // })
+        );
   }
 }
