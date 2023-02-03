@@ -79,7 +79,10 @@ class _SearchPageState extends State<SearchPage> {
                                           FaIcon(FontAwesomeIcons.chevronRight),
                                       // icon: Icon(Icons.more_vert_rounded)
                                     ),
-                          ))))
+                          )
+                          )
+                          )
+                          )
             ]),
       ),
     );

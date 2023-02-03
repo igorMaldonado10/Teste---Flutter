@@ -43,9 +43,7 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
   Widget build(BuildContext context) {
     // Objeto da classe Treino
 
-    // Exercises exercises = treinoService.listarTreinos().elementAt(widget.id - 1);
-    // Exercises exercises = treinoService.listarExercicios().elementAt(widget.id - 1);
-    // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
+   
 
     return Scaffold(
       appBar: AppBar(

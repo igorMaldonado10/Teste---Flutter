@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicios_service.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_1.0/treino_list.dart';
@@ -73,10 +74,13 @@ class _CadastroTreinoState extends State<CadastroTreino> {
                         onPressed: () {
                           cadastrar();
 
-                           Future.delayed(Duration(milliseconds: 2500), () {
-                           Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => TreinoList2()));
-    });
+                          Future.delayed(Duration(milliseconds: 2500), () {
+                            // Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TreinoList2()));
+                          });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -135,12 +139,14 @@ class _CadastroTreinoState extends State<CadastroTreino> {
 
     // Guardar o último ID cadastrado
     int ultimoID = treinoService.listarTreinos().length;
+    // final dataInic = treinoService.treinos2;
 
     Treino_dois treino_dois = Treino_dois(
         id: ultimoID + 1,
         tipoDeTreino: tipoDeTreino.text,
         dataDoTreino: data.text,
         objetivo: objetivo.text,
+        date: DateTime.now(),
         listExercises: []);
 
 // Envia o objeto preenchido para adicionar na lista
@@ -174,25 +180,24 @@ class _CadastroTreinoState extends State<CadastroTreino> {
 
   AppBar appaBarHome(Text texto) {
     return AppBar(
-        automaticallyImplyLeading: false, //Esconde o ícone original (menu)
+      automaticallyImplyLeading: false, //Esconde o ícone original (menu)
 
-        centerTitle: true,
-        title: texto,
-        //  actions: [
-        //   Switch(
-        //       value: tema.value == ThemeMode.dark,
-        //       onChanged: (isDark) {
-        //         setState(() {
-        //                 tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
-        //         });
-        //       })
-        // ],
-        // leading: Builder(builder: (BuildContext context) {
-        //   return IconButton(
-        //       icon: FaIcon(FontAwesomeIcons.bars),
-        //       onPressed: () => Scaffold.of(context).openDrawer());
-        // })
-        
-        );
+      centerTitle: true,
+      title: texto,
+      //  actions: [
+      //   Switch(
+      //       value: tema.value == ThemeMode.dark,
+      //       onChanged: (isDark) {
+      //         setState(() {
+      //                 tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
+      //         });
+      //       })
+      // ],
+      // leading: Builder(builder: (BuildContext context) {
+      //   return IconButton(
+      //       icon: FaIcon(FontAwesomeIcons.bars),
+      //       onPressed: () => Scaffold.of(context).openDrawer());
+      // })
+    );
   }
 }

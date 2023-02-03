@@ -1,12 +1,10 @@
+import 'dart:io';
+
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teste/Profile/cadastro_perfil.dart';
-import 'package:teste/view/recursos/barraInferior.dart';
-import 'package:teste/view/recursos/barraSuperior.dart';
-import 'package:teste/view/recursos/login/cadatroUsuario.dart';
-import 'package:teste/view/recursos/menuDrawer.dart';
-import 'package:teste/view/recursos/thema/color_schemes.g.dart';
-import 'package:teste/view/recursos/thema/theme.dart';
+import 'package:teste/Profile/model/perfil_model.dart';
+import 'package:teste/Profile/perfil_service.dart';
 
 final tema = ValueNotifier(ThemeMode.light);
 
@@ -18,187 +16,113 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  PerfilService perfilService = PerfilService();
+
+  List imageList = [
+    {'id': 1, 'image_path': "assets/imgs/image_pag_in.png"},
+    {"id": 2, 'image_path': "assets/imgs/weights-3483560_1920.jpg"},
+    {"id": 3, 'image_path': "assets/imgs/adult-1850925.jpg"},
+    {"id": 4, 'image_path': "assets/imgs/barbell-1839086_1920.jpg"}
+  ];
+
+  final CarouselController carouselController = CarouselController();
+
+  int currentIndex = 0;
 
 // int _opcaoSelecionada = 0;
 
   @override
   Widget build(BuildContext context) {
+    // User user = perfilService.perfilView.elementAt(0);
+
     return Scaffold(
-        appBar: appaBarHome(Text('Home')),
-        // drawer: MenuDrawer(),
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [ Theme.of(context).backgroundColor,Theme.of(context).canvasColor])),
-          child: SingleChildScrollView(
-            child: Stack(
-              children: [
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        alignment: Alignment.topCenter,
-                        height: MediaQuery.of(context).size.height / 2,
-                        width: MediaQuery.of(context).size.width,
-                        child: Image.asset(
-                          'assets/imgs/image_pag_in.png',
-                          // fit: BoxFit.fitWidth,
+      appBar: appaBarHome(Text('Home')),
+      // drawer: MenuDrawer(),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              InkWell(
+                onTap: () {
+                  print(currentIndex);
+                },
+                child: CarouselSlider(
+                    items: imageList
+                        .map((item) => Image.asset(
+                              item["image_path"],
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ))
+                        .toList(),
+                    carouselController: carouselController,
+                    options: CarouselOptions(
+                      scrollPhysics: const BouncingScrollPhysics(),
+                      autoPlay: true,
+                      aspectRatio: 1,
+                      viewportFraction: 1,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          currentIndex = index;
+                        }
+                        );
+                      },
+                    )),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 0,
+                right: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: imageList.asMap().entries.map((entry) {
+                    print(entry);
+                    print(entry.key);
+                    return GestureDetector(
+                      onTap: () => carouselController.animateToPage(entry.key),
+                      child: Container(
+                        width: currentIndex == entry.key ? 17 : 7,
+                        height: 7,
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 3,
                         ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: currentIndex == entry.key
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).cardColor),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-
-                      // ListView.builder(
-                      // padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
-                      // itemCount: treinoService.listarTreinos().length,
-                      // // recebo o índice e o contexto do elemento que vou retornar, eu posso criar por ex. um text
-                      // itemBuilder: (BuildContext context, int index) {
-                      //   // Guarda o retorno da lista no objeto da classe
-
-                      //   // Objeto que busca o arquivo treino que retorna a simulação de banco de dados e faz a listagem por id;
-                      //   Treino_dois treino_dois = treinoService.listarTreinos().elementAt(index);
-
-                      //   // exportação da lista de ARQuivos
-                      //   final avatar = treino.icon == null || treino.icon.isEmpty
-                      //       ? CircleAvatar(
-                      //           radius: 35,
-                      //           backgroundColor: Color(0xFF9B4501),
-                      //           child: FaIcon(
-                      //             FontAwesomeIcons.person,
-                      //             color: Colors.white,
-                      //             size: 30,
-                      //           ))
-                      //       : CircleAvatar(
-                      //           backgroundImage: NetworkImage(treino.icon),
-                      //         );
-
-                      //   return Container(
-                      //     // decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
-                      //     height: 150,
-                      //     color: Colors.grey.shade200,
-                      //     padding: EdgeInsets.all(5),
-                      //     margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      //     child: ListTile(
-                      //       // leading:
-
-                      //       // avatar,
-
-                      //       title: Row(
-                      //         children: [
-                      //           Column(
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             children: [
-                      //               Row(
-                      //                 children: [
-                      //                   Text(
-                      //                     treino_dois.tipoDeTreino,
-                      //                     style: TextStyle(
-                      //                         fontSize: 25, fontWeight: FontWeight.bold),
-                      //                   ),
-                      //                   IconButton(
-                      //                       // iconSize: ,
-                      //                       onPressed: () {
-                      //                         Navigator.push(
-                      //                             context,
-                      //                             MaterialPageRoute(
-                      //                                 builder: (context) => new EditTreino(
-                      //                                   id: treino_dois.id,
-                      //                                 )
-                      //                                 )
-                      //                                 );
-                      //                       },
-                      //                       icon: Icon(
-                      //                         Icons.more_vert_rounded,
-                      //                         // color: darkColorScheme.secondary,
-                      //                       )),
-                      //                 ],
-                      //               ),
-                      //               SizedBox(
-                      //                 height: 10,
-                      //               ),
-                      //               new Text('Objetivo:' + treino_dois.objetivo),
-                      //               SizedBox(height: 5),
-                      //               new Text(treino_dois.dataDoTreino),
-                      //             ],
-                      //           ),
-                      //         ],
-                      //       ),
-
-                      //       trailing: Container(
-                      //         alignment: Alignment.center,
-                      //         height: 100,
-                      //         width: 70,
-                      //         child: Row(
-                      //           children: [
-                      //             // IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined)),
-                      //             // IconButton(
-                      //             //     iconSize: 25,
-                      //             //     onPressed: () {},
-                      //             //     icon: Icon(
-                      //             //       Icons.delete,
-                      //             //       color: lightColorScheme.error,
-                      //             //     )),
-
-                      //             Column(
-                      //               mainAxisAlignment: MainAxisAlignment.center,
-                      //               children: [
-                      //                 IconButton(
-                      //                   iconSize: 40,
-                      //                   onPressed: () {},
-                      //                   icon: FaIcon(FontAwesomeIcons.chevronRight),
-                      //                   // icon: Icon(Icons.more_vert_rounded)
-                      //                 ),
-                      //               ],
-                      //             )
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   );
-
-                      // })
-
-                    
-                      // Bottom profile
-                    ]),
-              ],
-            ),
-          ),
-        ),
-         
-        // bottomNavigationBar: BottomNavBar(),
-        
-        );
-        
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
-  
-  
+
   AppBar appaBarHome(Text texto) {
     return AppBar(
-        automaticallyImplyLeading: false, //Esconde o ícone original (menu)
+      automaticallyImplyLeading: false, //Esconde o ícone original (menu)
 
-        centerTitle: true,
-        title: texto,
-        actions: [
-          Switch(
-              activeColor: Theme.of(context).backgroundColor,
-              value: tema.value == ThemeMode.dark,
-              onChanged: (isDark) {
-                setState(() {
-                  tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
-                });
-              })
-        ],
-        // leading: Builder(builder: (BuildContext context) {
-        //   return IconButton(
-        //       icon: FaIcon(FontAwesomeIcons.bars),
-        //       onPressed: () => Scaffold.of(context).openDrawer());
-        // })
-        );
+      centerTitle: true,
+      title: texto,
+      actions: [
+        Switch(
+            activeColor: Theme.of(context).backgroundColor,
+            value: tema.value == ThemeMode.dark,
+            onChanged: (isDark) {
+              setState(() {
+                tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
+              });
+            })
+      ],
+      // leading: Builder(builder: (BuildContext context) {
+      //   return IconButton(
+      //       icon: FaIcon(FontAwesomeIcons.bars),
+      //       onPressed: () => Scaffold.of(context).openDrawer());
+      // })
+    );
   }
 }

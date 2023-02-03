@@ -47,6 +47,8 @@ dependencies:
   shared_preferences: ^2.0.15
   firebase_auth: ^4.2.4
   image_picker: ^0.8.6
+  intl: ^0.17.0
+  carousel_slider: ^4.2.1
   
 dev_dependencies:
   flutter_test:
@@ -75,9 +77,12 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/imgs/barbell-1839086_1920.jpg
+    - assets/imgs/weights-3483560_1920.jpg
+    - assets/imgs/adult-1850925.jpg
     - assets/imgs/logo_app.png 
     - assets/imgs/image_pag_in.png
-    - assets\imgs\profileGenericPhoto.jpg
+    - assets/imgs/profileGenericPhoto.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

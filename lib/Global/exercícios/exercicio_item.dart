@@ -12,6 +12,7 @@ class ListExerciseItem extends StatefulWidget {
 
   final Exercises exercises;
   final Treino_dois? treino;
+ 
   // final int id;
   ListExerciseItem({required this.exercises, this.treino});
 
@@ -48,7 +49,7 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(20), topRight: Radius.circular(20)),
-        color: Theme.of(context).cardColor,
+        color: Theme.of(context).highlightColor,
       ),
       height: 150,
       // width: 500,
@@ -174,8 +175,6 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
                 icon: FaIcon(FontAwesomeIcons.chevronRight),
                 // icon: Icon(Icons.more_vert_rounded)
               ),
-             
-           
             ],
           ),
         ),

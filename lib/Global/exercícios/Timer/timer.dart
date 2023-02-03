@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+
 
 class TimerClock extends StatefulWidget {
   const TimerClock({Key? key}) : super(key: key);
@@ -75,17 +75,17 @@ class _TimerClockState extends State<TimerClock> {
     });
   }
 
-  _startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        hours += 1;
-        if (hours <= 60) {
-          timer.cancel();
-          // percent = 0.0;
-        }
-      });
-    });
-  }
+  // _startTimer() {
+  //   timer = Timer.periodic(Duration(seconds: 1), (timer) {
+  //     setState(() {
+  //       hours += 1;
+  //       if (hours <= 60) {
+  //         timer.cancel();
+  //         // percent = 0.0;
+  //       }
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

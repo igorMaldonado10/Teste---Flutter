@@ -3,6 +3,8 @@ import 'package:teste/Profile/model/perfil_model.dart';
 class PerfilService {
   static List<User> perfil = [];
 
+  List<User> perfilView = perfil;
+
   void atualizarUser(int id) {
     perfil[id];
   }
@@ -15,10 +17,9 @@ class PerfilService {
 
   // Método para cadastrar os treinos na treino_list2
   String cadastrarPerfil(User user) {
-      perfil.add(user);
+    perfil.add(user);
 
-      return "Perfil cadastrado: ${user.name}";
-    
+    return "Perfil cadastrado: ${user.name}";
   }
 
   List listaUser() {

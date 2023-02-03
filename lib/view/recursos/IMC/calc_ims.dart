@@ -57,7 +57,7 @@ class _HomeState extends State<CalculadoraIMC> {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Theme.of(context).primaryColorLight, Theme.of(context).canvasColor])),
+                  colors: [Theme.of(context).backgroundColor.withOpacity(.3),Theme.of(context).canvasColor])),
           child: SingleChildScrollView(
               padding: EdgeInsets.all(20.0), child: buildForm()),
         ),

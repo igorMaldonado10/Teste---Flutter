@@ -8,22 +8,23 @@ class Treino_dois {
   String? tipoDeTreino;
   String? dataDoTreino;
   String? objetivo;
+  final DateTime? date;
   List<Exercises>? listExercises;
-  // static 
-  
+  String? marca;
+  // List? marcas;
+  // static
 
-  
   // Construtor
-  Treino_dois(
-      {this.id,
-      // required this.icon,
-       this.tipoDeTreino,
-       this.dataDoTreino,
-       this.objetivo,
-       this.listExercises
-      
-      // required this.listExercises
-      });
-
-  
+  Treino_dois({
+    this.id,
+    // required this.icon,
+    this.tipoDeTreino,
+    this.dataDoTreino,
+    this.objetivo,
+    this.date,
+    this.listExercises,
+    this.marca
+    //  this.marcas
+    // required this.listExercises
+  });
 }
