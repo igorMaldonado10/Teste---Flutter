@@ -25,9 +25,12 @@ class _HistoricoTreinosState extends State<HistoricoTreinos> {
   }
 
   HistoricoService historicoService = new HistoricoService();
-  showSnackBar(context,index) {
-   
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text("${historicoService.treinosExecutadosView[index].tipoDeTreino}")));
+
+  showSnackBar(context, treinoExec, index) {
+    historicoService.treinosExecutadosView.removeAt(index);
+    Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text(
+            "Execução  de ${historicoService.treinosExecutadosView[index].tipoDeTreino} deletada")));
   }
 
   Widget showList() {
@@ -42,11 +45,21 @@ class _HistoricoTreinosState extends State<HistoricoTreinos> {
 
           return Dismissible(
               key: ValueKey(historicoService.treinosExecutadosView[index].id),
-              // onDismissed: (direction) {
-              //   var treinoExec =
-              //       historicoService.treinosExecutadosView[index].id;
-              //   showSnackBar(context, treinoExec, index);
-              // },
+              onDismissed: (direction) {
+                // var treinoExec =
+                //     historicoService.treinosExecutadosView[index].id;
+                historicoService.treinosExecutadosView.removeAt(index);
+
+                // showSnackBar(context, treinoExec, index);
+                Future.delayed(Duration(seconds: 1),(){
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                  "Execução  de ${historicoService.treinosExecutadosView[index].tipoDeTreino} deletada")
+                  )
+                  );
+                });
+             
+              },
               background: deleteBkgItem(),
               child: Card(
                 elevation: 10,
@@ -175,51 +188,9 @@ class _HistoricoTreinosState extends State<HistoricoTreinos> {
             )
           : Column(children: [
               const SizedBox(height: 20),
-              // Padding(
-              //   padding: const EdgeInsets.only(
-              //       right: 15, left: 15, bottom: 20, top: 5),
-              //   child: const TextField(
-              //     // onChanged: (value) => _runFilter(value),
-              //     decoration: InputDecoration(
-              //         labelText: 'Buscar  treino',
-              //         suffixIcon: Icon(Icons.search)),
-              //   ),
-              // ),
               const SizedBox(height: 20),
               Expanded(child: showList()
 
-                  // ListView.builder(
-                  //     padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
-                  //     itemCount: historicoService.listarTreinosExecut().length,
-
-                  //     // recebo o índice e o contexto do elemento que vou retornar;
-                  //     itemBuilder: (BuildContext context, int index) {
-                  //       // Guarda o retorno da lista no objeto da classe
-                  //       // Objeto que busca o arquivo treino que retorna a simulação de banco de dados e faz a listagem por id;
-                  //       Treino_dois treino_dois = historicoService
-                  //           .listarTreinosExecut()
-                  //           .elementAt(index);
-
-                  //       return ListTile(
-                  //         contentPadding: EdgeInsets.all(8.0),
-                  //         title: Row(
-                  //           children: [
-                  //             Text(treino_dois.tipoDeTreino!),
-                  //             SizedBox(
-                  //               width: 15,
-                  //             ),
-                  //             Icon(Icons.timer),
-                  //             SizedBox(
-                  //               width: 5,
-                  //             ),
-
-                  //             // Text(treino_dois.marcas![index].toString())
-                  //           ],
-                  //         ),
-                  //         subtitle: Text("${treino_dois.dataDoTreino}"),
-                  //         // trailing:  ,
-                  //       );
-                  //     })
                   ),
             ]),
     );

@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercicios_service.dart';
-import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
-import 'package:teste/Global/treino_1.0/treino_list.dart';
-// import 'package:teste/Global/treino_2.0/edit_treino.dart';
-import 'package:teste/Global/treino_2.0/treino_list2.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
-import 'package:teste/models/treino_model.dart';
-import 'package:teste/view/recursos/login/cadatroUsuario.dart';
-import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
 class CadastroTreino extends StatefulWidget {
@@ -30,86 +18,111 @@ class _CadastroTreinoState extends State<CadastroTreino> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Cadastro de Treino'),
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text('Cadastro de Treino'),
+      // ),
       // drawer: MenuDrawer(),
       body: SingleChildScrollView(
         // Container do Form
-        child: Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
-          margin: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).cardColor),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              // Título
-              new Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(bottom: 45),
-                child: Text(
-                  'Cadastro de Treino',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        child: Column(
+          children: [
+                  Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 30,
                 ),
-              ),
-
-              // Campos do formulários
-              addTexForm('Tipo de treino', tipoDeTreino),
-              addTexForm('Objetivo', objetivo),
-              addTexForm('Validade', data),
-
-              // SizedBox(height: 15),
-
-              // Botões
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // Text(
+                //   'Cadastrar um Treino',
+                //   style: TextStyle(
+                //     fontSize: 20,
+                //   ),
+                // ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.cancel_outlined))
+              ],
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
+              margin: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).cardColor),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // Botão cadastrar
-                  new Builder(builder: (BuildContext context) {
-                    return ElevatedButton(
-                        onPressed: () {
-                          cadastrar();
+                  // Título
+                  new Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(bottom: 45),
+                    child: Text(
+                      'Cadastro de Treino',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
 
-                          Future.delayed(Duration(milliseconds: 2500), () {
-                            // Navigator.pop(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TreinoList2()));
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 10),
-                          child: new Text('Cadastrar'),
-                        ));
-                  }),
+                  // Campos do formulários
+                  addTexForm('Tipo de treino', tipoDeTreino),
+                  addTexForm('Objetivo', objetivo),
+                  addTexForm('Validade', data),
 
-                  // Botão limpar
-                  new Builder(builder: (BuildContext context) {
-                    return ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: lightColorScheme.error),
-                        onPressed: () {
-                          limpar();
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 10),
-                          child: new Text(
-                            'Limpar',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ));
-                  })
+                  // SizedBox(height: 15),
+
+                  // Botões
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Botão cadastrar
+                      new Builder(builder: (BuildContext context) {
+                        return ElevatedButton(
+                            onPressed: () {
+                              cadastrar();
+
+
+
+                              // Future.delayed(Duration(milliseconds: 2500), () {
+                              //   Navigator.pop(context);
+                              //   // Navigator.push(
+                              //   //     context,
+                              //   //     MaterialPageRoute(
+                              //   //         builder: (context) => TreinoList2()));
+                              // });
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
+                              child: new Text('Cadastrar'),
+                            ));
+                      }),
+
+                      // Botão limpar
+                      new Builder(builder: (BuildContext context) {
+                        return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: lightColorScheme.error),
+                            onPressed: () {
+                              limpar();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
+                              child: new Text(
+                                'Limpar',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ));
+                      })
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

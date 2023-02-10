@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -19,10 +21,6 @@ class ExercisesList extends StatefulWidget {
   /// final int id;
   final Treino_dois? treino;
 
-  /// final int? id;
-  ///
-  /// Guardar a ID do treino selecionado
-  /// Construtor com o atributo (id)
   ExercisesList(this.treino);
 
   @override
@@ -36,9 +34,11 @@ class _ExercisesListState extends State<ExercisesList> {
   double percent = 0.0;
   Timer? timer;
   bool started = false;
-  List? marcas = [];
+  int execucoes = 0;
+  // List<int> execucoesNumeradas = [];
+  // List<Treino_dois> execucoesAdd = [];
 
-  // List? tempo = marcas;
+  TreinoService treinoService = TreinoService();
 
   void reset() {
     timer!.cancel();
@@ -100,21 +100,35 @@ class _ExercisesListState extends State<ExercisesList> {
   //   });
   // }
 
-  void addTempoTreino() {
-    HistoricoService historicoService = new HistoricoService();
-    String tempoDeTreino = "$digitHours:$digitMinutes:$digitSeconds";   
+  void numExecucoes() {
+    if (execucoes < 90) {
+      // setState(() {
+      // execucoesAdd.add(widget.treino!);
 
-     setState(() {
-      historicoService.addTempoDeTreino(widget.treino!, tempoDeTreino);
-  });
+      widget.treino?.execucoesDeTreino = execucoes += 1;
 
-    // marcas?.add(tempoDeTreino);
+      widget.treino?.listExecucoes?.add(widget.treino?.execucoesDeTreino ?? 0);
+      // });
+      // widget.treino?.listExecucoes = execucoesAdd;
+      // execucoesNumeradas.add(widget.treino?.execucoesDeTreino ?? 0);
+      // widget.treino?.listExecucoes = execucoesNumeradas;
+    } else {
+      widget.treino?.listExecucoes?.length;
+      // widget.treino?.listExecucoes;
+      /// Essa => widget.treino?.execucoesDeTreino;
+    
+    }
+
+    //  widget.treino?.listExecucoes?.add(widget.treino?.execucoesDeTreino);
   }
+//
 
   void executarTreino() {
+    // int execucoes = 0;
     HistoricoService historicoService = new HistoricoService();
 
-   String tempoDeTreino = "$digitHours:$digitMinutes:$digitSeconds";  
+    String tempoDeTreino = "$digitHours:$digitMinutes:$digitSeconds";
+
     // Guardar o último ID cadastrado
     int ultimoID = historicoService.listarTreinosExecut().length;
 
@@ -123,15 +137,20 @@ class _ExercisesListState extends State<ExercisesList> {
       tipoDeTreino: widget.treino?.tipoDeTreino,
       dataDoTreino: widget.treino?.dataDoTreino,
       objetivo: widget.treino?.objetivo,
-      marca: tempoDeTreino
+      marca: tempoDeTreino,
+      // execucoesDeTreino: execucoes++
     );
 
+    //  widget.treino?.listExecucoes?.add(treino_dois);
 
 // Envia o treino (objeto) realizado para adicionar na lista de histórico
     String mensagem = historicoService.executarTreino(
       treino_dois,
-    
     );
+
+    // widget.treino?.listExecucoes?.add(treino_dois);
+
+    // historicoService.incrementExecucoes(treino_dois);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Row(
@@ -141,7 +160,7 @@ class _ExercisesListState extends State<ExercisesList> {
         ],
       ),
       duration: Duration(seconds: 3),
-      behavior: SnackBarBehavior.floating,
+      // behavior: SnackBarBehavior.floating,
     ));
 
     // Redireciona para a tela de busca
@@ -152,10 +171,6 @@ class _ExercisesListState extends State<ExercisesList> {
     // });
   }
 
-  // Objeto do model
-  // TreinoService treinoService = new TreinoService();
-
-// Objeto que busca o arquivo exercicio que retorna a simulação de banco de dados;
   bool? exerCheck = false;
 
   @override
@@ -187,8 +202,7 @@ class _ExercisesListState extends State<ExercisesList> {
           itemCount: widget.treino?.listExercises?.length ?? 0,
           // recebo o índice e o contexto do elemento que vou retornar;
           itemBuilder: (BuildContext context, int index) {
-         
-            int _numInicial = 0;
+            // int _numInicial = 0;
 
             return ListExerciseItem(
               exercises: widget.treino!.listExercises![index],
@@ -209,10 +223,34 @@ class _ExercisesListState extends State<ExercisesList> {
                   children: [
                     IconButton(
                         onPressed: () {
-                          executarTreino();
-                          Future.delayed(Duration(seconds: 1), () {
-                            reset();
-                          });
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.success,
+                            animType: AnimType.topSlide,
+                            showCloseIcon: true,
+                            title: 'Certeza?',
+                            desc: 'Você deseja executar esse treino?',
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () {
+                              // numExecucoes();
+                              executarTreino();
+
+                              // widget.treino!.execucoesDeTreino = (widget.treino!.execucoesDeTreino! + 1);
+
+                              Future.delayed(Duration(seconds: 1), () {
+                                reset();
+                              });
+
+                              numExecucoes();
+
+                              // print(widget.treino?.execucoesDeTreino);
+                              print(
+                                  '${widget.treino?.tipoDeTreino} foi executado: ${widget.treino?.listExecucoes?.last}'
+                                  // '${widget.treino?.tipoDeTreino} foi executado: ${widget.treino?.execucoesDeTreino}'
+                                  // '${widget.treino?.execucoesDeTreino}'
+                                  );
+                            },
+                          ).show();
                         },
                         icon: Icon(Icons.square)),
                     (!started == true)
@@ -247,14 +285,27 @@ class _ExercisesListState extends State<ExercisesList> {
       floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.plus),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CadastroExercicio(
-                          treino: widget.treino,
-                        )));
+            _openExerciseFormModal(context);
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => CadastroExercicio(
+            //               treino: widget.treino,
+            //             )));
           }),
     );
+  }
+
+  _openExerciseFormModal(BuildContext context) {
+    showModalBottomSheet(
+        elevation: 20,
+        context: context,
+        builder: ((context) {
+          return CadastroExercicio(
+            treino: widget.treino,
+          );
+        }));
+    // Fechar Modal
   }
 
   AppBar appaBarHome(Text texto) {

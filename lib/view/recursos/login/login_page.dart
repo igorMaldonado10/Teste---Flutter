@@ -1,17 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:teste/controllers/login_controller.dart';
 import 'package:teste/controllers/shared/preferences_keys.dart';
 import 'package:teste/view/recursos/login/login_model.dart';
 import 'package:teste/view/recursos/login/cadatroUsuario.dart';
 
-// import '../../../models/usuários.dart';
 
 
 
@@ -56,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                              color: Colors.black45,
+                              color: Color.fromARGB(115, 168, 73, 73),
                               blurRadius: 25,
                               spreadRadius: 0.1
                               )

@@ -24,6 +24,17 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
   bool? exerCheck = false;
 
   int numInicial = 0;
+  int execucoes = 0;
+
+
+//   void numExecucoes(){
+//   while(execucoes  < 1000){
+//    setState(() {
+//       widget.treino?.listNumExecuc?.add(execucoes);
+//     execucoes++;
+//    });
+//   }
+// }
 
   void increment() {
     if (numInicial < widget.exercises.numSeries!) {

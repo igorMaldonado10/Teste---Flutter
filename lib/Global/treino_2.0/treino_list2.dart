@@ -13,10 +13,6 @@ import 'package:teste/Global/treino_2.0/treino_service.dart';
 // import 'package:teste/view/recursos/menuDrawer.dart';
 
 class TreinoList2 extends StatefulWidget {
-
-
-
-
   final Treino_dois? treino;
   TreinoList2({this.treino});
 
@@ -28,9 +24,6 @@ class _TreinoList2State extends State<TreinoList2> {
   // Objeto do model
   // Objeto criado para utilizar os métodos dessa classe
   TreinoService treinoService = new TreinoService();
-
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +66,6 @@ class _TreinoList2State extends State<TreinoList2> {
               ),
             )
           : Column(children: [
-             
               // Padding(
               //   padding: const EdgeInsets.only(
               //       right: 15, left: 15, bottom: 20, top: 5),
@@ -101,117 +93,117 @@ class _TreinoList2State extends State<TreinoList2> {
                         padding: const EdgeInsets.all(8.0),
                         child: Card(
                           elevation: 10,
-                          child: 
-                         
-                          // Container(
-                            // decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(10),
-                            //     color: Theme.of(context).cardColor),
-                            // height: 150,
-                            // padding: EdgeInsets.all(5),
-                            // margin:
-                            //     EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                            // child: 
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                // leading:
-                        
-                                // avatar,
-                        
-                                title: Row(
+                          child:
+
+                              // Container(
+                              // decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     color: Theme.of(context).cardColor),
+                              // height: 150,
+                              // padding: EdgeInsets.all(5),
+                              // margin:
+                              //     EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                              // child:
+                              Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              // leading:
+
+                              // avatar,
+
+                              title: Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            treino_dois.tipoDeTreino!,
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          IconButton(
+                                              // iconSize: ,
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            new EditTreino(
+                                                              id: treino_dois
+                                                                  .id!,
+                                                            )));
+                                              },
+                                              icon: Icon(
+                                                Icons.more_vert_rounded,
+                                                // color: darkColorScheme.secondary,
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      new Text('Objetivo:' +
+                                          ' ' +
+                                          treino_dois.objetivo!),
+                                      SizedBox(height: 5),
+                                      new Row(
+                                        children: [
+                                          Icon(Icons.date_range),
+                                          SizedBox(width: 5),
+                                          new Text(DateFormat('dd/MM/y')
+                                              .format(treino_dois.date!)),
+                                          Text(' até '),
+                                          new Text(
+                                              treino_dois.dataDoTreino ?? ''),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                              trailing: Container(
+                                alignment: Alignment.center,
+                                height: 100,
+                                width: 70,
+                                child: Row(
                                   children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              treino_dois.tipoDeTreino!,
-                                              style: TextStyle(
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            IconButton(
-                                                // iconSize: ,
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              new EditTreino(
-                                                                id: treino_dois.id!,
-                                                              )));
-                                                },
-                                                icon: Icon(
-                                                  Icons.more_vert_rounded,
-                                                  // color: darkColorScheme.secondary,
-                                                )),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        new Text('Objetivo:' +
-                                            ' ' +
-                                            treino_dois.objetivo!),
-                                        SizedBox(height: 5),
-                                        new Row(
-                                          children: [
-                                            Icon(Icons.date_range),
-                                            SizedBox(width: 5),
-                                            new Text( DateFormat('dd/MM/y').format(treino_dois.date!)),
+                                    // IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined)),
+                                    // IconButton(
+                                    //     iconSize: 25,
+                                    //     onPressed: () {},
+                                    //     icon: Icon(
+                                    //       Icons.delete,
+                                    //       color: lightColorScheme.error,
+                                    //     )),
 
-                                            Text(' até '),
-
-                                            new Text(treino_dois.dataDoTreino ?? ''),
-                                       
-                                          ],
-                                        )
-                                      ],
+                                    // SizedBox(height: 45),
+                                    IconButton(
+                                      // alignment: Alignment.,
+                                      iconSize: 50,
+                                      onPressed: () {
+                                        // Cada treino tem o seu próprio ID, então, lógicamente cada ID tem a sua página de treino
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ExercisesList(
+                                                      treino_dois,
+                                                    )));
+                                      },
+                                      icon:
+                                          FaIcon(FontAwesomeIcons.chevronRight),
+                                      // icon: Icon(Icons.more_vert_rounded)
                                     ),
                                   ],
                                 ),
-                        
-                                trailing: Container(
-                                  alignment: Alignment.center,
-                                  height: 100,
-                                  width: 70,
-                                  child: Row(
-                                    children: [
-                                      // IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined)),
-                                      // IconButton(
-                                      //     iconSize: 25,
-                                      //     onPressed: () {},
-                                      //     icon: Icon(
-                                      //       Icons.delete,
-                                      //       color: lightColorScheme.error,
-                                      //     )),
-                        
-                                      // SizedBox(height: 45),
-                                      IconButton(
-                                        // alignment: Alignment.,
-                                        iconSize: 50,
-                                        onPressed: () {
-                                          // Cada treino tem o seu próprio ID, então, lógicamente cada ID tem a sua página de treino
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ExercisesList(
-                                                        treino_dois,
-                                                      )));
-                                        },
-                                        icon:
-                                            FaIcon(FontAwesomeIcons.chevronRight),
-                                        // icon: Icon(Icons.more_vert_rounded)
-                                      ),
-                                      
-                                    ],
-                                  ),
-                                ),
                               ),
                             ),
+                          ),
                           // ),
                         ),
                       );
@@ -221,16 +213,24 @@ class _TreinoList2State extends State<TreinoList2> {
       floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.plus),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CadastroTreino()));
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => CadastroTreino()));
+            _openCadastroWorkoutFormModal(context);
           }),
     );
-  
   }
-  
+
+  _openCadastroWorkoutFormModal(BuildContext context) {
+    showModalBottomSheet(
+        elevation: 20,
+        context: context,
+        builder: ((context) {
+          return CadastroTreino();
+        }));
+    // Fechar Modal
+  }
 
   AppBar appaBarHome(Text texto) {
-    
     return AppBar(
       automaticallyImplyLeading: false, //Esconde o ícone original (menu)
 
@@ -248,32 +248,32 @@ class _TreinoList2State extends State<TreinoList2> {
                           )));
             },
             icon: Icon(Icons.search)),
-
         PopupMenuButton(
-          onSelected: (value) {
-            switch (value) {
-              case MenuItems.Historico:
-                   Navigator.push(context, MaterialPageRoute(builder: ((context) => HistoricoTreinos())));
-                
-                break;
-              default:
-            }
-          },
-          
-          itemBuilder: 
-        (context) => [
-            PopupMenuItem(
-              value: MenuItems.Historico,
-              child: Row(
-              children: [
-                 Icon(Icons.history),
-                 SizedBox(width: 10,),
-                 Text('Histórico')
+            onSelected: (value) {
+              switch (value) {
+                case MenuItems.Historico:
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => HistoricoTreinos())));
 
-              ],))
-        ])
-        
-     
+                  break;
+                default:
+              }
+            },
+            itemBuilder: (context) => [
+                  PopupMenuItem(
+                      value: MenuItems.Historico,
+                      child: Row(
+                        children: [
+                          Icon(Icons.history),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text('Histórico')
+                        ],
+                      ))
+                ])
       ],
       // leading: PopupMenuButton(child: , itemBuilder: ),
       // leading: Builder(builder: (BuildContext context) {
@@ -283,8 +283,6 @@ class _TreinoList2State extends State<TreinoList2> {
       // })
     );
   }
-
-   
 
   void choiceAction(String choice) {
     print('Working');

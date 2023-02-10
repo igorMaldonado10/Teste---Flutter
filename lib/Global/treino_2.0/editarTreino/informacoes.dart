@@ -1,19 +1,12 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/editarTreino/atualiza%C3%A7ao_treino.dart';
 // import 'package:teste/Global/treino_2.0/edit_treino.dart';
 import 'package:teste/Global/treino_2.0/treino_list2.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
-import 'package:teste/models/treino_model.dart';
-import 'package:teste/view/recursos/home/homeScreen.dart';
-import 'package:teste/view/recursos/menuDrawer.dart';
-import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
 class EditTreino extends StatefulWidget {
   // const EditTreino({Key? key}) : super(key: key);
@@ -56,9 +49,11 @@ class _EditTreinoState extends State<EditTreino> {
         padding: EdgeInsets.symmetric(horizontal: 25),
         child: Column(
           children: [
+
             SizedBox(
               height: 15,
             ),
+
             //  Nome do treino
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -158,50 +153,12 @@ class _EditTreinoState extends State<EditTreino> {
                 ),
                 )
                  ))
-                // IconButton(
-                //     onPressed: () {
-                //       removerTreino();
-                //     },
-                //     icon: Icon(
-                //       Icons.delete,
-                //       color: lightColorScheme.error,
-                //       size: 50,
-                //     )),
-                // SizedBox(
-                //   width: 10,
-                //   height: 10,
-                // ),
-                
-                // Container(
-                //   padding: EdgeInsets.only(top: 20, left: 10),
-                //   child: Text(
-                //     'Deletar treino',
-                //     style: TextStyle(
-                //         color: lightColorScheme.error,
-                //         fontSize: 20,
-                //         fontWeight: FontWeight.bold),
-                //   ),
-                // )
               ],
             ),
 
           ],
         ),
       ),
-
-      
-
-      // Botão flutuante
-      // floatingActionButton: FloatingActionButton(
-      //     child: FaIcon(FontAwesomeIcons.pen),
-      //     onPressed: () {
-      //       Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //               builder: (context) => TreinoForm2(
-      //                     id: treino.id,
-      //                   )));
-      //     }),
     );
   }
 

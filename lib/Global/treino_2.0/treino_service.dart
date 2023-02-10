@@ -71,6 +71,7 @@ class TreinoService {
   // Lista que será preenchida através dos métodos abaixo
   // static = ela não se criará mais de uma vez, ou seja, não se modifica
   static List<Treino_dois> treinos = [];
+  // bool isSorted = false;
 
   //variável List que recebe a lista de treinos que já está preenchida
   List<Treino_dois> treinos2 = treinos;
@@ -94,6 +95,17 @@ class TreinoService {
 
     return "Novo treino cadastrado: ${treino_dois.tipoDeTreino}";
   }
+
+  // sort() {
+  //   if (!isSorted) {
+  //     treinos.sort(((Treino_dois a, Treino_dois b) =>
+  //         a.execucoesDeTreino!.compareTo(b.execucoesDeTreino!)));
+  //     isSorted = true;
+  //   } else {
+  //     treinos.reversed.toList();
+  //   }
+    
+  // }
 
   // Método para buscar todos os treinos registrados
   List listarTreinos() {
@@ -150,43 +162,4 @@ class TreinoService {
 
     return treinos;
   }
-
-// // Aqui Search Page
-  // Scaffold searchPage() {
-  //   return Scaffold(
-  //     appBar: AppBar(),
-  //     body: Padding(
-  //       padding: EdgeInsets.all(16),
-  //       child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.start,
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             Text(
-  //               "Procurar treino",
-  //               style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
-  //             ),
-  //             SizedBox(height: 20),
-  //             TextField(
-  //               decoration: InputDecoration(
-  //                   filled: true,
-  //                   border: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8.0),
-  //                       borderSide: BorderSide.none),
-  //                   hintText: "ex.: Treino A",
-  //                   prefixIcon: Icon(Icons.search)),
-  //             ),
-  //             SizedBox(height: 20),
-  //             Expanded(
-  //                 child: ListView.builder(
-  //                     itemCount: display_list.length,
-  //                     itemBuilder: ((context, index) => ListTile(
-  //                           contentPadding: EdgeInsets.all(8.0),
-  //                           title: Text(display_list[index].tipoDeTreino!),
-  //                           subtitle:
-  //                               Text("${display_list[index].dataDoTreino}"),
-  //                         ))))
-  //           ]),
-  //     ),
-  //   );
-  // }
 }

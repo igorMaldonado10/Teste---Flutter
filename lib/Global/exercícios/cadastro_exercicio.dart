@@ -38,182 +38,204 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
   // // Objeto de classe que contém a Busca dos contatos
   final TreinoService treinoService = new TreinoService();
 
-
   @override
   Widget build(BuildContext context) {
     // Objeto da classe Treino
 
-   
-
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Cadastro de Exercício'),
-      ),
       // drawer: MenuDrawer(),
       body: SingleChildScrollView(
         // CONTAINER DO FORM
-        child: Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
-          margin: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).cardColor),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              // Título
-              new Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(bottom: 45),
-                child: Text(
-                  'Cadastro de Exercício',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 30,
                 ),
-              ),
-
-              // Campos do formulários
-              addTexForm('Nome do exercício', name),
-              // addTexForm('Grupo muscular', grupoMus),
-              Container(
-                padding: EdgeInsets.only(right: 175),
-                child: Text('Grupo muscular'),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: ListOfChips(
-                  onSelectedChange: (String value) {
-                    grupoMus.text = value;
-                  },
-                  items: [
-                    'Toráx',
-                    'Abdômen',
-                    'Costas',
-                    'Ombros',
-                    'Peito',
-                    'Bíceps',
-                    'Tríceps',
-                    'Lombar',
-                    'Quadríceps',
-                    'Posterior coxa',
-                    'Gêmeos'
-                  ],
-                ),
-              ),
-
-              Container(
-                padding: EdgeInsets.only(right: 165),
-                child: Text('Tipo de exercício'),
-              ),
-
-              SizedBox(height: 30),
-
-              ToggleButtons1(exercises: widget.exercises),
-
-              Padding(padding: EdgeInsets.all(10)),
-
-              addTexForm('observação', obs),
-
-              new Container(
-                margin: EdgeInsets.only(bottom: 10),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  // recebe o valor dos campos
-                  controller: numSer,
-
-                  decoration: InputDecoration(
-                    labelText: 'Número de séries',
-
-                    // Borda do Input
-                    border: OutlineInputBorder(borderSide: BorderSide()),
-                  ),
-                ),
-              ),
-
-              new Container(
-                margin: EdgeInsets.only(bottom: 10),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  // recebe o valor dos campos
-                  controller: numReps,
-
-                  decoration: InputDecoration(
-                    labelText: 'Número de repetições',
-
-                    // Borda do Input
-                    border: OutlineInputBorder(borderSide: BorderSide()),
-                  ),
-                ),
-              ),
-
-              new Container(
-                margin: EdgeInsets.only(bottom: 10),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  // recebe o valor dos campos
-                  controller: restTime,
-
-                  decoration: InputDecoration(
-                    labelText: 'Tempo de descanso(minutos)',
-                    // hintText: '',
-                    // Borda do Input
-                    border: OutlineInputBorder(borderSide: BorderSide()),
-                  ),
-                ),
-              ),
-              // addTexForm('Tempo de descanso', restTime),
-
-              // SizedBox(height: 15),
-
-              // BOTÕES
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // Text(
+                //   'Cadastre um exercício',
+                //   style: TextStyle(
+                //     fontSize: 20,
+                //   ),
+                // ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.cancel_outlined))
+              ],
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
+              margin: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).cardColor),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // Botão cadastrar
-                  new Builder(builder: (BuildContext context) {
-                    return ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            cadastrar();
-                             Future.delayed(Duration(milliseconds: 2500), () {
-                            Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => ExercisesList(widget.treino)));
-                           });
+                  // Título
+                  new Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(bottom: 45),
+                    child: Text(
+                      'Cadastro de Exercício',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
 
-                            // Future.delayed(Duration(milliseconds: 2500), () {
-                            //   Navigator.pop(context);
-                            // });
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 10),
-                          child: new Text('Cadastrar'),
-                        ));
-                  }),
+                  // Campos do formulários
+                  addTexForm('Nome do exercício', name),
+                  // addTexForm('Grupo muscular', grupoMus),
+                  Container(
+                    padding: EdgeInsets.only(right: 175),
+                    child: Text('Grupo muscular'),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: ListOfChips(
+                      onSelectedChange: (String value) {
+                        grupoMus.text = value;
+                      },
+                      items: [
+                        'Toráx',
+                        'Abdômen',
+                        'Costas',
+                        'Ombros',
+                        'Peito',
+                        'Bíceps',
+                        'Tríceps',
+                        'Lombar',
+                        'Quadríceps',
+                        'Posterior coxa',
+                        'Gêmeos'
+                      ],
+                    ),
+                  ),
 
-                  // Botão limpar
-                  new Builder(builder: (BuildContext context) {
-                    return ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: lightColorScheme.error),
-                        onPressed: () {
-                          limpar();
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 10),
-                          child: new Text(
-                            'Limpar',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ));
-                  })
+                  Container(
+                    padding: EdgeInsets.only(right: 165),
+                    child: Text('Tipo de exercício'),
+                  ),
+
+                  SizedBox(height: 30),
+
+                  ToggleButtons1(exercises: widget.exercises),
+
+                  Padding(padding: EdgeInsets.all(10)),
+
+                  addTexForm('observação', obs),
+
+                  new Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      // recebe o valor dos campos
+                      controller: numSer,
+
+                      decoration: InputDecoration(
+                        labelText: 'Número de séries',
+
+                        // Borda do Input
+                        border: OutlineInputBorder(borderSide: BorderSide()),
+                      ),
+                    ),
+                  ),
+
+                  new Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      // recebe o valor dos campos
+                      controller: numReps,
+
+                      decoration: InputDecoration(
+                        labelText: 'Número de repetições',
+
+                        // Borda do Input
+                        border: OutlineInputBorder(borderSide: BorderSide()),
+                      ),
+                    ),
+                  ),
+
+                  new Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      // recebe o valor dos campos
+                      controller: restTime,
+
+                      decoration: InputDecoration(
+                        labelText: 'Tempo de descanso(minutos)',
+                        // hintText: '',
+                        // Borda do Input
+                        border: OutlineInputBorder(borderSide: BorderSide()),
+                      ),
+                    ),
+                  ),
+                  // addTexForm('Tempo de descanso', restTime),
+
+                  // SizedBox(height: 15),
+
+                  // BOTÕES
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Botão cadastrar
+                      new Builder(builder: (BuildContext context) {
+                        return ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                cadastrar();
+                                Future.delayed(Duration(milliseconds: 2500),
+                                    () {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ExercisesList(widget.treino)));
+                                });
+
+                                // Future.delayed(Duration(milliseconds: 2500), () {
+                                //   Navigator.pop(context);
+                                // });
+                              });
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
+                              child: new Text('Cadastrar'),
+                            ));
+                      }),
+
+                      // Botão limpar
+                      new Builder(builder: (BuildContext context) {
+                        return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: lightColorScheme.error),
+                            onPressed: () {
+                              limpar();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
+                              child: new Text(
+                                'Limpar',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ));
+                      })
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -241,7 +263,6 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
   void cadastrar() {
     final controller = Get.put(Controller());
 
-
     // GetBuilder<Controller>(builder: (_) {
     //                 return Text(
     //                   // widget.exercises!.tipo!,
@@ -249,21 +270,18 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
     //                   style: TextStyle(fontSize: 23),
     //                 );
     //               });
-     
+
     // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id!);
-    
-    
+
     // Guardar o último ID cadastrado
     // int ultimoID = treinoService.listarExercicios().length;
     int ultimoID = widget.treino!.listExercises!.length;
-    // int ultimoID = treino.listExercises!.length;
 
     Exercises exercises = Exercises(
         id: ultimoID + 1,
         name: name.text,
         grupoMusc: grupoMus.text,
         tipo: controller.tipoExerc,
-        // tipo.text,
         obs: obs.text,
         numSeries: int.parse(numSer.text),
         numRepeti: int.parse(numReps.text),
