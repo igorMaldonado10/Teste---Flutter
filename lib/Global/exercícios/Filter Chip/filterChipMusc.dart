@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 
 class FilterChipExercMusc extends StatefulWidget {
@@ -18,8 +15,7 @@ class FilterChipExercMusc extends StatefulWidget {
 
 class _FilterChipExercMuscState extends State<FilterChipExercMusc> {
     String selected = '';
-  // late List<Exercises> display_list_exerc =
-  //     List.from(widget.treino!.listExercises!);
+
 
   @override
   Widget build(BuildContext context) {

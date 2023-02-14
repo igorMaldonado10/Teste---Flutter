@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Profile/model/perfil_model.dart';
-// import 'package:teste/Profile/updatea%20perfil/atualizar_data.dart';
+import '../perfil_service.dart';
+
 
 class UpdatePesoProfile extends StatefulWidget {
   final User user;
+  final int id = 0;
   UpdatePesoProfile(this.user);
 
   // const UpdatePesoProfile({Key? key}) : super(key: key);
@@ -17,11 +18,10 @@ class UpdatePesoProfile extends StatefulWidget {
 class _UpdatePesoProfileState extends State<UpdatePesoProfile> {
   final pesoController = TextEditingController();
 
- @override
+  @override
   void initState() {
     super.initState();
-    pesoController.text =  widget.user.pesoAtual;
-  
+    pesoController.text = widget.user.pesoAtual;
   }
 
   @override
@@ -66,11 +66,23 @@ class _UpdatePesoProfileState extends State<UpdatePesoProfile> {
               height: 50,
               child: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      widget.user.pesoAtual = pesoController.text;
+                    atualizarPeso();
 
-                      Navigator.pop(context);
-                    });
+                    Navigator.pop(context);
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Perfil atualizado'),
+                      ],
+                    )));
+
+                    // setState(() {
+                    //   widget.user.pesoAtual = pesoController.text;
+
+                    //   Navigator.pop(context);
+                    // });
                   },
                   child: Text(
                     'Alterar',
@@ -82,6 +94,14 @@ class _UpdatePesoProfileState extends State<UpdatePesoProfile> {
         ),
       ),
     );
+  }
+
+  void atualizarPeso() {
+    User user = Provider.of<PerfilService>(context, listen: false)
+        .perfilView
+        .elementAt(widget.id);
+
+    Provider.of<PerfilService>(context, listen: false).atualizarPeso(user, pesoController.text);
   }
 
   Container addTexForm(String nomoDoCampo, TextEditingController controller) {

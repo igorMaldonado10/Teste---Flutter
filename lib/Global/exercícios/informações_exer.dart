@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Global/exerc%C3%ADcios/atualiza%C3%A7%C3%A3o_exerc%C3%ADcio.dart';
-import 'package:teste/Global/exerc%C3%ADcios/cadastro_exercicio.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
-import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
-import 'Toggle Buttons/class_GetX_bool_for_string.dart';
 
 class InfoExercises extends StatefulWidget {
   // const EditTreino({Key? key}) : super(key: key);
@@ -37,11 +33,6 @@ class _InfoExercisesState extends State<InfoExercises> {
   Widget build(BuildContext context) {
     // final controller = Get.find<Controller>();
 
-    // widget.exercises?.tipo = controller.tipoExerc;
-    // Objeto que busca o arquivo treino que retorna a simulação de banco de dados e faz a listagem por id;
-
-    // Objeto da classe Treino
-    // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
 
     return Scaffold(
       // Barra de título
@@ -49,18 +40,20 @@ class _InfoExercisesState extends State<InfoExercises> {
         centerTitle: true,
         title: Text('Informações'),
       ),
-      // Menu (Hambúrguer)
-      // drawer: MenuDrawer(),
+
 
       // Corpo
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 25),
         child: Column(
           children: [
+
             SizedBox(
               height: 15,
             ),
-            //  Nome do treino
+
+
+            //  Nome do Exercício + Botão de editar
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -83,30 +76,28 @@ class _InfoExercisesState extends State<InfoExercises> {
 
             SizedBox(height: 15),
 
-            // Objetivo e Data
+          
             Container(
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Theme.of(context).cardColor),
               child: new Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   //'Objetivo'
                   new Text(
                     'Nº Sér/Reps:',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        // color: Colors.grey.
                         fontSize: 23),
                   ),
 
                   Padding(padding: EdgeInsets.symmetric(horizontal: 55)),
-                  // Objetivo
+                  
+                  // Numero de séries X Número de repetições
                   new Text(
                     widget.exercises!.numSeries.toString(),
                     style: TextStyle(
-                        // color: Colors.grey.
                         fontSize: 23),
                   ),
                   new Text('X'),
@@ -117,11 +108,87 @@ class _InfoExercisesState extends State<InfoExercises> {
                 ],
               ),
             ),
+
             SizedBox(
               height: 15,
             ),
 
-            // Observação
+
+            // Tipo de exercício
+            Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).cardColor),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  new Text(
+                    'Tipo:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ),
+
+                
+                  new Text(
+                    
+                    widget.exercises!.tipo!,
+                    style: TextStyle(fontSize: 23),
+                  )
+                ],
+              ),
+            ),
+
+            SizedBox(height: 15),
+ 
+            // Grupo Muscular
+            Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).cardColor),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  new Text(
+                    'Grupo Mus:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ),
+                  new Text(
+                    widget.exercises!.grupoMusc!,
+                    style: TextStyle(fontSize: 23),
+                  )
+                ],
+              ),
+            ),
+
+            SizedBox(height: 15),
+
+
+          //  Tempo de descanso
+            Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).cardColor),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Descanso:',
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
+                  Padding(padding: EdgeInsets.only(left: 30)),
+                  FaIcon(FontAwesomeIcons.clock),
+                  new Text(
+                    '${widget.exercises!.restTime!}',
+                    style: TextStyle(fontSize: 23),
+                  )
+                ],
+              ),
+            ),
+
+            SizedBox(height: 15),
+
+               // Observação
             Container(
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
@@ -137,83 +204,6 @@ class _InfoExercisesState extends State<InfoExercises> {
                   new Text(
                     // widget.exercises!.grupoMusc!
                     widget.exercises!.obs!,
-                    style: TextStyle(fontSize: 23),
-                  )
-                ],
-              ),
-            ),
-
-            SizedBox(height: 15),
-
-            Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).cardColor),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  new Text(
-                    'Tipo:',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-                  ),
-
-                  // GetBuilder<Controller>(builder: (_) {
-                  //   return Text(
-                  //     // widget.exercises!.tipo!,
-                  //     controller.tipoExerc,
-                  //     style: TextStyle(fontSize: 23),
-                  //   );
-                  // })
-                  new Text(
-                    // widget.exercises!.grupoMusc!
-                    widget.exercises!.tipo!,
-                    style: TextStyle(fontSize: 23),
-                  )
-                ],
-              ),
-            ),
-
-            SizedBox(height: 15),
-
-            Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).cardColor),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  new Text(
-                    'Grupo Mus:',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-                  ),
-                  new Text(
-                    // widget.exercises!.grupoMusc!
-                    widget.exercises!.grupoMusc!,
-                    style: TextStyle(fontSize: 23),
-                  )
-                ],
-              ),
-            ),
-
-            SizedBox(height: 15),
-
-            Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).cardColor),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Descanso:',
-                      style:
-                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
-                  Padding(padding: EdgeInsets.only(left: 30)),
-                  FaIcon(FontAwesomeIcons.clock),
-                  new Text(
-                    '${widget.exercises!.restTime!} min',
                     style: TextStyle(fontSize: 23),
                   )
                 ],
@@ -275,10 +265,14 @@ class _InfoExercisesState extends State<InfoExercises> {
   }
 
   void removerExercise() {
-    String mensagem = treinoService.removerExercicio(
-      widget.id ?? 0, widget.treino,
-      // widget.exercises!
-    );
+    String mensagem = Provider.of<TreinoService>(context, listen: false)
+        .removerExercicio(widget.id ?? 0, widget.treino);
+
+    // String mensagem = treinoService.removerExercicio(
+    //   widget.id ?? 0, widget.treino,
+    //   // widget.exercises!
+    // );
+    Navigator.pop(context);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Row(
@@ -288,13 +282,13 @@ class _InfoExercisesState extends State<InfoExercises> {
       ],
     )));
 
-    Future.delayed(Duration(milliseconds: 2500), () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: ((context) => ExercisesList(widget.treino))));
-      // Navigator.pop(context);
-    });
+    // Future.delayed(Duration(milliseconds: 2500), () {
+    //   Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: ((context) => ExercisesList(widget.treino))));
+    //   // Navigator.pop(context);
+    // });
   }
 
   AppBar appaBarHome(Text texto) {

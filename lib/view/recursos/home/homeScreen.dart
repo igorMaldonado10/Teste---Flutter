@@ -1,9 +1,5 @@
-import 'dart:io';
-
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:teste/Profile/model/perfil_model.dart';
 import 'package:teste/Profile/perfil_service.dart';
 
 final tema = ValueNotifier(ThemeMode.light);
@@ -29,11 +25,11 @@ class _HomePageState extends State<HomePage> {
 
   int currentIndex = 0;
 
-// int _opcaoSelecionada = 0;
+
 
   @override
   Widget build(BuildContext context) {
-    // User user = perfilService.perfilView.elementAt(0);
+    
 
     return Scaffold(
       appBar: appaBarHome(Text('Home')),
@@ -118,11 +114,6 @@ class _HomePageState extends State<HomePage> {
               });
             })
       ],
-      // leading: Builder(builder: (BuildContext context) {
-      //   return IconButton(
-      //       icon: FaIcon(FontAwesomeIcons.bars),
-      //       onPressed: () => Scaffold.of(context).openDrawer());
-      // })
     );
   }
 }

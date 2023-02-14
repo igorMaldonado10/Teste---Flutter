@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teste/Global/treino_2.0/treino_list2.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
@@ -41,10 +39,15 @@ class _TreinoForm2State extends State<TreinoForm2> {
   @override
   Widget build(BuildContext context) {
     // Objeto da classe Treino
-    Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
+    Treino_dois treino =
+        Provider.of<TreinoService>(context).treinos2.elementAt(widget.id - 1);
+    // treinoService.listarTreinos().elementAt(widget.id - 1);
 
     return Scaffold(
-      appBar: appaBarHome(Text('Editar' + ' - ' '${treino.tipoDeTreino}')),
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text('Editar - ${treino.tipoDeTreino}')),
+      // appaBarHome(Text('Editar' + ' - ' '${treino.tipoDeTreino}')),
       body: Padding(
         padding: EdgeInsets.all(
           15,
@@ -106,16 +109,18 @@ class _TreinoForm2State extends State<TreinoForm2> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          treino.tipoDeTreino = tipoDeTreinoController.text;
-                          treino.objetivo = objetivoController.text;
-                          treino.dataDoTreino = dataDoTreinoController.text;
+                        atualizarList();
+                        // setState(() {
+                        //   treino.tipoDeTreino = tipoDeTreinoController.text;
+                        //   treino.objetivo = objetivoController.text;
+                        //   treino.dataDoTreino = dataDoTreinoController.text;
 
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TreinoList2()));
-                        });
+                        //   // Navigator.pop(context);
+                        //   // Navigator.push(
+                        //   //     context,
+                        //   //     MaterialPageRoute(
+                        //   //         builder: (context) => TreinoList2()));
+                        // });
                       },
                       child: new Text('Confirmar')),
                 ],
@@ -124,21 +129,39 @@ class _TreinoForm2State extends State<TreinoForm2> {
           ],
         ),
       ),
-      bottomNavigationBar: barraInferior(),
+ 
     );
   }
 
-  // void atualizarList() {
-  //   // Treino_dois treino = treinoService.listarTreinos().elementAt(id - 1);
-  //   setState(() {});
-  //   treino.tipoDeTreino = tipoDeTreinoController.text;
-  //   // treino.objetivo = objetivoController.text;
-  //   // String tipoDeTreino = tipoDeTreinoController.text;
-  //   String objetivo = tipoDeTreinoController.text;
-  //   String data = dataDoTreinoController.text;
+  void atualizarList() {
+  
+    Treino_dois treino =
+        Provider.of<TreinoService>(context, listen: false).treinos2.elementAt(widget.id - 1);
 
-  //   // treinoService.listarTreinos().elementAt(id);
-  // }
+   
+
+    String mensagem = Provider.of<TreinoService>(context, listen: false)
+        .atualizarTreino(treino, tipoDeTreinoController.text, objetivoController.text,dataDoTreinoController.text);
+
+    // Navigator.pop(context);
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(mensagem),
+        ],
+      ),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+    ));
+
+    // widget.treino.tipoDeTreino = tipoDeTreinoController.text;
+    // widget.treino.objetivo = objetivoController.text;
+    // widget.treino.dataDoTreino = dataDoTreinoController.text;
+
+    // treinoService.listarTreinos().elementAt(id);
+  }
 
   AppBar appaBarHome(Text texto) {
     return AppBar(

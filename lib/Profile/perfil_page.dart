@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:teste/Global/treino_2.0/historico_service.dart';
-// import 'package:teste/Profile/Updates%20perfil/atualiza%C3%A7%C3%A3o_perfil.dart';
+import 'package:provider/provider.dart';
+import 'package:teste/Global/treino_2.0/historico_pages/historico_service.dart';
 import 'package:teste/Profile/cadastro_perfil.dart';
 import 'package:teste/Profile/model/perfil_model.dart';
 import 'package:teste/Profile/perfil_service.dart';
@@ -15,8 +13,6 @@ import 'package:teste/Profile/updates%20perfil/atualizar_data.dart';
 import 'package:teste/Profile/updates%20perfil/atualizar_nome_sobren.dart';
 import 'package:teste/Profile/updates%20perfil/atualizar_peso.dart';
 
-
-// final tema = ValueNotifier(ThemeMode.light)
 
 class PerfilPage extends StatefulWidget {
   const PerfilPage({Key? key}) : super(key: key);
@@ -94,121 +90,170 @@ class _PerfilPageState extends State<PerfilPage> {
           : Column(
               children: [
                 Container(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: perfilService.listaUser().length,
-                    itemBuilder: (BuildContext context, int index) {
-                      User user = perfilService.listaUser().elementAt(index);
+                  child: Consumer<PerfilService>(
+                    builder: (context, repositorioPerfil, child) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: repositorioPerfil.perfilGet.length
+                        // perfilService.listaUser().length
+                        ,
+                        itemBuilder: (BuildContext context, int index) {
+                          // User user =
+                          //     perfilService.listaUser().elementAt(index);
 
-                      //  Object avatar = user.icon == null
-                      //     ? NetworkImage('https://cdn.pixabay.com/photo/2022/10/23/10/09/dumbbell-7540929__340.png')
-                      //     : ;
+                          final List<User> user = repositorioPerfil.perfilGet;
 
-                      return Container(
-                          padding: EdgeInsets.symmetric(horizontal: 25),
-                          child: ListTile(
-                            title: Column(
-                              children: [
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                //  Nome do usuario
-                                Column(
+                          //  Object avatar = user.icon == null
+                          //     ? NetworkImage('https://cdn.pixabay.com/photo/2022/10/23/10/09/dumbbell-7540929__340.png')
+                          //     : ;
+
+                          return Container(
+                              padding: EdgeInsets.symmetric(horizontal: 25),
+                              child: ListTile(
+                                title: Column(
                                   children: [
-                                    Stack(children: [
-                                      CircleAvatar(
-                                          radius: 80.0,
-                                          backgroundImage: user.icon == null
-                                              ? AssetImage(
-                                                  'assets/imgs/logo_app.png')
-                                              : FileImage(File(user.icon.path))
-                                                  as ImageProvider),
-                                      Positioned(
-                                          bottom: 0,
-                                          right: 0,
-                                          child: Container(
-                                            height: 40,
-                                            width: 40,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 4,
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    //  Nome do usuario
+                                    Column(
+                                      children: [
+                                        Stack(children: [
+                                          CircleAvatar(
+                                              radius: 80.0,
+                                              backgroundImage: user[index].icon == null
+                                                  ? AssetImage(
+                                                      'assets/imgs/logo_app.png')
+                                                  : FileImage(
+                                                          File(user[index].icon.path))
+                                                      as ImageProvider),
+                                          Positioned(
+                                              bottom: 0,
+                                              right: 0,
+                                              child: Container(
+                                                height: 40,
+                                                width: 40,
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                        width: 4,
+                                                        color: Theme.of(context)
+                                                            .canvasColor),
                                                     color: Theme.of(context)
-                                                        .canvasColor),
-                                                color: Theme.of(context)
-                                                    .backgroundColor),
-                                            child: IconButton(
-                                              // alignment: Alignment.topCenter,
-                                              padding: EdgeInsets.only(
-                                                  bottom: 4, left: 3, top: 2),
-                                              icon: Icon(
-                                                Icons.edit,
-                                                color: Colors.white,
-                                              ),
-                                              onPressed: () {
-                                                showModalBottomSheet(
-                                                    context: context,
-                                                    builder: ((builder) =>
-                                                        updateFoto()));
-                                                // Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //         builder: (context) =>
-                                                //             AtualizarPerfil()));
-                                              },
+                                                        .backgroundColor),
+                                                child: IconButton(
+                                                  // alignment: Alignment.topCenter,
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 4,
+                                                      left: 3,
+                                                      top: 2),
+                                                  icon: Icon(
+                                                    Icons.edit,
+                                                    color: Colors.white,
+                                                  ),
+                                                  onPressed: () {
+                                                    showModalBottomSheet(
+                                                        context: context,
+                                                        builder: ((builder) =>
+                                                            updateFoto()));
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (context) =>
+                                                    //             AtualizarPerfil()));
+                                                  },
+                                                ),
+                                              ))
+                                        ]),
+                                        SizedBox(height: 10),
+                                        new Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              user[index].name,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 30),
                                             ),
-                                          ))
-                                    ]),
-                                    SizedBox(height: 10),
-                                    new Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          user.name,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 30),
+                                            IconButton(
+                                                onPressed: () {
+                                                  _openUpdateNameFormModal(
+                                                      context);
+                                                  // showModalBottomSheet(
+                                                  //     context: context,
+                                                  //     builder: ((builder) =>
+                                                  //         updateNameProfile()));
+                                                },
+                                                icon: Icon(Icons.edit))
+                                          ],
                                         ),
-                                        IconButton(
-                                            onPressed: () {
-                                              _openUpdateNameFormModal(context);
-                                              // showModalBottomSheet(
-                                              //     context: context,
-                                              //     builder: ((builder) =>
-                                              //         updateNameProfile()));
-                                            },
-                                            icon: Icon(Icons.edit))
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            new Text(user[index].sobrenome,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 30))
+                                          ],
+                                        )
                                       ],
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        new Text(user.sobrenome,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 30))
-                                      ],
-                                    )
-                                  ],
-                                ),
 
-                                // Objetivo e Data
-                                Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                                    // Objetivo e Data
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
                                       children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              _updateDateProfile();
-                                            },
-                                            icon: Icon(Icons.edit)),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  _updateDateProfile();
+                                                },
+                                                icon: Icon(Icons.edit)),
+                                          ],
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                              left: 5, right: 5),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color:
+                                                  Theme.of(context).cardColor),
+                                          child: new Row(
+                                            children: [
+                                              //'Objetivo'
+                                              new Text(
+                                                'Nascimento:',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    // color: Colors.grey.
+                                                    fontSize: 20),
+                                              ),
+                                              SizedBox(width: 10),
+                                              // Objetivo
+                                              new Text(
+                                                user[index].dataNasc,
+                                                style: TextStyle(
+                                                    // color: Colors.grey.
+                                                    fontSize: 23),
+                                              ),
+                                              // SizedBox(width: 10,),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+
+                                    // Peso atual
                                     Container(
                                       padding:
                                           EdgeInsets.only(left: 5, right: 5),
@@ -216,141 +261,113 @@ class _PerfilPageState extends State<PerfilPage> {
                                           borderRadius:
                                               BorderRadius.circular(10),
                                           color: Theme.of(context).cardColor),
-                                      child: new Row(
+                                      child: Row(
                                         children: [
-                                          //'Objetivo'
                                           new Text(
-                                            'Nascimento:',
+                                            'Peso atual:',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                // color: Colors.grey.
                                                 fontSize: 20),
                                           ),
-                                          SizedBox(width: 10),
-                                          // Objetivo
-                                          new Text(
-                                            user.dataNasc,
-                                            style: TextStyle(
-                                                // color: Colors.grey.
-                                                fontSize: 23),
+                                          SizedBox(
+                                            width: 10,
                                           ),
-                                          // SizedBox(width: 10,),
+                                          new Text(
+                                            "${user[index].pesoAtual}kg",
+                                            style: TextStyle(fontSize: 23),
+                                          ),
+                                          IconButton(
+                                              onPressed: () {
+                                                _updatePesoProfile();
+                                              },
+                                              icon: Icon(Icons.edit))
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
 
-                                // Peso atual
-                                Container(
-                                  padding: EdgeInsets.only(left: 5, right: 5),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Theme.of(context).cardColor),
-                                  child: Row(
-                                    children: [
-                                      new Text(
-                                        'Peso atual:',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      new Text(
-                                        "${user.pesoAtual}kg",
-                                        style: TextStyle(fontSize: 23),
-                                      ),
-                                      IconButton(
-                                          onPressed: () {
-                                            _updatePesoProfile();
-                                          },
-                                          icon: Icon(Icons.edit))
-                                    ],
-                                  ),
-                                ),
-
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Bio:',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    IconButton(
-                                        onPressed: () {
-                                          _updateBioProfile();
-                                        },
-                                        icon: Icon(Icons.edit))
-                                  ],
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(
-                                      bottom: 80, top: 5, right: 5, left: 5),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Theme.of(context).cardColor),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(width: 5),
-                                      Text(
-                                        user.textBio,
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                new Container(
-                                padding: EdgeInsets.only(top: 8, bottom: 8),
-                                child: Divider(height: 5),
-                                ),
-
-                                
-                                Container(
-                                  child: new Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      // Treinos mais executados
-
-                                      Expanded(
-                                        child: ElevatedButton(
-                                            style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        Theme.of(context)
-                                                            .cardColor)),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Bio:',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        IconButton(
                                             onPressed: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: ((context) =>
-                                                          TreinosMaisExecut())));
+                                              _updateBioProfile();
                                             },
-                                            child: Text(
-                                              'Treinos mais executados',
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .canvasColor),
-                                            )),
-                                      )
-                                    ],
-                                  ),
+                                            icon: Icon(Icons.edit))
+                                      ],
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                          bottom: 80,
+                                          top: 5,
+                                          right: 5,
+                                          left: 5),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Theme.of(context).cardColor),
+                                      child: Row(
+                                        children: [
+                                          SizedBox(width: 5),
+                                          Text(
+                                            user[index].textBio,
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    new Container(
+                                      padding:
+                                          EdgeInsets.only(top: 8, bottom: 8),
+                                      child: Divider(height: 5),
+                                    ),
+
+                                    Container(
+                                      child: new Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          // Treinos mais executados
+
+                                          Expanded(
+                                            child: ElevatedButton(
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(Theme.of(
+                                                                    context)
+                                                                .cardColor)),
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: ((context) =>
+                                                              TreinosMaisExecut())));
+                                                },
+                                                child: Text(
+                                                  'Treinos mais executados',
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .hintColor),
+                                                )),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+
+                                    //  OUTRAS AÇÕES
+                                  ],
                                 ),
-
-                            
-
-                                //  OUTRAS AÇÕES
-                              ],
-                            ),
-                          ));
+                              ));
+                        },
+                      );
                     },
                   ),
                 ),

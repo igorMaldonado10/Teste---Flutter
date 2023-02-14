@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:teste/Global/treino_2.0/treino_list2.dart';
 import 'package:teste/Profile/perfil_page.dart';
 import 'package:teste/view/recursos/IMC/calc_ims.dart';
-import 'package:teste/view/recursos/class_getX_int_for_string.dart';
 import 'package:teste/view/recursos/home/homeScreen.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
 
@@ -16,7 +14,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  final controller = Get.put(ControlAppBar());
+  // final controller = Get.put(ControlAppBar());
   int _opcaoSelecionada = 0;
 
   @override

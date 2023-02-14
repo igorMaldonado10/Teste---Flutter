@@ -75,17 +75,7 @@ class _TimerClockState extends State<TimerClock> {
     });
   }
 
-  // _startTimer() {
-  //   timer = Timer.periodic(Duration(seconds: 1), (timer) {
-  //     setState(() {
-  //       hours += 1;
-  //       if (hours <= 60) {
-  //         timer.cancel();
-  //         // percent = 0.0;
-  //       }
-  //     });
-  //   });
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +112,7 @@ class _TimerClockState extends State<TimerClock> {
                 SingleChildScrollView(
                   child: Center(
                     child: Text(
-                      // '$percent',
+                  
                       '$digitHours:$digitMinutes:$digitSeconds',
                       style: TextStyle(
                           // color: Colors.white,
@@ -133,7 +123,7 @@ class _TimerClockState extends State<TimerClock> {
                 ),
               ],
             ),
-            // SizedBox(height: 50.0),
+           
             Padding(padding: EdgeInsets.only(bottom: 10)),
 
             Padding(

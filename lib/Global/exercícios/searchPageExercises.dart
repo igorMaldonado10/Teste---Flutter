@@ -5,11 +5,10 @@ import 'package:teste/Global/exerc%C3%ADcios/Filter%20Chip/filterChipTipo.dart';
 import 'package:teste/Global/exerc%C3%ADcios/informa%C3%A7%C3%B5es_exer.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
-import 'package:teste/Global/treino_2.0/treino_service.dart';
+
 
 class SearchPageExerc extends StatefulWidget {
-  // const SearchPage({Key? key}) : super(key: key);
-  // final List _list;
+ 
   final Treino_dois? treino;
   final Exercises? exercises;
 
@@ -20,13 +19,13 @@ class SearchPageExerc extends StatefulWidget {
 }
 
 class _SearchPageExercState extends State<SearchPageExerc> {
-  // TreinoService treinoService = TreinoService();
+  
   bool? filter = false;
-  //  List treinos = treinoService.display_list;
+ 
   late List<Exercises> display_list_exerc =
       List.from(widget.treino!.listExercises!);
 
-  // List<Treino_dois> display_list = List.from(treinoService.pegarList());
+  
 
   void updateList(String value) {
     setState(() {
@@ -65,11 +64,16 @@ class _SearchPageExercState extends State<SearchPageExerc> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              // Título da página 
               Text(
                 "Procurar exercício",
                 style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
               ),
+
               SizedBox(height: 20),
+
+              // Campo de busca de exercícios
               TextField(
                 onChanged: (value) => updateList(value),
                 decoration: InputDecoration(
@@ -80,11 +84,13 @@ class _SearchPageExercState extends State<SearchPageExerc> {
                     hintText: "ex.: Treino A",
                     prefixIcon: Icon(Icons.search)),
               ),
+
               SizedBox(
                 height: 5,
               ),
+ 
+              // CheckBox para abrir o filtro de chips
                 Row(
-                  // mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Checkbox(
                                 activeColor: Color.fromRGBO(211, 111, 47, 100),
@@ -96,11 +102,17 @@ class _SearchPageExercState extends State<SearchPageExerc> {
                                 }),
                             new Text(
                               'Filtro Selecionável',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                color: Theme.of(context).hintColor
+                              ),
                             )
                           ],
                         ),
+
+              // If ternário para mostrar ou não o filtro quando o checkBox estiver selecionado
               (this.filter == true)?
+
+              // Título do filtro
               Container(
                   width: MediaQuery.of(context).size.width,
                   child: Column(
@@ -114,6 +126,8 @@ class _SearchPageExercState extends State<SearchPageExerc> {
                         ),)
                        ],   
                       ),
+
+                      // Filtro de chips por grupo muscular
                       FilterChipExercMusc(
                         onSelectedChange: (value) => updateListMusc(value),
                         items_filters: [
@@ -130,7 +144,9 @@ class _SearchPageExercState extends State<SearchPageExerc> {
                           'Gêmeos'
                         ],
                       ),
-                          Row(
+
+                       // Título do filtro
+                       Row(
                        mainAxisAlignment: MainAxisAlignment.end,
                        children: [
                         Text('Tipo de exercício',
@@ -139,7 +155,8 @@ class _SearchPageExercState extends State<SearchPageExerc> {
                         ),)
                        ],   
                       ),
-                      // SizedBox(height: 5),
+                     
+                     // Filtro de chips por tipo de exercício
                       FilterChipExercTipo(
                         onSelectedChange: (value) => updateListTipo(value),
                         items_filters: [
@@ -148,9 +165,14 @@ class _SearchPageExercState extends State<SearchPageExerc> {
                           'Peso do corpo',
                         ],
                       ),
+
                     ],
-                  )): Container(),
+                  ))
+                  : Container(),
+
               SizedBox(height: 20),
+
+              // Lista de visualização do filtro
               Expanded(
                   child: ListView.builder(
                       itemCount: display_list_exerc.length,
@@ -164,6 +186,7 @@ class _SearchPageExercState extends State<SearchPageExerc> {
                             trailing: IconButton(
                               iconSize: 30,
                               onPressed: () {
+
                                 // Cada treino tem o seu próprio ID, então, lógicamente cada ID tem a sua página de treino
                                 Navigator.push(
                                     context,
@@ -175,10 +198,14 @@ class _SearchPageExercState extends State<SearchPageExerc> {
                                             )));
                               },
                               icon: FaIcon(FontAwesomeIcons.chevronRight),
-                              // icon: Icon(Icons.more_vert_rounded)
+                           
                             ),
-                          ))))
-            ]),
+                          )
+                        )
+                      )
+                    )
+            ]
+          ),
       ),
     );
   }

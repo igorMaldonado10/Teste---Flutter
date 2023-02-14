@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Global/exerc%C3%ADcios/Toggle%20Buttons/class_GetX_bool_for_string.dart';
 import 'package:teste/Global/exerc%C3%ADcios/Toggle%20Buttons/toggleButtons1.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/exerc%C3%ADcios/Chips/list_of_chips.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
-import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
 
 class CadastroExercicio extends StatefulWidget {
@@ -38,35 +38,65 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
   // // Objeto de classe que contém a Busca dos contatos
   final TreinoService treinoService = new TreinoService();
 
+  saveExercise() {
+    final controller = Get.put(Controller());
+
+
+    int ultimoID = widget.treino!.listExercises!.length;
+
+    Exercises exercises = Exercises(
+        id: ultimoID + 1,
+        name: name.text,
+        grupoMusc: grupoMus.text,
+        tipo: controller.tipoExerc,
+        obs: obs.text,
+        numSeries: int.parse(numSer.text),
+        numRepeti: int.parse(numReps.text),
+        restTime: restTime.text);
+
+// Envia o objeto preenchido para adicionar na lista
+    String mensagem = Provider.of<TreinoService>(context, listen: false)
+        .cadastrarExercicio(exercises, widget.treino!);
+
+   
+    Navigator.pop(context);
+
+
+    Get.rawSnackbar(
+      title: 'Sucesso!',
+      message: mensagem,
+      duration: Duration(milliseconds: 2000),
+      snackPosition: SnackPosition.TOP,
+      showProgressIndicator: true
+    );
+
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //   content: Row(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: [
+    //       Text(mensagem),
+    //     ],
+    //   ),
+    //   duration: Duration(seconds: 3),
+    //   behavior: SnackBarBehavior.floating,
+    // ));
+  }
+
   @override
   Widget build(BuildContext context) {
     // Objeto da classe Treino
 
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Cadastro de Exercício'),
+      ),
       // drawer: MenuDrawer(),
       body: SingleChildScrollView(
-        // CONTAINER DO FORM
+      
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 30,
-                ),
-                // Text(
-                //   'Cadastre um exercício',
-                //   style: TextStyle(
-                //     fontSize: 20,
-                //   ),
-                // ),
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.cancel_outlined))
-              ],
-            ),
+        
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
@@ -77,7 +107,8 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // Título
+
+                  // Título da página
                   new Container(
                     alignment: Alignment.center,
                     margin: EdgeInsets.only(bottom: 45),
@@ -89,8 +120,25 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
                   ),
 
                   // Campos do formulários
-                  addTexForm('Nome do exercício', name),
-                  // addTexForm('Grupo muscular', grupoMus),
+                  new Container(
+                 margin: EdgeInsets.only(bottom: 10),
+                 child: TextFormField(
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(16)
+                  ],
+                 // recebe o valor dos campos
+                 controller: name,
+
+                 decoration: InputDecoration(
+                 labelText: 'Nome do exercício',
+
+                 // Borda do Input
+                 border: OutlineInputBorder(borderSide: BorderSide()),
+        ),
+      ),
+    ),
+                 
+                 //  Lista de chips para o grupo muscular
                   Container(
                     padding: EdgeInsets.only(right: 175),
                     child: Text('Grupo muscular'),
@@ -117,6 +165,8 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
                     ),
                   ),
 
+
+                  // Toggle buttons para a escolha do tipo  de exercício
                   Container(
                     padding: EdgeInsets.only(right: 165),
                     child: Text('Tipo de exercício'),
@@ -128,12 +178,12 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
 
                   Padding(padding: EdgeInsets.all(10)),
 
-                  addTexForm('observação', obs),
-
+                  // Número de séries
                   new Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: TextField(
                       keyboardType: TextInputType.number,
+
                       // recebe o valor dos campos
                       controller: numSer,
 
@@ -145,7 +195,8 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
                       ),
                     ),
                   ),
-
+                  
+                  // Número de repetições
                   new Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: TextField(
@@ -162,49 +213,54 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
                     ),
                   ),
 
+                  // Tempo de descanso
                   new Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       // recebe o valor dos campos
                       controller: restTime,
 
                       decoration: InputDecoration(
-                        labelText: 'Tempo de descanso(minutos)',
-                        // hintText: '',
+                        labelText: 'Tempo de descanso',
+
                         // Borda do Input
                         border: OutlineInputBorder(borderSide: BorderSide()),
                       ),
                     ),
                   ),
-                  // addTexForm('Tempo de descanso', restTime),
 
-                  // SizedBox(height: 15),
+
+                  // Observação
+                  new Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: TextFormField(
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(15)
+                    ],
+                  // recebe o valor dos campos
+                  controller: obs,
+
+                  decoration: InputDecoration(
+                  labelText: 'Observação',
+
+                   // Borda do Input
+                   border: OutlineInputBorder(borderSide: BorderSide()),
+        ),
+      ),
+    ),
+                
 
                   // BOTÕES
                   new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Botão cadastrar
+
+                      // Botão cadastrar exercício
                       new Builder(builder: (BuildContext context) {
                         return ElevatedButton(
                             onPressed: () {
-                              setState(() {
-                                cadastrar();
-                                Future.delayed(Duration(milliseconds: 2500),
-                                    () {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ExercisesList(widget.treino)));
-                                });
-
-                                // Future.delayed(Duration(milliseconds: 2500), () {
-                                //   Navigator.pop(context);
-                                // });
-                              });
+                              saveExercise();
+                           
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -213,7 +269,7 @@ class _CadastroExercicioState extends State<CadastroExercicio> {
                             ));
                       }),
 
-                      // Botão limpar
+                      // Botão limpar campos 
                       new Builder(builder: (BuildContext context) {
                         return ElevatedButton(
                             style: ElevatedButton.styleFrom(

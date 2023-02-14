@@ -1,12 +1,10 @@
 import 'package:get/get.dart';
-import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
+
 
 class Controller extends GetxController {
   String tipoExerc = '';
   
-  // final Exercises? exercises;
 
-  // Controller({this.exercises});
   
 
   

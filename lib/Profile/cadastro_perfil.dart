@@ -1,14 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Profile/model/perfil_model.dart';
-import 'package:teste/Profile/perfil_page.dart';
 import 'package:teste/Profile/perfil_service.dart';
 import 'package:teste/view/recursos/menuDrawer.dart';
 import 'package:teste/view/recursos/thema/color_schemes.g.dart';
-import 'package:image_picker/image_picker.dart';
+
 
 class CadastroPerfil extends StatefulWidget {
   // const CadastroTreino({Key? key}) : super(key: key);
@@ -29,10 +28,44 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
   PickedFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
 
+  savePerfil() {
+
+    
+    int id = Provider.of<PerfilService>(context, listen: false).perfilView.length;
+
+    User user = User(
+      id: id,
+      name: name.text,
+      sobrenome: sobrenome.text,
+      dataNasc: dataNasc.text,
+      pesoAtual: pesoAtual.text,
+      icon: _imageFile!
+      // foto!
+      ,
+      textBio: textBio.text,
+    );
+
+    // Envia o objeto preenchido para adicionar na lista
+    String mensagem = Provider.of<PerfilService>(context, listen: false).cadastrarPerfil(user);
+
+    Navigator.pop(context);
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(mensagem),
+        ],
+      ),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appaBarHome(Text('Cadastro Perfil')),
+      // appBar: appaBarHome(Text('Cadastro Perfil')),
       drawer: MenuDrawer(),
       body: SingleChildScrollView(
         // Container do Form
@@ -101,7 +134,8 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
                   new Builder(builder: (BuildContext context) {
                     return ElevatedButton(
                         onPressed: () {
-                          cadastrar();
+                          // cadastrar();
+                          savePerfil();
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -249,46 +283,46 @@ class _CadastroPerfilState extends State<CadastroPerfil> {
   }
 
   // método de Cadastrar
-  void cadastrar() {
-    // Chamei o objeto que possui os métodos referente ao perfil
-    PerfilService perfilService = new PerfilService();
+//   void cadastrar() {
+//     // Chamei o objeto que possui os métodos referente ao perfil
+//     PerfilService perfilService = new PerfilService();
 
-    // Guardar o último ID cadastrado
-    int id = perfilService.listaUser().length;
+//     // Guardar o último ID cadastrado
+//     int id = perfilService.listaUser().length;
 
-    User user = User(
-      id: id,
-      name: name.text,
-      sobrenome: sobrenome.text,
-      dataNasc: dataNasc.text,
-      pesoAtual: pesoAtual.text,
-      icon: _imageFile!
-      // foto!
-      ,
-      textBio: textBio.text,
-    );
+//     User user = User(
+//       id: id,
+//       name: name.text,
+//       sobrenome: sobrenome.text,
+//       dataNasc: dataNasc.text,
+//       pesoAtual: pesoAtual.text,
+//       icon: _imageFile!
+//       // foto!
+//       ,
+//       textBio: textBio.text,
+//     );
 
-// Envia o objeto preenchido para adicionar na lista
-    String mensagem = perfilService.cadastrarPerfil(user);
+// // Envia o objeto preenchido para adicionar na lista
+//     String mensagem = perfilService.cadastrarPerfil(user);
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(mensagem),
-        ],
-      ),
-      duration: Duration(seconds: 3),
-      behavior: SnackBarBehavior.floating,
-    ));
+//     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//       content: Row(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           Text(mensagem),
+//         ],
+//       ),
+//       duration: Duration(seconds: 3),
+//       behavior: SnackBarBehavior.floating,
+//     ));
 
-    // Redireciona para a tela de busca
-    Future.delayed(Duration(milliseconds: 2500), () {
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: ((context) => PerfilPage())));
-      Navigator.pop(context);
-    });
-  }
+//     // Redireciona para a tela de busca
+//     Future.delayed(Duration(milliseconds: 2500), () {
+//       // Navigator.pushReplacement(
+//       //     context, MaterialPageRoute(builder: ((context) => PerfilPage())));
+//       Navigator.pop(context);
+//     });
+//   }
 
   AppBar appaBarHome(Text texto) {
     return AppBar(

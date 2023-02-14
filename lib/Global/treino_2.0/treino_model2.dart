@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 
 class Treino_dois {
   // Atributos
   int? id;
-  // late String icon;
   String? tipoDeTreino;
   String? dataDoTreino;
   String? objetivo;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Profile/model/perfil_model.dart';
 import 'package:teste/Profile/perfil_service.dart';
 
@@ -70,12 +69,24 @@ class _UpdateNomeProfileState extends State<UpdateNomeProfile> {
               height: 50,
               child: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      widget.user.name = nomeController.text;
-                      widget.user.sobrenome = sobrenomeController.text;
+                    atualizarNomeSobrenome();
 
-                      Navigator.pop(context);
-                    });
+
+                    Navigator.pop(context);
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Perfil atualizado'),
+                      ],
+                    )));
+                    // setState(() {
+                    //   widget.user.name = nomeController.text;
+                    //   widget.user.sobrenome = sobrenomeController.text;
+
+                    //   Navigator.pop(context);
+                    // });
                   },
                   child: Text(
                     'Alterar',
@@ -87,6 +98,15 @@ class _UpdateNomeProfileState extends State<UpdateNomeProfile> {
         ),
       ),
     );
+  }
+
+  void atualizarNomeSobrenome() {
+    User user = Provider.of<PerfilService>(context, listen: false)
+        .perfilView
+        .elementAt(widget.id);
+
+    Provider.of<PerfilService>(context, listen: false).atualizarNomeSobrenome(
+        user, nomeController.text, sobrenomeController.text);
   }
 
   Container addTexForm(String nomoDoCampo, TextEditingController controller) {

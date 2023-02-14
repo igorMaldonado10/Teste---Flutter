@@ -1,24 +1,17 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Global/exerc%C3%ADcios/cadastro_exercicio.dart';
 import 'package:teste/Global/exerc%C3%ADcios/exercicio_item.dart';
-import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/exerc%C3%ADcios/searchPageExercises.dart';
-import 'package:teste/Global/treino_1.0/treino_list.dart';
-import 'package:teste/Global/treino_2.0/historico_service.dart';
+import 'package:teste/Global/treino_2.0/historico_pages/historico_service.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
-import 'package:teste/view/recursos/menuDrawer.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ExercisesList extends StatefulWidget {
-  /// Guardar a ID do treino selecionado
-  /// final int id;
   final Treino_dois? treino;
 
   ExercisesList(this.treino);
@@ -35,11 +28,8 @@ class _ExercisesListState extends State<ExercisesList> {
   Timer? timer;
   bool started = false;
   int execucoes = 0;
-  // List<int> execucoesNumeradas = [];
-  // List<Treino_dois> execucoesAdd = [];
 
-  TreinoService treinoService = TreinoService();
-
+// Método para resetar o cronômetro de execução
   void reset() {
     timer!.cancel();
     setState(() {
@@ -53,6 +43,7 @@ class _ExercisesListState extends State<ExercisesList> {
     });
   }
 
+// Método para pausar o cronômetro de execução
   void stop() {
     timer!.cancel();
     setState(() {
@@ -60,7 +51,7 @@ class _ExercisesListState extends State<ExercisesList> {
     });
   }
 
-  // Função para startar o timer
+  // Função para startar o cronômetro de execução
   void start() {
     started = true;
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -88,43 +79,25 @@ class _ExercisesListState extends State<ExercisesList> {
     });
   }
 
-  // _startTimer() {
-  //   timer = Timer.periodic(Duration(seconds: 1), (timer) {
-  //     setState(() {
-  //       hours += 1;
-  //       if (hours <= 60) {
-  //         timer.cancel();
-  //         // percent = 0.0;
-  //       }
-  //     });
-  //   });
-  // }
-
+// Método para incrementar o número de execuções em cada treino executado
   void numExecucoes() {
     if (execucoes < 90) {
-      // setState(() {
-      // execucoesAdd.add(widget.treino!);
+      widget.treino?.execucoesDeTreino =
+          execucoes += 1; 
 
-      widget.treino?.execucoesDeTreino = execucoes += 1;
-
-      widget.treino?.listExecucoes?.add(widget.treino?.execucoesDeTreino ?? 0);
-      // });
-      // widget.treino?.listExecucoes = execucoesAdd;
-      // execucoesNumeradas.add(widget.treino?.execucoesDeTreino ?? 0);
-      // widget.treino?.listExecucoes = execucoesNumeradas;
+      widget.treino?.listExecucoes?.add(widget.treino?.execucoesDeTreino ??
+          0); 
     } else {
-      widget.treino?.listExecucoes?.length;
-      // widget.treino?.listExecucoes;
-      /// Essa => widget.treino?.execucoesDeTreino;
-    
+      
+      widget.treino?.listExecucoes
+          ?.length; 
+
     }
-
-    //  widget.treino?.listExecucoes?.add(widget.treino?.execucoesDeTreino);
   }
-//
 
+  // Método para executar treino
   void executarTreino() {
-    // int execucoes = 0;
+   
     HistoricoService historicoService = new HistoricoService();
 
     String tempoDeTreino = "$digitHours:$digitMinutes:$digitSeconds";
@@ -138,37 +111,30 @@ class _ExercisesListState extends State<ExercisesList> {
       dataDoTreino: widget.treino?.dataDoTreino,
       objetivo: widget.treino?.objetivo,
       marca: tempoDeTreino,
-      // execucoesDeTreino: execucoes++
     );
-
-    //  widget.treino?.listExecucoes?.add(treino_dois);
 
 // Envia o treino (objeto) realizado para adicionar na lista de histórico
     String mensagem = historicoService.executarTreino(
       treino_dois,
     );
 
-    // widget.treino?.listExecucoes?.add(treino_dois);
+    Get.rawSnackbar(
+        title: 'Sucesso!',
+        message: mensagem,
+        duration: Duration(milliseconds: 2500),
+        snackPosition: SnackPosition.TOP,
+        showProgressIndicator: true);
 
-    // historicoService.incrementExecucoes(treino_dois);
-
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(mensagem),
-        ],
-      ),
-      duration: Duration(seconds: 3),
-      // behavior: SnackBarBehavior.floating,
-    ));
-
-    // Redireciona para a tela de busca
-    // Future.delayed(Duration(milliseconds: 2500), () {
-    //   Navigator.pop(context);
-    //   // Navigator.push(
-    //   //     context, MaterialPageRoute(builder: (context) => TreinoList2()));
-    // });
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //   content: Row(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: [
+    //       Text(mensagem),
+    //     ],
+    //   ),
+    //   duration: Duration(seconds: 3),
+    //   // behavior: SnackBarBehavior.floating,
+    // ));
   }
 
   bool? exerCheck = false;
@@ -185,98 +151,96 @@ class _ExercisesListState extends State<ExercisesList> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: ((context) => SearchPageExerc(
+                          builder: ((context) => 
+                          SearchPageExerc(
                                     treino: widget.treino,
                                   )
-                              // treinoService.searchPage()
-
                               )));
                 },
                 icon: Icon(Icons.search))
           ]),
-      //  appaBarHome(
-      //     Text('Exercícios' + ' - ' '${widget.treino!.tipoDeTreino}')),
-      // drawer: MenuDrawer(),
-      body: ListView.builder(
-          padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
-          itemCount: widget.treino?.listExercises?.length ?? 0,
-          // recebo o índice e o contexto do elemento que vou retornar;
-          itemBuilder: (BuildContext context, int index) {
-            // int _numInicial = 0;
 
-            return ListExerciseItem(
-              exercises: widget.treino!.listExercises![index],
-              treino: widget.treino,
-            );
-          }),
+      body: Consumer<TreinoService>(
+        builder: (context, repositorioTreinos, child) {
+          return ListView.builder(
+              padding: EdgeInsets.fromLTRB(4, 8, 4, 75),
+              itemCount: widget.treino?.listExercises?.length ?? 0,
 
+              // recebo o índice e o contexto do elemento que vou retornar;
+              itemBuilder: (BuildContext context, int index) {
+                return ListExerciseItem(
+                  exercises: widget.treino!.listExercises![index],
+                  treino: widget.treino,
+                );
+              });
+        },
+      ),
       persistentFooterButtons: [
-        // SizedBox(height:30),
-        Container(
-          child: (widget.treino!.listExercises!.length == null ||
-                  widget.treino!.listExercises!.isEmpty ||
-                  widget.treino!.listExercises!.length < 2)
-              ? Container()
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.success,
-                            animType: AnimType.topSlide,
-                            showCloseIcon: true,
-                            title: 'Certeza?',
-                            desc: 'Você deseja executar esse treino?',
-                            btnCancelOnPress: () {},
-                            btnOkOnPress: () {
-                              // numExecucoes();
-                              executarTreino();
-
-                              // widget.treino!.execucoesDeTreino = (widget.treino!.execucoesDeTreino! + 1);
-
-                              Future.delayed(Duration(seconds: 1), () {
-                                reset();
-                              });
-
-                              numExecucoes();
-
-                              // print(widget.treino?.execucoesDeTreino);
-                              print(
-                                  '${widget.treino?.tipoDeTreino} foi executado: ${widget.treino?.listExecucoes?.last}'
-                                  // '${widget.treino?.tipoDeTreino} foi executado: ${widget.treino?.execucoesDeTreino}'
-                                  // '${widget.treino?.execucoesDeTreino}'
-                                  );
-                            },
-                          ).show();
-                        },
-                        icon: Icon(Icons.square)),
-                    (!started == true)
-                        ? IconButton(
-                            iconSize: 40.0,
+        
+        Consumer<TreinoService>(
+          builder: (BuildContext context, repositorioTreinos, Widget? child) {
+            return Container(
+              child: (widget.treino!.listExercises!.length == null ||
+                      widget.treino!.listExercises!.isEmpty ||
+                      widget.treino!.listExercises!.length < 2)
+                  ? Container()
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
                             onPressed: () {
-                              start();
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.success,
+                                animType: AnimType.topSlide,
+                                showCloseIcon: true,
+                                title: 'Certeza?',
+                                desc: 'Você deseja executar esse treino?',
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {
+                                 
+                                  executarTreino();
+
+                                  Future.delayed(Duration(seconds: 1), () {
+                                    reset();
+                                  });
+
+                                  numExecucoes();
+                                  print(
+                                      '${widget.treino?.tipoDeTreino} foi executado: ${widget.treino!.execucoesDeTreino}'
+                                      );
+                                },
+                              ).show();
                             },
-                            icon: Icon(Icons.play_arrow))
-                        : IconButton(
-                            iconSize: 40.0,
-                            onPressed: () {
-                              stop();
-                            },
-                            icon: Icon(Icons.pause)),
-                    SizedBox(width: 40),
-                    Text(
-                      // '$percent',
-                      '$digitHours:$digitMinutes:$digitSeconds',
-                      style: TextStyle(
-                          // color: Colors.white,
-                          fontSize: 50,
-                          fontWeight: FontWeight.w600),
+                            icon: Icon(Icons.square)),
+                        
+                        // If ternário para comandar os botões de start e pause
+                        (!started == true)
+                            ? IconButton(
+                                iconSize: 40.0,
+                                onPressed: () {
+                                  start();
+                                },
+                                icon: Icon(Icons.play_arrow))
+                            : IconButton(
+                                iconSize: 40.0,
+                                onPressed: () {
+                                  stop();
+                                },
+                                icon: Icon(Icons.pause)),
+
+                        SizedBox(width: 40),
+
+                        Text(
+                          '$digitHours:$digitMinutes:$digitSeconds',
+                          style: TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+            );
+          },
         ),
         SizedBox(
           height: 30,
@@ -285,28 +249,23 @@ class _ExercisesListState extends State<ExercisesList> {
       floatingActionButton: FloatingActionButton(
           child: FaIcon(FontAwesomeIcons.plus),
           onPressed: () {
-            _openExerciseFormModal(context);
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => CadastroExercicio(
-            //               treino: widget.treino,
-            //             )));
+            Get.to(CadastroExercicio(treino: widget.treino),
+                fullscreenDialog: true);
           }),
     );
   }
 
-  _openExerciseFormModal(BuildContext context) {
-    showModalBottomSheet(
-        elevation: 20,
-        context: context,
-        builder: ((context) {
-          return CadastroExercicio(
-            treino: widget.treino,
-          );
-        }));
-    // Fechar Modal
-  }
+  // _openExerciseFormModal(BuildContext context) {
+  //   showModalBottomSheet(
+  //       elevation: 20,
+  //       context: context,
+  //       builder: ((context) {
+  //         return CadastroExercicio(
+  //           treino: widget.treino,
+  //         );
+  //       }));
+  //   // Fechar Modal
+  // }
 
   AppBar appaBarHome(Text texto) {
     return AppBar(
@@ -323,7 +282,7 @@ class _ExercisesListState extends State<ExercisesList> {
                         builder: ((context) => SearchPageExerc(
                                   treino: widget.treino,
                                 )
-                            // treinoService.searchPage()
+                            
 
                             )));
               },

@@ -1,24 +1,16 @@
+import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
-import 'package:teste/models/treino_model.dart';
 
-class TreinoService {
-  /// Lista que será preenchida
-  /// static = ela não se criará mais de uma vez, ou seja, não se modifica
-  /// static List<Exercises> exercicios = [];
-
-  /// void atualizarExercicio(int id) {
-  ///   exercicios;
-  /// }
-
-  Treino_dois? treino_dois;
-
+class TreinoService extends ChangeNotifier {
   // List<Exercises> exercises = treino_dois!.listExercises!;
 
   /// Método para remover os exercicios na lista de cada treino especifico
   String removerExercicio(int id, Treino_dois treino) {
     treino.listExercises?.removeAt(id);
+
+    notifyListeners();
 
     /// treino.listExercises?.removeWhere((element) => element.id == id);
     /// exercicios.removeWhere((element) => element.id == id);
@@ -28,43 +20,12 @@ class TreinoService {
 
   /// Método para cadastrar os exercicios na lista de cada treino especifico
   String cadastrarExercicio(Exercises exercises, Treino_dois treino) {
-    /// Treino_dois treino = listarTreinos().elementAt(id);
-
     treino.listExercises?.add(exercises);
+
+    notifyListeners();
 
     return "Novo exercício cadastrado: ${exercises.name}";
   }
-
-  /// Método para buscar todos os treinos registrados
-  /// List listarExercicios() {
-  /// Simulando o bando de dados
-
-  /// Exercises(
-  ///     id: 1,
-  ///     name: 'Cadeira flexora',
-  ///     grupoMusc: 'Posterior de coxa',
-  ///     // Maquina, livre com halteres, peso do corpo
-  ///     tipo: 'Máquina',
-  ///     obs: 'Vázia',
-  ///     numSeries: 4,
-  ///     numRepeti: '20',
-  ///     restTime: '2 min'
-  ///     );
-
-  ///  Exercises(
-  ///     id: 2,
-  ///     name: 'Cadeira flexora',
-  ///     grupoMusc: 'Posterior de coxa',
-  /// Maquina, livre com halteres, peso do corpo
-  ///     tipo: 'Máquina',
-  ///     obs: 'Vázia',
-  ///     numSeries: 4,
-  ///     numRepeti: '20',
-  ///     restTime: '2 min'
-  ///    );
-
-  //   return exercicios;
-  // }
 
   // ATRIBUTOS DA CLASSE
 
@@ -73,18 +34,56 @@ class TreinoService {
   static List<Treino_dois> treinos = [];
   // bool isSorted = false;
 
-  //variável List que recebe a lista de treinos que já está preenchida
+  //List que recebe a lista de treinos que já está preenchida (criei par conseguir receber a lista preenchida na searchPageTreinos)
   List<Treino_dois> treinos2 = treinos;
 
   List<Treino_dois> display_list = List.from(treinos);
+
+  UnmodifiableListView<Treino_dois> get treinosGet =>
+      UnmodifiableListView(treinos2);
 
   // void updateList(String value) {}
   // List pegarList() {
   //   return treinos;
   // }
 
+  String atualizarExercicio(
+      {required Exercises exercises,
+       required String name,
+      required String numSeries,
+      required String numReps,
+      required String grupoMusc,
+      required String tipo,
+      required String obs,
+      required String restTime}) {
+    exercises.name = name;
+    exercises.numSeries = int.parse(numSeries);
+    exercises.numRepeti = int.parse(numReps);
+    exercises.grupoMusc = grupoMusc;
+    exercises.tipo = tipo;
+    exercises.obs = obs;
+    exercises.restTime = restTime;
+
+    notifyListeners();
+
+    return 'Exercício atualizado';
+  }
+
+  String atualizarTreino(
+      Treino_dois treino, String tipo, String objetivo, String data) {
+    treino.tipoDeTreino = tipo;
+    treino.objetivo = objetivo;
+    treino.dataDoTreino = data;
+
+    notifyListeners();
+
+    return 'Treino atualizado';
+  }
+
   String removerTreino(int id) {
     treinos.removeWhere((element) => element.id == id);
+
+    notifyListeners();
 
     return "Treino excluido";
   }
@@ -93,19 +92,10 @@ class TreinoService {
   String cadastrarTreino(Treino_dois treino_dois) {
     treinos.add(treino_dois);
 
+    notifyListeners();
+
     return "Novo treino cadastrado: ${treino_dois.tipoDeTreino}";
   }
-
-  // sort() {
-  //   if (!isSorted) {
-  //     treinos.sort(((Treino_dois a, Treino_dois b) =>
-  //         a.execucoesDeTreino!.compareTo(b.execucoesDeTreino!)));
-  //     isSorted = true;
-  //   } else {
-  //     treinos.reversed.toList();
-  //   }
-    
-  // }
 
   // Método para buscar todos os treinos registrados
   List listarTreinos() {

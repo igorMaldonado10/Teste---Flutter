@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
-import 'package:teste/Global/treino_2.0/historico_service.dart';
-import 'package:teste/Global/treino_2.0/treino_model2.dart';
+import 'package:teste/Global/treino_2.0/historico_pages/historico_service.dart';
 
 class HistoricoTreinos extends StatefulWidget {
   const HistoricoTreinos({Key? key}) : super(key: key);
@@ -94,7 +92,7 @@ class _HistoricoTreinosState extends State<HistoricoTreinos> {
                           // ),
                           Text('Tempo:',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Theme.of(context).hintColor,
                                 fontSize: 14.0,
                               )),
                           // SizedBox(width: 5),
@@ -106,8 +104,11 @@ class _HistoricoTreinosState extends State<HistoricoTreinos> {
 
                           Icon(Icons.calendar_month),
 
-                          Text('Data: ' +
-                              DateFormat('dd/MM/yyy').format(historicoService
+                          Text('Data: ',
+                          style: TextStyle(
+                            color: Theme.of(context).hintColor
+                          )),
+                          Text( DateFormat('dd/MM/yyy').format(historicoService
                                       .treinosExecutadosView[index].date ??
                                   DateTime.now()))
                         ],

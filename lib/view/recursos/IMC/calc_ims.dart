@@ -1,14 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teste/view/recursos/home/homeScreen.dart';
-import 'package:teste/view/recursos/menuDrawer.dart';
-import 'package:teste/view/recursos/thema/color_schemes.g.dart';
-import 'package:flutter/src/widgets/container.dart';
+
 
 class CalculadoraIMC extends StatefulWidget {
   @override
@@ -61,49 +53,12 @@ class _HomeState extends State<CalculadoraIMC> {
           child: SingleChildScrollView(
               padding: EdgeInsets.all(20.0), child: buildForm()),
         ),
-    //     bottomNavigationBar: BottomNavigationBar(items: [
-    //   BottomNavigationBarItem(
-    //             label: 'Home',
-    //             icon: new IconButton(
-    //                 onPressed: () {
-    //                   Navigator.push(
-    //                       context,
-    //                       MaterialPageRoute(
-    //                           builder: ((context) => HomePage())));
-    //                 },
-    //                 icon: new FaIcon(FontAwesomeIcons.houseChimney))),
 
-    //         BottomNavigationBarItem(
-    //             label: 'Perfil',
-    //             icon: new IconButton(
-    //                 onPressed: () {},
-    //                 icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
-    // ]
-    // ),
         );
         
   }
 
-  AppBar appaBar(Text texto) {
-    return AppBar(
-        automaticallyImplyLeading: false, //Esconde o ícone original (menu)
 
-        centerTitle: true,
-        title: texto,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () {
-              resetFields();
-            },
-          )
-        ],
-        leading: Builder(builder: (BuildContext context) {
-          return IconButton(
-              icon: FaIcon(FontAwesomeIcons.bars),
-              onPressed: () => Scaffold.of(context).openDrawer());
-        }));
-  }
 
 // Método que retorno o formulário
   Form buildForm() {
@@ -137,10 +92,6 @@ class _HomeState extends State<CalculadoraIMC> {
       if (imc < 18.6) {
         _result += "Abaixo do peso";
       } else if (imc < 25.0) {
-        FaIcon(
-          FontAwesomeIcons.smile,
-          size: 100,
-        );
         _result += "Peso ideal";
       } else if (imc < 30.0) {
         _result += "Levemente acima do peso";
@@ -183,7 +134,6 @@ class _HomeState extends State<CalculadoraIMC> {
           )
         ]
   ),
-        // color: Colors.orange.shade100,
         height: MediaQuery.of(context).size.height / 4,
         width: MediaQuery.of(context).size.width / 4,
         child: Column(

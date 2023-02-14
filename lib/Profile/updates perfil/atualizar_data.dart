@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Profile/model/perfil_model.dart';
+
+import '../perfil_service.dart';
 
 class UpadateDateProfile extends StatefulWidget {
   // const UpadateDateProfile({Key? key}) : super(key: key);
   final User user;
+  final int id = 0;
   UpadateDateProfile(this.user);
 
   @override
@@ -15,14 +17,11 @@ class UpadateDateProfile extends StatefulWidget {
 class _UpadateDateProfileState extends State<UpadateDateProfile> {
   final birthdayController = TextEditingController();
 
-  
- @override
+  @override
   void initState() {
     super.initState();
-   birthdayController.text =  widget.user.dataNasc;
-  
+    birthdayController.text = widget.user.dataNasc;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +65,22 @@ class _UpadateDateProfileState extends State<UpadateDateProfile> {
               height: 50,
               child: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      widget.user.dataNasc = birthdayController.text;
+                    atualizarData();
 
-                      Navigator.pop(context);
-                    });
+                    Navigator.pop(context);
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Perfil atualizado'),
+                      ],
+                    )));
+                    // setState(() {
+                    //   widget.user.dataNasc = birthdayController.text;
+
+                    //   Navigator.pop(context);
+                    // });
                   },
                   child: Text(
                     'Alterar',
@@ -84,7 +94,16 @@ class _UpadateDateProfileState extends State<UpadateDateProfile> {
     );
   }
 
-    Container addTexForm(String nomoDoCampo, TextEditingController controller) {
+  void atualizarData() {
+    User user = Provider.of<PerfilService>(context, listen: false)
+        .perfilView
+        .elementAt(widget.id);
+
+    Provider.of<PerfilService>(context, listen: false)
+        .atualizarNascimento(user, birthdayController.text);
+  }
+
+  Container addTexForm(String nomoDoCampo, TextEditingController controller) {
     return Container(
       padding: EdgeInsets.only(right: 15, left: 15),
       margin: EdgeInsets.only(bottom: 10),

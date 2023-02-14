@@ -1,11 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teste/controllers/shared/preferences_keys.dart';
-import 'package:teste/controllers/shared/sign_up_service.dart';
 import 'package:teste/view/recursos/login/login_model.dart';
 import 'package:teste/view/recursos/login/login_page.dart';
 
@@ -19,7 +15,6 @@ class CadastroUser extends StatefulWidget {
 class _CadastroUserState extends State<CadastroUser> {
   bool? showPassword = false;
 
-  // TextEditingController _nomeInputController = TextEditingController();
   TextEditingController _emailInputController = TextEditingController();
   TextEditingController _senhaInputController = TextEditingController();
   TextEditingController _confirmInputController = TextEditingController();
@@ -31,7 +26,7 @@ class _CadastroUserState extends State<CadastroUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(),
+    
         body: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -69,33 +64,16 @@ class _CadastroUserState extends State<CadastroUser> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        // TextFormField(
-                        //   controller: _nomeInputController,
-                        //   autofocus: true,
-                        //   style: TextStyle(color: Colors.white),
-                        //   decoration: InputDecoration(
-                        //     labelText: "Nome Completo",
-                        //     labelStyle: TextStyle(
-                        //       color: Colors.white,
-                        //     ),
-                        //     prefixIcon: Icon(
-                        //       Icons.person,
-                        //       color: Colors.white,
-                        //     ),
-                        //     focusedBorder: UnderlineInputBorder(
-                        //       borderSide: BorderSide(
-                        //         color: Colors.white,
-                        //       ),
-                        //     ),
-                        //     enabledBorder: UnderlineInputBorder(
-                        //       borderSide: BorderSide(
-                        //         color: Colors.white,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
 
                         TextFormField(
+                          validator: (value) {
+                            if (value!.length < 5) {
+                              return 'Esse e-mail parece curto demais';
+                            } else if (!value.contains('@')) {
+                              return 'Esse e-mail está meio estranho, não?';
+                            }
+                            return null;
+                          },
                           controller: _emailInputController,
                           autofocus: true,
                           style: TextStyle(color: Colors.white),
@@ -125,7 +103,16 @@ class _CadastroUserState extends State<CadastroUser> {
                             bottom: 15,
                           ),
                         ),
+
+                        // Campo de text(Senha)
                         TextFormField(
+                          validator: (value) {
+                            if (value!.length < 6) {
+                              return 'A senha deve conter no mínimo 6 caractéres';
+                            } else {
+                              return null;
+                            }
+                          },
                           controller: _senhaInputController,
                           obscureText:
                               (this.showPassword == true) ? false : true,
@@ -151,11 +138,20 @@ class _CadastroUserState extends State<CadastroUser> {
                             ),
                           ),
                         ),
+
+
                         (this.showPassword == false)
                             ?
 
-                            // Confirmar senha
+                            // Campo de text de confirmar senha
                             TextFormField(
+                                validator: (value) {
+                                  if (value != _senhaInputController.text) {
+                                    return 'Informe senha iguais nos campos de texto';
+                                  } else {
+                                    return null;
+                                  }
+                                },
                                 controller: _confirmInputController,
                                 obscureText: true,
                                 style: TextStyle(color: Colors.white),
@@ -199,14 +195,12 @@ class _CadastroUserState extends State<CadastroUser> {
                         ),
 
                         Container(
-                          // padding: EdgeInsets.only(top: 5, bottom: 5),
                           child: Divider(
                             height: 50,
                             color: Colors.white,
                           ),
                         ),
 
-                        // SizedBox(height: 15),
 
                         //------Botões------
 
@@ -215,7 +209,7 @@ class _CadastroUserState extends State<CadastroUser> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // Botão Cadastrar
-                            // ignore: unnecessary_new
+                           
                             Container(
                               width: 280,
                               alignment: Alignment.center,
@@ -241,31 +235,32 @@ class _CadastroUserState extends State<CadastroUser> {
   }
 
   void _doSignUp() {
-    // if (_formKey.currentState!.validate()) {
-    //   SignUpService()
-    //       .signUp(_emailInputController.text, _senhaInputController.text);
-    // } else {
-    //   print('invalido');
-    // }
-    // .text no controller me da o texto atual
+  
+    if (_formKey.currentState!.validate()) {
+      LoginModel newUser = LoginModel(
+          email: _emailInputController.text,
+          senha: _senhaInputController.text,
+          // Varíavel de continuar
+          keep0n: true);
 
-    LoginModel newUser = LoginModel(
-        email: _emailInputController.text,
-        senha: _senhaInputController.text,
-        // Varíavel de continuar
-        keep0n: true);
+      print(newUser);
 
-    print(newUser);
-    _saveUser(newUser);
+      _saveUser(newUser);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Usuario cadastrado com sucesso'),
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 3)));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Usuario cadastrado com sucesso'),
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 3)));
 
-    Future.delayed(Duration(seconds: 3)).then((value) =>
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginPage())));
+      Future.delayed(Duration(seconds: 3)).then((value) =>
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => LoginPage())));
+    } else {
+       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Falha na realização do cadastro'),
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 3)));
+    }
   }
 }
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
-import 'package:teste/Global/treino_2.0/historico_service.dart';
+import 'package:teste/Global/treino_2.0/historico_pages/historico_service.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 
@@ -18,7 +16,7 @@ class _TreinosMaisExecutState extends State<TreinosMaisExecut> {
   TreinoService treinoService = TreinoService();
   bool isSorted = false;
 
-  sort() {
+    sort() {
     if (!isSorted) {
       setState(() {
         treinoService.display_list.sort(((Treino_dois a, Treino_dois b) =>
@@ -36,6 +34,25 @@ class _TreinosMaisExecutState extends State<TreinosMaisExecut> {
     //   treinoService.display_list.length;
     // });
   }
+
+  // sort() {
+  //   if (!isSorted) {
+  //     setState(() {
+  //       treinoService.display_list.sort(((Treino_dois a, Treino_dois b) =>
+  //           a.execucoesDeTreino!.compareTo(b.execucoesDeTreino!)));
+  //       isSorted = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       treinoService.display_list =
+  //           treinoService.display_list.reversed.toList();
+  //     });
+  //   }
+
+  //   setState(() {
+  //     treinoService.display_list.length;
+  //   });
+  // }
 
   Widget showList() {
     return Stack(
@@ -83,16 +100,18 @@ class _TreinosMaisExecutState extends State<TreinosMaisExecut> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                Text('${index + 1} º',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
-                                ),
-                                ),
-                              ]),
-                              SizedBox(width: 85,),
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${index + 1} º',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ]),
+                              SizedBox(
+                                width: 85,
+                              ),
                               Column(
                                 children: [
                                   Text(
@@ -104,7 +123,6 @@ class _TreinosMaisExecutState extends State<TreinosMaisExecut> {
                                   ),
                                 ],
                               ),
-                              
                             ],
                           ),
                           Padding(
@@ -117,25 +135,26 @@ class _TreinosMaisExecutState extends State<TreinosMaisExecut> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // Text(treino_dois.listExecucoes!.length.toString()),
+                              
 
                               (treino_dois.execucoesDeTreino == null)
                                   ? Text(
                                       '0x',
                                       style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                        color: Theme.of(context).backgroundColor),
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context)
+                                              .backgroundColor),
                                     )
-                                  : Text(
-                                      // '${treino_dois.listExecucoes?.last ?? 0}'
-                                      '${treino_dois.execucoesDeTreino}x',
-                                      // 'Executado: ${treino_dois.listExecucoes?.last}x',
-                                      // 'Executado: ${historicoService.treinosExecutadosView[index].execucoesDeTreino}x',
+                                  :
+                                    Text(
+                                      '${treino_dois.execucoesDeTreino}x',//Em caso de erro desmarque esse comentário///////
+                                     
                                       style: TextStyle(
-                                        fontSize: 23,
-                                        fontWeight: FontWeight.w600,
-                                        color: Theme.of(context).backgroundColor),
+                                          fontSize: 23,
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context)
+                                              .backgroundColor),
                                     ),
                             ],
                           )
@@ -151,28 +170,6 @@ class _TreinosMaisExecutState extends State<TreinosMaisExecut> {
     );
   }
 
-  // ListTile(
-  //             contentPadding: EdgeInsets.all(8.0),
-  //             title: Row(
-  //               children: [
-  //                 Text('${historicoService.treinosExecutadosView[index].tipoDeTreino}'),
-  //                 SizedBox(
-  //                   width: 15,
-  //                 ),
-  //                 Icon(Icons.timer),
-  //                 SizedBox(
-  //                   width: 5,
-  //                 ),
-
-  //                 // Text(treino_dois.marcas![index].toString())
-  //               ],
-  //             ),
-  //             // subtitle: Text("${treino_dois.dataDoTreino}"),
-  //             // trailing:  ,
-  //           ),
-
-  // HistoricoService historicoService = new HistoricoService();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,8 +177,11 @@ class _TreinosMaisExecutState extends State<TreinosMaisExecut> {
         centerTitle: true,
         title: Text('Treinos mais executados'),
         actions: [
-          IconButton(
-              onPressed: () => sort(), icon: Icon(Icons.swap_vert_circle))
+          (treinoService.listarTreinos().length == null ||
+                  treinoService.listarTreinos().isEmpty)
+              ? Container()
+              : IconButton(
+                  onPressed: () => sort(), icon: Icon(Icons.swap_vert_circle))
         ],
       ),
 

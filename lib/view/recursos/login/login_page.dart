@@ -6,9 +6,6 @@ import 'package:teste/controllers/shared/preferences_keys.dart';
 import 'package:teste/view/recursos/login/login_model.dart';
 import 'package:teste/view/recursos/login/cadatroUsuario.dart';
 
-
-
-
 class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -19,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController senhaInputController = TextEditingController();
 
   bool? ocultSenha = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +32,14 @@ class _LoginPageState extends State<LoginPage> {
             child: Stack(
           children: [
             // Imagem do logo com o BoxDecoration
-        
+
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 7),
-                  Container( 
+                  Container(
                     alignment: Alignment.center,
                     height: MediaQuery.of(context).size.height / 4,
                     width: MediaQuery.of(context).size.width / 2,
@@ -52,57 +50,74 @@ class _LoginPageState extends State<LoginPage> {
                           BoxShadow(
                               color: Color.fromARGB(115, 168, 73, 73),
                               blurRadius: 25,
-                              spreadRadius: 0.1
-                              )
+                              spreadRadius: 0.1)
                         ]),
                     child: Image.asset(
                       'assets/imgs/logo_app.png',
-                       fit: BoxFit.fitHeight,
+                      fit: BoxFit.fitHeight,
                       // width: MediaQuery.of(context).size.width,
                     ),
                   ),
 
                   // Campos de texto
-                  Container(
-                    padding: EdgeInsets.all(28),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        TextField(
-                          controller: emailInputController,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.mail_outline),
-                              hintText: 'nome@email.com',
-                              labelText: 'Login',
-                              border: OutlineInputBorder()),
-                          // Como ele tem a mesma assinatura de função da para usar nos dois onChanged(ex.: _setSenha)
-                        ),
-                        SizedBox(height: 15),
-                        TextField(
-                          controller: senhaInputController,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.key),
-                            hintText: 'exemplo: 1234',
-                            label: Text('Senha'),
-                            border: OutlineInputBorder(),
+                  Form(
+                    key: _formKey,
+                    child: Container(
+                      padding: EdgeInsets.all(28),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.length < 5) {
+                                return 'Esse e-mail parece curto demais';
+                              } else if (!value.contains('@')) {
+                                return 'Esse e-mail está meio estranho, não?';
+                              }
+                              return null;
+                            },
+                            controller: emailInputController,
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.mail_outline),
+                                hintText: 'nome@email.com',
+                                labelText: 'Login',
+                                border: OutlineInputBorder()),
+                            // Como ele tem a mesma assinatura de função da para usar nos dois onChanged(ex.: _setSenha)
                           ),
-                          obscureText:
-                              (this.ocultSenha == true) ? false : true,
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                                activeColor: Color.fromRGBO(211, 111, 47, 100),
-                                value: this.ocultSenha,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    this.ocultSenha = newValue;
-                                  });
-                                }),
-                            new Text('Mostrar senha')
-                          ],
-                        )
-                      ],
+                          SizedBox(height: 15),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.length < 6) {
+                                return 'A senha deve ter no mínimo 6 caracteres';
+                              }
+                              return null;
+                            },
+                            controller: senhaInputController,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.key),
+                              hintText: 'exemplo: 1234',
+                              label: Text('Senha'),
+                              border: OutlineInputBorder(),
+                            ),
+                            obscureText:
+                                (this.ocultSenha == true) ? false : true,
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                  activeColor:
+                                      Color.fromRGBO(211, 111, 47, 100),
+                                  value: this.ocultSenha,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      this.ocultSenha = newValue;
+                                    });
+                                  }),
+                              new Text('Mostrar senha')
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 5),
@@ -123,19 +138,6 @@ class _LoginPageState extends State<LoginPage> {
                         ElevatedButton(
                             onPressed: () {
                               _fazerLogin();
-                              //then : pega o valor da varíavel interpolada
-                              // _controller.auth().then((result) {
-                              //   if (result) {
-                              //     Navigator.of(context)
-                              //         .pushReplacementNamed('/home');
-                              //     PlusSnack(
-                              //         'Sucesso!\n seja bem-vindo!');
-                              //   } else {
-                              //     ScaffoldMessenger.of(context)
-                              //         .showSnackBar(PlusSnack('Falha\n'
-                              //             'Insira os dados novamente'));
-                              //   }
-                              // });
                             },
                             child: new Text('Entrar')),
                         Row(
@@ -176,27 +178,29 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _fazerLogin() async {
-    String emailForm = this.emailInputController.text;
+   String emailForm = this.emailInputController.text;
     String senhaForm = this.senhaInputController.text;
 
-    LoginModel savedUser = await _getSavedUser();
+   LoginModel savedUser = await _getSavedUser();
 
-    if (emailForm == savedUser.email && senhaForm == savedUser.senha) {
-      
-
-      ScaffoldMessenger.of(context)
+    if (_formKey.currentState!.validate() && emailForm == savedUser.email && senhaForm == savedUser.senha) {
+      // print('Válido');
+         ScaffoldMessenger.of(context)
           .showSnackBar(PlusSnack('Sucesso\n' 'Seja bem-vindo'));
 
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: ((context) => HomeScreen())));
       Future.delayed(Duration(seconds: 3))
           .then((_) => Navigator.of(context).pushReplacementNamed('/home'));
 
-      // Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/home');
+
     } else {
-      ScaffoldMessenger.of(context)
+      // print('inválido');
+       ScaffoldMessenger.of(context)
           .showSnackBar(PlusSnack('Falha\n' 'Insira os dados novamente'));
     }
+
+ 
+   
   }
 
   Future<LoginModel> _getSavedUser() async {

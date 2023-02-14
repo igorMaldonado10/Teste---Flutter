@@ -1,10 +1,7 @@
-// import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Global/treino_2.0/editarTreino/atualiza%C3%A7ao_treino.dart';
-// import 'package:teste/Global/treino_2.0/edit_treino.dart';
-import 'package:teste/Global/treino_2.0/treino_list2.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';
 
@@ -27,20 +24,21 @@ class _EditTreinoState extends State<EditTreino> {
 
   bool? exerCheck = false;
 
-
   @override
   Widget build(BuildContext context) {
     // Objeto que busca o arquivo treino que retorna a simulação de banco de dados e faz a listagem por id;
 
     // Objeto da classe Treino
-    Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
+
+    Treino_dois treino =
+        Provider.of<TreinoService>(context).treinos2.elementAt(widget.id - 1);
+    //  treinoService.listarTreinos().elementAt(widget.id - 1);
 
     return Scaffold(
       // Barra de título
       appBar: AppBar(
-        centerTitle: true,
-        title: Text('Informações - ${treino.tipoDeTreino}')
-      ),
+          centerTitle: true,
+          title: Text('Informações - ${treino.tipoDeTreino}')),
       // Menu (Hambúrguer)
       // drawer: MenuDrawer(),
 
@@ -49,7 +47,6 @@ class _EditTreinoState extends State<EditTreino> {
         padding: EdgeInsets.symmetric(horizontal: 25),
         child: Column(
           children: [
-
             SizedBox(
               height: 15,
             ),
@@ -62,14 +59,17 @@ class _EditTreinoState extends State<EditTreino> {
                   treino.tipoDeTreino!,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                 ),
-                IconButton(onPressed: (){
-                   Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TreinoForm2(
-                          id: treino.id!, treino: treino,
-                        )));
-                }, icon: Icon(Icons.edit))
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TreinoForm2(
+                                    id: treino.id!,
+                                    treino: treino,
+                                  )));
+                    },
+                    icon: Icon(Icons.edit))
               ],
             ),
 
@@ -79,8 +79,8 @@ class _EditTreinoState extends State<EditTreino> {
             Container(
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).cardColor),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).cardColor),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -111,8 +111,8 @@ class _EditTreinoState extends State<EditTreino> {
             Container(
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).cardColor),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).cardColor),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -138,24 +138,21 @@ class _EditTreinoState extends State<EditTreino> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // delete
-                Expanded(child: 
-                ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Theme.of(context).errorColor)
-                ) ,
-                onPressed: (){
-                  removerTreino();
-                }, 
-                child:
-                Text('Deletar Treino',
-                style: TextStyle(
-                  color: Theme.of(context).canvasColor
-                ),
-                )
-                 ))
+                Expanded(
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Theme.of(context).errorColor)),
+                        onPressed: () {
+                          removerTreino();
+                        },
+                        child: Text(
+                          'Deletar Treino',
+                          style:
+                              TextStyle(color: Theme.of(context).canvasColor),
+                        )))
               ],
             ),
-
           ],
         ),
       ),
@@ -163,7 +160,13 @@ class _EditTreinoState extends State<EditTreino> {
   }
 
   void removerTreino() {
-    String mensagem = treinoService.removerTreino(widget.id);
+   
+    String mensagem = Provider.of<TreinoService>(context, listen: false)
+        .removerTreino(widget.id);
+    // String mensagem = treinoService.removerTreino(widget.id);
+
+    
+    Navigator.pop(context);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Row(
@@ -173,31 +176,10 @@ class _EditTreinoState extends State<EditTreino> {
       ],
     )));
 
-    Future.delayed(Duration(milliseconds: 2500), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: ((context) => TreinoList2())));
-    });
+    // Future.delayed(Duration(milliseconds: 2500), () {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: ((context) => TreinoList2())));
+    // });
   }
 
-  AppBar appaBarHome(Text texto) {
-    return AppBar(
-        automaticallyImplyLeading: false, //Esconde o ícone original (menu)
-
-        centerTitle: true,
-        title: texto,
-        //  actions: [
-        //   Switch(
-        //       value: tema.value == ThemeMode.dark,
-        //       onChanged: (isDark) {
-        //         setState(() {
-        //                 tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
-        //         });
-        //       })
-        // ],
-        leading: Builder(builder: (BuildContext context) {
-          return IconButton(
-              icon: FaIcon(FontAwesomeIcons.bars),
-              onPressed: () => Scaffold.of(context).openDrawer());
-        }));
-  }
 }

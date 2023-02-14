@@ -1,5 +1,3 @@
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 
 class HistoricoService {

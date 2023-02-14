@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:teste/Global/exerc%C3%ADcios/Timer/timer.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,12 +6,11 @@ import 'package:teste/Global/exerc%C3%ADcios/informa%C3%A7%C3%B5es_exer.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 
 class ListExerciseItem extends StatefulWidget {
-  // const ListExerciseItem({Key? key}) : super(key: key);,
 
   final Exercises exercises;
   final Treino_dois? treino;
  
-  // final int id;
+
   ListExerciseItem({required this.exercises, this.treino});
 
   @override
@@ -24,7 +21,7 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
   bool? exerCheck = false;
 
   int numInicial = 0;
-  int execucoes = 0;
+  // int execucoes = 0;
 
 
 //   void numExecucoes(){
@@ -36,6 +33,7 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
 //   }
 // }
 
+// Método para incrementar as série no decorrer na execução do exercício
   void increment() {
     if (numInicial < widget.exercises.numSeries!) {
       setState(() {
@@ -46,6 +44,7 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
     }
   }
 
+// Método para decrementar as série no decorrer na execução do exercício
   void decrement() {
     if (numInicial >= 1) {
       setState(() {
@@ -67,8 +66,7 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
       padding: EdgeInsets.all(5),
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: ListTile(
-        // leading:
-
+     
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -82,14 +80,14 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    Checkbox(
-                        activeColor: Color.fromRGBO(211, 111, 47, 100),
-                        value: this.exerCheck,
-                        onChanged: (newValue) {
-                          setState(() {
-                            this.exerCheck = newValue;
-                          });
-                        }),
+                    // Checkbox(
+                    //     activeColor: Color.fromRGBO(211, 111, 47, 100),
+                    //     value: this.exerCheck,
+                    //     onChanged: (newValue) {
+                    //       setState(() {
+                    //         this.exerCheck = newValue;
+                    //       });
+                    //     }),
 
                     // IconButton(
                     //     // iconSize: ,
@@ -108,12 +106,18 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
                     //     )),
                   ],
                 ),
+
+
                 SizedBox(
                   height: 10,
                 ),
+
+
                 new Text(
                     'nº repetições:' + ' ' + '${widget.exercises.numRepeti}'),
                 SizedBox(height: 5),
+
+                // If ternário para comparar o quantidade da variável com o número de séries
                 (numInicial < widget.exercises.numSeries!)
                     ? Row(
                         children: [
@@ -124,9 +128,11 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
                                 decrement();
                               },
                               icon: FaIcon(FontAwesomeIcons.minus)),
+
                           new Text('$numInicial'),
                           new Text('/'),
                           new Text('${widget.exercises.numSeries}'),
+
                           IconButton(
                               focusColor: Theme.of(context).backgroundColor,
                               highlightColor: Theme.of(context).backgroundColor,
@@ -136,7 +142,10 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
                               icon: FaIcon(
                                 FontAwesomeIcons.plus,
                               )),
+
                           Padding(padding: EdgeInsets.only(right: 10)),
+
+                          // Botão para acessar o cronônometro do app
                           IconButton(
                               onPressed: () {
                                 Navigator.push(
@@ -155,23 +164,18 @@ class _ListExerciseItemState extends State<ListExerciseItem> {
             ),
           ],
         ),
-
+        
+        // Botão para acessar as informações cadastradas do aexercício
         trailing: Container(
           alignment: Alignment.center,
           height: 100,
           width: 70,
           child: Row(
             children: [
-              // IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined)),
-              // IconButton(
-              //     iconSize: 25,
-              //     onPressed: () {},
-              //     icon: Icon(
-              //       Icons.delete,
-              //       color: lightColorScheme.error,
-              //     )),
-              //  SizedBox(height: 30,),
+             
               Padding(padding: EdgeInsets.only(bottom: 20)),
+
+            
               IconButton(
                 iconSize: 50,
                 onPressed: () {

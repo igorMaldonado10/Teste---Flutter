@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Profile/model/perfil_model.dart';
+import 'package:teste/Profile/perfil_service.dart';
 
 class UpdateBioProfile extends StatefulWidget {
   // const UpdateBioProfile({Key? key}) : super(key: key);
+  final int id = 0;
   final User user;
 
   UpdateBioProfile(this.user);
@@ -62,11 +65,22 @@ class _UpdateBioProfileState extends State<UpdateBioProfile> {
               height: 50,
               child: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      widget.user.textBio = bioController.text;
-                     
-                      Navigator.pop(context);
-                    });
+                    atualizarBio();
+
+                    Navigator.pop(context);
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Perfil atualizado'),
+                      ],
+                    )));
+                    // setState(() {
+                    //   widget.user.textBio = bioController.text;
+
+                    //   Navigator.pop(context);
+                    // });
                   },
                   child: Text(
                     'Alterar',
@@ -78,6 +92,15 @@ class _UpdateBioProfileState extends State<UpdateBioProfile> {
         ),
       ),
     );
+  }
+
+  void atualizarBio() {
+    User user = Provider.of<PerfilService>(context, listen: false)
+        .perfilView
+        .elementAt(widget.id);
+
+    Provider.of<PerfilService>(context, listen: false)
+        .atualizarBio(user, bioController.text);
   }
 
   Container addTexForm(String nomoDoCampo, TextEditingController controller) {

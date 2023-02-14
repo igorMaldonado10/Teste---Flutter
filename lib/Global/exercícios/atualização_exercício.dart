@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:teste/Global/exerc%C3%ADcios/Toggle%20Buttons/class_GetX_bool_for_string.dart';
-import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/exerc%C3%ADcios/model/exercises.dart';
-import 'package:teste/Global/treino_2.0/treino_model2.dart';
-import 'package:teste/view/recursos/home/homeScreen.dart';
-
+import 'package:teste/Global/treino_2.0/treino_service.dart';
 import 'Chips/list_of_chips.dart';
 import 'Toggle Buttons/toggleButtons1.dart';
 
+
 class ExerciseForm extends StatefulWidget {
   final int? id;
-  // final Treino_dois? treino;
+ 
   final Exercises? exercises;
+
   // Construtor com o atributo obrigatório (id)
   ExerciseForm({this.id, this.exercises});
 
@@ -31,8 +31,7 @@ class _ExerciseFormState extends State<ExerciseForm> {
   final tipo = TextEditingController();
   final grupoMuscController = TextEditingController();
 
-  // // Objeto de classe que contém a Busca dos contatos
-  // final TreinoService treinoService = new TreinoService();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -48,16 +47,17 @@ class _ExerciseFormState extends State<ExerciseForm> {
 
   @override
   Widget build(BuildContext context) {
-    // Objeto da classe Treino
-    // Treino_dois treino = treinoService.listarTreinos().elementAt(widget.id - 1);
-        final controller = Get.find<Controller>();
+   
 
+    final controller = Get.find<Controller>();
 
     return Scaffold(
+
       appBar: AppBar(
         centerTitle: true,
         title: Text('Editar' + ' - ' '${widget.exercises!.name!}'),
-        ),
+      ),
+      
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(
@@ -72,7 +72,8 @@ class _ExerciseFormState extends State<ExerciseForm> {
                     SizedBox(
                       height: 15,
                     ),
-                    //  Nome do treino
+                    
+                    // Título da página
                     new Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -86,24 +87,26 @@ class _ExerciseFormState extends State<ExerciseForm> {
                   ],
                 ),
               ),
+
               SizedBox(height: 25),
+
               Form(
                 child: Column(
                   children: [
+
+                    // Nome do exercício
                     TextFormField(
+                      inputFormatters: [LengthLimitingTextInputFormatter(16)],
                       decoration: InputDecoration(
-                          labelText: 'Nome do treino',
+                          labelText: 'Nome do exercício',
                           hintText: widget.exercises?.name!),
                       controller: nameExercisesController,
                     ),
-                    // TextFormField(
-                    //   decoration: InputDecoration(
-                    //       labelText: 'Grupo muscular',
-                    //       hintText: widget.exercises!.grupoMusc!),
-                    //   controller: grupoMuscController,
-                    // ),
+                   
                     SizedBox(height: 30),
 
+
+                  //  Lista de chips para o grupo muscular
                     Container(
                       padding: EdgeInsets.only(right: 230),
                       child: Text('Grupo muscular'),
@@ -130,6 +133,7 @@ class _ExerciseFormState extends State<ExerciseForm> {
                       ),
                     ),
 
+                    // Toggle buttons para a escolha do tipo  de exercício
                     Container(
                       padding: EdgeInsets.only(right: 230),
                       child: Text('Tipo de exercício'),
@@ -137,10 +141,11 @@ class _ExerciseFormState extends State<ExerciseForm> {
 
                     SizedBox(height: 30),
 
-                    ToggleButtons1(exercises:widget.exercises),
+                    ToggleButtons1(exercises: widget.exercises),
 
                     Padding(padding: EdgeInsets.all(10)),
 
+                     // Número de séries
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: 'Número de séries',
@@ -149,7 +154,8 @@ class _ExerciseFormState extends State<ExerciseForm> {
                     ),
 
                     Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
-
+                    
+                     // Número de repetições
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: 'Número de repetições',
@@ -159,16 +165,19 @@ class _ExerciseFormState extends State<ExerciseForm> {
 
                     Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
 
+                    // Tempo de descanso
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: 'Tempo de descanso(minutos)',
+                          labelText: 'Tempo de descanso',
                           hintText: widget.exercises?.restTime),
                       controller: restTime,
                     ),
 
                     Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
 
+                    // Observação
                     TextFormField(
+                      inputFormatters: [LengthLimitingTextInputFormatter(15)],
                       decoration: InputDecoration(
                           labelText: 'Observação',
                           hintText: widget.exercises!.obs!),
@@ -180,6 +189,8 @@ class _ExerciseFormState extends State<ExerciseForm> {
               SizedBox(
                 height: 15,
               ),
+
+              // Botão de atualizar exercício
               Container(
                 width: 320,
                 child: Column(
@@ -187,25 +198,8 @@ class _ExerciseFormState extends State<ExerciseForm> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            widget.exercises?.name =
-                                nameExercisesController.text;
-                            widget.exercises?.numSeries =
-                                int.parse(numSer.text);
-                            widget.exercises?.numRepeti =
-                                int.parse(numReps.text);
-                            widget.exercises?.grupoMusc =
-                                grupoMuscController.text;
-                           widget.exercises?.tipo = controller.tipoExerc;
-                            widget.exercises?.obs = obsController.text;
-
-                            Navigator.pop(context);
-
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ExercisesList()));
-                          });
+                          atualizarExercicio();
+                       
                         },
                         child: new Text('Confirmar')),
                   ],
@@ -219,54 +213,32 @@ class _ExerciseFormState extends State<ExerciseForm> {
     );
   }
 
-  // void atualizarList() {
-  //   // Treino_dois treino = treinoService.listarTreinos().elementAt(id - 1);
-  //   setState(() {});
-  //   treino.tipoDeTreino = tipoDeTreinoController.text;
-  //   // treino.objetivo = objetivoController.text;
-  //   // String tipoDeTreino = tipoDeTreinoController.text;
-  //   String objetivo = tipoDeTreinoController.text;
-  //   String data = dataDoTreinoController.text;
+  void atualizarExercicio() {
+    final controller = Get.find<Controller>();
+ 
+    String mensagem = Provider.of<TreinoService>(context, listen: false)
+        .atualizarExercicio(
+           exercises: widget.exercises!,
+           name: nameExercisesController.text,
+           numSeries: numSer.text,
+           numReps: numReps.text,
+           grupoMusc: grupoMuscController.text,
+           tipo: controller.tipoExerc,
+           obs:  obsController.text,
+           restTime: restTime.text);
 
-  //   // treinoService.listarTreinos().elementAt(id);
-  // }
-
-  AppBar appaBarHome(Text texto) {
-    return AppBar(
-        automaticallyImplyLeading: false, //Esconde o ícone original (menu)
-
-        centerTitle: true,
-        title: texto,
-        //  actions: [
-        //   Switch(
-        //       value: tema.value == ThemeMode.dark,
-        //       onChanged: (isDark) {
-        //         setState(() {
-        //                 tema.value = isDark ? ThemeMode.dark : ThemeMode.light;
-        //         });
-        //       })
-        // ],
-        leading: Builder(builder: (BuildContext context) {
-          return IconButton(
-              icon: FaIcon(FontAwesomeIcons.bars),
-              onPressed: () => Scaffold.of(context).openDrawer());
-        }));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(mensagem),
+        ],
+      ),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+    ));
   }
 
-  BottomNavigationBar barraInferior() {
-    return BottomNavigationBar(items: [
-      BottomNavigationBarItem(
-          label: 'Home',
-          icon: new IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => HomePage())));
-              },
-              icon: new FaIcon(FontAwesomeIcons.houseChimney))),
-      BottomNavigationBarItem(
-          label: 'Perfil',
-          icon: new IconButton(
-              onPressed: () {}, icon: FaIcon(FontAwesomeIcons.solidCircleUser)))
-    ]);
-  }
+
+  
 }
