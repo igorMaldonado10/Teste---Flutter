@@ -7,7 +7,7 @@ import 'package:teste/Global/exerc%C3%ADcios/exercicios_list.dart';
 import 'package:teste/Global/treino_2.0/cadastro_treino.dart';
 import 'package:teste/Global/treino_2.0/editarTreino/informacoes.dart';
 import 'package:teste/Global/treino_2.0/historico_pages/historico_treinos.dart';
-import 'package:teste/Global/treino_2.0/menu_item.dart';
+import 'package:teste/Global/treino_2.0/popUpMenu_item.dart';
 import 'package:teste/Global/treino_2.0/search_pages/searchPageTreino.dart';
 import 'package:teste/Global/treino_2.0/treino_model2.dart';
 import 'package:teste/Global/treino_2.0/treino_service.dart';

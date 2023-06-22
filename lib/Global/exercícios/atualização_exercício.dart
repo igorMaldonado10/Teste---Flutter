@@ -49,7 +49,7 @@ class _ExerciseFormState extends State<ExerciseForm> {
   Widget build(BuildContext context) {
    
 
-    final controller = Get.find<Controller>();
+    // final controller = Get.find<Controller>();
 
     return Scaffold(
 
